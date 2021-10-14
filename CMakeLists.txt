@@ -21,6 +21,6 @@ set(INC_DIRS
 
 # The testbench library.
 include_directories(${INC_DIRS})
-file(GLOB SRCS "${PROJECT_SOURCE_DIR}/src/*")
-file(GLOB INCS "${PROJECT_SOURCE_DIR}/include/*")
-add_library(tinyspv STATIC ${SRCS} ${INCS})
+file(GLOB_RECURSE SRCS "${PROJECT_SOURCE_DIR}/src/*")
+file(GLOB_RECURSE INCS "${PROJECT_SOURCE_DIR}/include/*")
+add_executable(tinyspv ${SRCS} ${INCS})
