@@ -12,7 +12,7 @@ std::vector<uint32_t> load_spv(const std::string& path) {
   size_t size = is.tellg();
   is.seekg(0, std::ios::beg);
   std::vector<uint32_t> spv;
-  if ((spv.size() & 3) != 0) { return {}; }
+  if ((size & (sizeof(uint32_t) - 1)) != 0) { return {}; }
   spv.resize(size / sizeof(uint32_t));
   is.read((char*)spv.data(), size);
   return spv;
