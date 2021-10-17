@@ -105,7 +105,10 @@ struct SpirvReader {
   }
 
   inline bool is_valid() const {
-    return magic() == spv::MagicNumber && bound() > 0 && beg + 6 <= end;
+    return beg + 5 <= end &&
+      magic() == spv::MagicNumber &&
+      bound() > 0 &&
+      beg + 6 <= end;
   }
 
   inline InstructionIterator instructions() const {
