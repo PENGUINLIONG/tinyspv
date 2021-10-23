@@ -4,6 +4,7 @@
 #include "tinyspv/spv-reader.hpp"
 #include "tinyspv/spv-writer.hpp"
 #include "tinyspv/opcode2str.hpp"
+#include "tinyspv/operand-structs.hpp"
 
 using namespace tinyspv;
 
