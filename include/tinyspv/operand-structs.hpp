@@ -1,25 +1,24 @@
 // THIS IS A GENERATED SOURCE. MODIFICATION WILL BE OVERWRITTEN.
 #pragma once
+#include <vector>
+#include <optional>
 #include "spirv/unified1/spirv.hpp"
 namespace tinyspv {
-
 typedef uint32_t Id;
-
 // ------ composite type definition begins ------
-struct PairIdRefIdRef {
+struct PairLiteralIntegerIdRef {
+  uint32_t literal_integer;
   Id id_ref;
-  Id id_ref2;
 };
 struct PairIdRefLiteralInteger {
   Id id_ref;
   uint32_t literal_integer;
 };
-struct PairLiteralIntegerIdRef {
-  uint32_t literal_integer;
+struct PairIdRefIdRef {
   Id id_ref;
+  Id id_ref2;
 };
 // ------ composite type definition ends ------
-
 // ------ operand struct definition begins ------
 struct OpNop {
 };
@@ -33,8 +32,8 @@ struct OpSourceContinued {
 struct OpSource {
   spv::SourceLanguage source_language;
   uint32_t version;
-  std::unique_ptr<Id> file;
-  std::unique_ptr<uint32_t> source;
+  std::optional<Id> file;
+  std::optional<uint32_t> source;
 };
 struct OpSourceExtension {
   uint32_t extension;
@@ -122,7 +121,7 @@ struct OpTypeImage {
   uint32_t ms;
   uint32_t sampled;
   spv::ImageFormat image_format;
-  std::unique_ptr<spv::AccessQualifier> access_qualifier;
+  std::optional<spv::AccessQualifier> access_qualifier;
 };
 struct OpTypeSampler {
   Id id_result;
@@ -252,7 +251,7 @@ struct OpVariable {
   Id id_result_type;
   Id id_result;
   spv::StorageClass storage_class;
-  std::unique_ptr<Id> initializer;
+  std::optional<Id> initializer;
 };
 struct OpImageTexelPointer {
   Id id_result_type;
@@ -265,25 +264,25 @@ struct OpLoad {
   Id id_result_type;
   Id id_result;
   Id pointer;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access;
+  std::optional<spv::MemoryAccessMask> memory_access;
 };
 struct OpStore {
   Id pointer;
   Id object;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access;
+  std::optional<spv::MemoryAccessMask> memory_access;
 };
 struct OpCopyMemory {
   Id target;
   Id source;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access2;
+  std::optional<spv::MemoryAccessMask> memory_access;
+  std::optional<spv::MemoryAccessMask> memory_access2;
 };
 struct OpCopyMemorySized {
   Id target;
   Id source;
   Id size;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access2;
+  std::optional<spv::MemoryAccessMask> memory_access;
+  std::optional<spv::MemoryAccessMask> memory_access2;
 };
 struct OpAccessChain {
   Id id_result_type;
@@ -401,7 +400,7 @@ struct OpImageSampleImplicitLod {
   Id id_result;
   Id sampled_image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSampleExplicitLod {
   Id id_result_type;
@@ -416,7 +415,7 @@ struct OpImageSampleDrefImplicitLod {
   Id sampled_image;
   Id coordinate;
   Id d_ref;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSampleDrefExplicitLod {
   Id id_result_type;
@@ -431,7 +430,7 @@ struct OpImageSampleProjImplicitLod {
   Id id_result;
   Id sampled_image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSampleProjExplicitLod {
   Id id_result_type;
@@ -446,7 +445,7 @@ struct OpImageSampleProjDrefImplicitLod {
   Id sampled_image;
   Id coordinate;
   Id d_ref;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSampleProjDrefExplicitLod {
   Id id_result_type;
@@ -461,7 +460,7 @@ struct OpImageFetch {
   Id id_result;
   Id image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageGather {
   Id id_result_type;
@@ -469,7 +468,7 @@ struct OpImageGather {
   Id sampled_image;
   Id coordinate;
   Id component;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageDrefGather {
   Id id_result_type;
@@ -477,20 +476,20 @@ struct OpImageDrefGather {
   Id sampled_image;
   Id coordinate;
   Id d_ref;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageRead {
   Id id_result_type;
   Id id_result;
   Id image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageWrite {
   Id image;
   Id coordinate;
   Id texel;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImage {
   Id id_result_type;
@@ -1610,7 +1609,7 @@ struct OpImageSparseSampleImplicitLod {
   Id id_result;
   Id sampled_image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSparseSampleExplicitLod {
   Id id_result_type;
@@ -1625,7 +1624,7 @@ struct OpImageSparseSampleDrefImplicitLod {
   Id sampled_image;
   Id coordinate;
   Id d_ref;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSparseSampleDrefExplicitLod {
   Id id_result_type;
@@ -1640,7 +1639,7 @@ struct OpImageSparseSampleProjImplicitLod {
   Id id_result;
   Id sampled_image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSparseSampleProjExplicitLod {
   Id id_result_type;
@@ -1655,7 +1654,7 @@ struct OpImageSparseSampleProjDrefImplicitLod {
   Id sampled_image;
   Id coordinate;
   Id d_ref;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSparseSampleProjDrefExplicitLod {
   Id id_result_type;
@@ -1670,7 +1669,7 @@ struct OpImageSparseFetch {
   Id id_result;
   Id image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSparseGather {
   Id id_result_type;
@@ -1678,7 +1677,7 @@ struct OpImageSparseGather {
   Id sampled_image;
   Id coordinate;
   Id component;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSparseDrefGather {
   Id id_result_type;
@@ -1686,7 +1685,7 @@ struct OpImageSparseDrefGather {
   Id sampled_image;
   Id coordinate;
   Id d_ref;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpImageSparseTexelsResident {
   Id id_result_type;
@@ -1712,7 +1711,7 @@ struct OpImageSparseRead {
   Id id_result;
   Id image;
   Id coordinate;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpSizeOf {
   Id id_result_type;
@@ -1883,7 +1882,7 @@ struct OpGroupNonUniformIAdd {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformFAdd {
   Id id_result_type;
@@ -1891,7 +1890,7 @@ struct OpGroupNonUniformFAdd {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformIMul {
   Id id_result_type;
@@ -1899,7 +1898,7 @@ struct OpGroupNonUniformIMul {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformFMul {
   Id id_result_type;
@@ -1907,7 +1906,7 @@ struct OpGroupNonUniformFMul {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformSMin {
   Id id_result_type;
@@ -1915,7 +1914,7 @@ struct OpGroupNonUniformSMin {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformUMin {
   Id id_result_type;
@@ -1923,7 +1922,7 @@ struct OpGroupNonUniformUMin {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformFMin {
   Id id_result_type;
@@ -1931,7 +1930,7 @@ struct OpGroupNonUniformFMin {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformSMax {
   Id id_result_type;
@@ -1939,7 +1938,7 @@ struct OpGroupNonUniformSMax {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformUMax {
   Id id_result_type;
@@ -1947,7 +1946,7 @@ struct OpGroupNonUniformUMax {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformFMax {
   Id id_result_type;
@@ -1955,7 +1954,7 @@ struct OpGroupNonUniformFMax {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformBitwiseAnd {
   Id id_result_type;
@@ -1963,7 +1962,7 @@ struct OpGroupNonUniformBitwiseAnd {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformBitwiseOr {
   Id id_result_type;
@@ -1971,7 +1970,7 @@ struct OpGroupNonUniformBitwiseOr {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformBitwiseXor {
   Id id_result_type;
@@ -1979,7 +1978,7 @@ struct OpGroupNonUniformBitwiseXor {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformLogicalAnd {
   Id id_result_type;
@@ -1987,7 +1986,7 @@ struct OpGroupNonUniformLogicalAnd {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformLogicalOr {
   Id id_result_type;
@@ -1995,7 +1994,7 @@ struct OpGroupNonUniformLogicalOr {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformLogicalXor {
   Id id_result_type;
@@ -2003,7 +2002,7 @@ struct OpGroupNonUniformLogicalXor {
   Id execution;
   spv::GroupOperation operation;
   Id value;
-  std::unique_ptr<Id> clustersize;
+  std::optional<Id> clustersize;
 };
 struct OpGroupNonUniformQuadBroadcast {
   Id id_result_type;
@@ -2106,21 +2105,21 @@ struct OpSDotKHR {
   Id id_result;
   Id vector_1;
   Id vector_2;
-  std::unique_ptr<spv::PackedVectorFormat> packed_vector_format;
+  std::optional<spv::PackedVectorFormat> packed_vector_format;
 };
 struct OpUDotKHR {
   Id id_result_type;
   Id id_result;
   Id vector_1;
   Id vector_2;
-  std::unique_ptr<spv::PackedVectorFormat> packed_vector_format;
+  std::optional<spv::PackedVectorFormat> packed_vector_format;
 };
 struct OpSUDotKHR {
   Id id_result_type;
   Id id_result;
   Id vector_1;
   Id vector_2;
-  std::unique_ptr<spv::PackedVectorFormat> packed_vector_format;
+  std::optional<spv::PackedVectorFormat> packed_vector_format;
 };
 struct OpSDotAccSatKHR {
   Id id_result_type;
@@ -2128,7 +2127,7 @@ struct OpSDotAccSatKHR {
   Id vector_1;
   Id vector_2;
   Id accumulator;
-  std::unique_ptr<spv::PackedVectorFormat> packed_vector_format;
+  std::optional<spv::PackedVectorFormat> packed_vector_format;
 };
 struct OpUDotAccSatKHR {
   Id id_result_type;
@@ -2136,7 +2135,7 @@ struct OpUDotAccSatKHR {
   Id vector_1;
   Id vector_2;
   Id accumulator;
-  std::unique_ptr<spv::PackedVectorFormat> packed_vector_format;
+  std::optional<spv::PackedVectorFormat> packed_vector_format;
 };
 struct OpSUDotAccSatKHR {
   Id id_result_type;
@@ -2144,7 +2143,7 @@ struct OpSUDotAccSatKHR {
   Id vector_1;
   Id vector_2;
   Id accumulator;
-  std::unique_ptr<spv::PackedVectorFormat> packed_vector_format;
+  std::optional<spv::PackedVectorFormat> packed_vector_format;
 };
 struct OpTypeRayQueryKHR {
   Id id_result;
@@ -2261,7 +2260,7 @@ struct OpImageSampleFootprintNV {
   Id coordinate;
   Id granularity;
   Id coarse;
-  std::unique_ptr<spv::ImageOperandsMask> image_operands;
+  std::optional<spv::ImageOperandsMask> image_operands;
 };
 struct OpGroupNonUniformPartitionNV {
   Id id_result_type;
@@ -2352,14 +2351,14 @@ struct OpCooperativeMatrixLoadNV {
   Id pointer;
   Id stride;
   Id column_major;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access;
+  std::optional<spv::MemoryAccessMask> memory_access;
 };
 struct OpCooperativeMatrixStoreNV {
   Id pointer;
   Id object;
   Id stride;
   Id column_major;
-  std::unique_ptr<spv::MemoryAccessMask> memory_access;
+  std::optional<spv::MemoryAccessMask> memory_access;
 };
 struct OpCooperativeMatrixMulAddNV {
   Id id_result_type;

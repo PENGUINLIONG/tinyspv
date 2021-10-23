@@ -2,50 +2,30 @@ import json
 import re
 from collections import defaultdict
 
+out_src = []
+
 with open("third/SPIRV-Headers/include/spirv/unified1/spirv.core.grammar.json") as f:
     SPIRV_CORE_GRAMMAR = json.load(f)
 
 instructions = list(SPIRV_CORE_GRAMMAR["instructions"])
 
-# TODO: (penguinliong) Generate composite types by script.
-header = [
+out_src += [
     "// THIS IS A GENERATED SOURCE. MODIFICATION WILL BE OVERWRITTEN.",
     "#pragma once",
+    "#include <vector>",
+    "#include <optional>",
     "#include \"spirv/unified1/spirv.hpp\"",
     "namespace tinyspv {",
-    "",
     "typedef uint32_t Id;",
-    "",
     "// ------ composite type definition begins ------",
-    "struct PairIdRefIdRef {",
-    "  Id id_ref;",
-    "  Id id_ref2;",
-    "};",
-    "struct PairIdRefLiteralInteger {",
-    "  Id id_ref;",
-    "  uint32_t literal_integer;",
-    "};",
-    "struct PairLiteralIntegerIdRef {",
-    "  uint32_t literal_integer;",
-    "  Id id_ref;",
-    "};",
-    "// ------ composite type definition ends ------",
-    "",
-    "// ------ operand struct definition begins ------"
-]
-footer = [
-    "// ------ operand struct definition ends ------"
-    "",
-    "} // namespace tinyspv",
-    "",
 ]
 
-operand_kinds = list(SPIRV_CORE_GRAMMAR["operand_kinds"])
-OPERAND_KIND2CATEGORY = {}
-for operand_kind in operand_kinds:
-    category = operand_kind["category"]
-    kind = operand_kind["kind"]
-    OPERAND_KIND2CATEGORY[kind] = category
+class NameCounter:
+    def __init__(self):
+        self.inner = defaultdict(int)
+    def get_counted_name(self, name):
+        self.inner[name] += 1
+        return name if self.inner[name] == 1 else f"{name}{self.inner[name]}"
 
 def operand_kind2ty(kind):
     category = OPERAND_KIND2CATEGORY[kind]
@@ -63,19 +43,8 @@ def operand_kind2ty(kind):
     else:
         raise RuntimeError(f"unexpected operand kind '{kind}'")
 
-def operand_quantifier2ty(quantifier):
-    if quantifier == None:
-        return "{}"
-    elif quantifier == "*":
-        return "std::vector<{}>"
-    elif quantifier == "?":
-        return "std::unique_ptr<{}>"
-    else:
-        raise RuntimeError(f"unexpected quantifier `{quantifier}`")
-
-def normalize_operand_name(operand):
-    if "name" in operand:
-        name = operand["name"]
+def normalize_operand_name(name, kind):
+    if name != None:
         # This loop has only one iteration. We only care about the first quoted
         # string.
         for match in re.finditer("'(.+?)'", name):
@@ -113,7 +82,6 @@ def normalize_operand_name(operand):
             return out
     # If the name is not specified, name it with operand kind. Unnamed operands
     # are usually results and result types.
-    kind = operand["kind"]
     out = ""
     for c in kind:
         if c.isupper() and len(out) > 0:
@@ -121,23 +89,53 @@ def normalize_operand_name(operand):
         out += c.lower()
     return out
 
+
+operand_kinds = list(SPIRV_CORE_GRAMMAR["operand_kinds"])
+OPERAND_KIND2CATEGORY = {}
+COMPOSITE_TYS = []
+for operand_kind in operand_kinds:
+    category = operand_kind["category"]
+    kind = operand_kind["kind"]
+    OPERAND_KIND2CATEGORY[kind] = category
+
+    if category == "Composite":
+        bases = operand_kind["bases"] if "bases" in operand_kind else []
+
+        name_counter = NameCounter()
+        code = [f"struct {kind} {{"]
+        for base in bases:
+            base_ty = operand_kind2ty(base)
+            base_name = name_counter.get_counted_name(normalize_operand_name(None, base))
+            code += [f"  {base_ty} {base_name};"]
+        code += ["};"]
+        code = "\n".join(code)
+        out_src += [code]
+
+out_src += [
+    "// ------ composite type definition ends ------",
+    "// ------ operand struct definition begins ------",
+]
+
+def operand_quantifier2ty(quantifier):
+    if quantifier == None:
+        return "{}"
+    elif quantifier == "*":
+        return "std::vector<{}>"
+    elif quantifier == "?":
+        return "std::optional<{}>"
+    else:
+        raise RuntimeError(f"unexpected quantifier `{quantifier}`")
+
 def operand2code(name_counter, operand):
     kind = operand["kind"]
-    name = name_counter.get_counted_name(normalize_operand_name(operand))
+    name = operand["name"] if "name" in operand else None
+    name = name_counter.get_counted_name(normalize_operand_name(name, kind))
     quantifier = operand["quantifier"] if "quantifier" in operand else None
 
     ty = operand_quantifier2ty(quantifier).format(operand_kind2ty(kind))
     code = f"  {ty} {name};"
     return code
 
-out_src = ['\n'.join(header)]
-
-class NameCounter:
-    def __init__(self):
-        self.inner = defaultdict(int)
-    def get_counted_name(self, name):
-        self.inner[name] += 1
-        return name if self.inner[name] == 1 else f"{name}{self.inner[name]}"
 
 for instruction in instructions:
     name_counter = NameCounter()
@@ -161,7 +159,11 @@ for instruction in instructions:
     code = "\n".join(code)
     out_src += [code]
 
-out_src += ['\n'.join(footer)]
+out_src += [
+    "// ------ operand struct definition ends ------",
+    "} // namespace tinyspv",
+    "",
+]
 
 with open("include/tinyspv/operand-structs.hpp", "w") as f:
     f.write('\n'.join(out_src))
