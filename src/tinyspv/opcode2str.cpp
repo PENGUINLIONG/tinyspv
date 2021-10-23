@@ -642,4 +642,4 @@ case spv::Op::OpSpecConstantCompositeContinuedINTEL: return "SpecConstantComposi
 default: return nullptr;
 }
 }
-}
+} // namespace tinyspv
