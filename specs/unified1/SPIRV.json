@@ -1,0 +1,3147 @@
+{
+    "enumerations": {
+        "Magic": [
+            {
+                "Magic Number": "0x07230203"
+            }
+        ],
+        "Source": [
+            {
+                "Source Language": "Unknown",
+                "Value": "0"
+            },
+            {
+                "Source Language": "ESSL",
+                "Value": "1"
+            },
+            {
+                "Source Language": "GLSL",
+                "Value": "2"
+            },
+            {
+                "Source Language": "OpenCL_C",
+                "Value": "3"
+            },
+            {
+                "Source Language": "OpenCL_CPP",
+                "Value": "4"
+            },
+            {
+                "Source Language": "HLSL",
+                "Value": "5"
+            }
+        ],
+        "Execution": [
+            {
+                "Execution Mode": "Invocations\nNumber of invocations is an unsigned 32-bit integer number of times to invoke the geometry stage for each input primitive received. The default is to run once for each input primitive. It is invalid to specify a value greater than the target-dependent maximum. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [
+                    "Literal\nNumber of invocations"
+                ],
+                "Enabling Capabilities": "Geometry",
+                "Value": "0"
+            },
+            {
+                "Execution Mode": "SpacingEqual\nRequests the tessellation primitive generator to divide edges into a collection of equal-sized segments. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "1"
+            },
+            {
+                "Execution Mode": "SpacingFractionalEven\nRequests the tessellation primitive generator to divide edges into an even number of equal-length segments plus two additional shorter fractional segments. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "2"
+            },
+            {
+                "Execution Mode": "SpacingFractionalOdd\nRequests the tessellation primitive generator to divide edges into an odd number of equal-length segments plus two additional shorter fractional segments. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "3"
+            },
+            {
+                "Execution Mode": "VertexOrderCw\nRequests the tessellation primitive generator to generate triangles in clockwise order. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "4"
+            },
+            {
+                "Execution Mode": "VertexOrderCcw\nRequests the tessellation primitive generator to generate triangles in counter-clockwise order. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "5"
+            },
+            {
+                "Execution Mode": "PixelCenterInteger\nPixels appear centered on whole-number pixel offsets. E.g., the coordinate (0.5, 0.5) appears to move to (0.0, 0.0). Only valid with the Fragment Execution Model. If a Fragment entry point does not have this set, pixels appear centered at offsets of (0.5, 0.5) from whole numbers",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "6"
+            },
+            {
+                "Execution Mode": "OriginUpperLeft\nThe coordinates decorated by FragCoord appear to originate in the upper left, and increase toward the right and downward. Only valid with the Fragment Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "7"
+            },
+            {
+                "Execution Mode": "OriginLowerLeft\nThe coordinates decorated by FragCoord appear to originate in the lower left, and increase toward the right and upward. Only valid with the Fragment Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "8"
+            },
+            {
+                "Execution Mode": "EarlyFragmentTests\nFragment tests are to be performed before fragment shader execution. Only valid with the Fragment Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "9"
+            },
+            {
+                "Execution Mode": "PointMode\nRequests the tessellation primitive generator to generate a point for each distinct vertex in the subdivided primitive, rather than to generate lines or triangles. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "10"
+            },
+            {
+                "Execution Mode": "Xfb\nThis stage runs in transform feedback-capturing mode and this module is responsible for describing the transform-feedback setup. See the XfbBuffer, Offset, and XfbStride Decorations.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "TransformFeedback",
+                "Value": "11"
+            },
+            {
+                "Execution Mode": "DepthReplacing\n This mode declares that this entry point dynamically writes the FragDepth-decorated variable. Behavior is undefined if this mode is declared and an invocation does not write to FragDepth, or vice versa. Only valid with the Fragment Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "12"
+            },
+            {
+                "Execution Mode": "DepthGreater\nIndicates that per-fragment tests may assume that any FragDepth built in-decorated value written by the shader is greater-than-or-equal to the fragment\u2019s interpolated depth value (given by the z component of the FragCoord built in-decorated variable). Other stages of the pipeline use the written value as normal. Only valid with the Fragment execution model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "14"
+            },
+            {
+                "Execution Mode": "DepthLess\nIndicates that per-fragment tests may assume that any FragDepth built in-decorated value written by the shader is less-than-or-equal to the fragment\u2019s interpolated depth value (given by the z component of the FragCoord built in-decorated variable). Other stages of the pipeline use the written value as normal. Only valid with the Fragment execution model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "15"
+            },
+            {
+                "Execution Mode": "DepthUnchanged\nIndicates that per-fragment tests may assume that any FragDepth built in-decorated value written by the shader is the same as the fragment\u2019s interpolated depth value (given by the z component of the FragCoord built in-decorated variable). Other stages of the pipeline use the written value as normal. Only valid with the Fragment execution model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "16"
+            },
+            {
+                "Execution Mode": "LocalSize\nIndicates the work-group size in the x, y, and z dimensions. x size, y size, and z size are unsigned 32-bit integers. Only valid with the GLCompute or Kernel Execution Models.",
+                "Extra Operands": [
+                    "Literal\nx size",
+                    "Literal\ny size",
+                    "Literal\nz size"
+                ],
+                "Enabling Capabilities": "",
+                "Value": "17"
+            },
+            {
+                "Execution Mode": "LocalSizeHint\nA hint to the compiler, which indicates the most likely to be used work-group size in the x, y, and z dimensions. x size, y size, and z size are unsigned 32-bit integers. Only valid with the Kernel Execution Model.",
+                "Extra Operands": [
+                    "Literal\nx size",
+                    "Literal\ny size",
+                    "Literal\nz size"
+                ],
+                "Enabling Capabilities": "Kernel",
+                "Value": "18"
+            },
+            {
+                "Execution Mode": "InputPoints\nStage input primitive is points. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry",
+                "Value": "19"
+            },
+            {
+                "Execution Mode": "InputLines\nStage input primitive is lines. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry",
+                "Value": "20"
+            },
+            {
+                "Execution Mode": "InputLinesAdjacency\nStage input primitive is lines adjacency. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry",
+                "Value": "21"
+            },
+            {
+                "Execution Mode": "Triangles\nFor a geometry stage, input primitive is triangles. For a tessellation stage, requests the tessellation primitive generator to generate triangles. Only valid with the Geometry or one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry, Tessellation",
+                "Value": "22"
+            },
+            {
+                "Execution Mode": "InputTrianglesAdjacency\nGeometry stage input primitive is triangles adjacency. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry",
+                "Value": "23"
+            },
+            {
+                "Execution Mode": "Quads\nRequests the tessellation primitive generator to generate quads. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "24"
+            },
+            {
+                "Execution Mode": "Isolines\nRequests the tessellation primitive generator to generate isolines. Only valid with one of the tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "25"
+            },
+            {
+                "Execution Mode": "OutputVertices\nVertex Count is an unsigned 32-bit integer. For a geometry stage, it is the maximum number of vertices the shader will ever emit in a single invocation. For a tessellation-control stage, it is the number of vertices in the output patch produced by the tessellation control shader, which also specifies the number of times the tessellation control shader is invoked. Only valid with the Geometry or one of the tessellation Execution Models.",
+                "Extra Operands": [
+                    "Literal\nVertex count"
+                ],
+                "Enabling Capabilities": "Geometry, Tessellation, MeshShadingNV",
+                "Value": "26"
+            },
+            {
+                "Execution Mode": "OutputPoints\nStage output primitive is points. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry, MeshShadingNV",
+                "Value": "27"
+            },
+            {
+                "Execution Mode": "OutputLineStrip\nStage output primitive is line strip. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry",
+                "Value": "28"
+            },
+            {
+                "Execution Mode": "OutputTriangleStrip\nStage output primitive is triangle strip. Only valid with the Geometry Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Geometry",
+                "Value": "29"
+            },
+            {
+                "Execution Mode": "VecTypeHint\nA hint to the compiler, which indicates that most operations used in the entry point are explicitly vectorized using a particular vector type. The 16 high-order bits of the Vector Type operand specify the number of components of the vector. The 16 low-order bits of the Vector Type operand specify the data type of the vector.\n\nThese are the legal data type values: \n0 represents an 8-bit integer value.\n1 represents a 16-bit integer value.\n2 represents a 32-bit integer value.\n3 represents a 64-bit integer value.\n4 represents a 16-bit float value.\n5 represents a 32-bit float value.\n6 represents a 64-bit float value.\n\n Only valid with the Kernel Execution Model.",
+                "Extra Operands": [
+                    "Literal\nVector type"
+                ],
+                "Enabling Capabilities": "Kernel",
+                "Value": "30"
+            },
+            {
+                "Execution Mode": "ContractionOff\nIndicates that floating-point-expressions contraction is disallowed. Only valid with the Kernel Execution Model.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Kernel",
+                "Value": "31"
+            },
+            {
+                "Execution Mode": "Initializer\nIndicates that this entry point is a module initializer.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Kernel\n\nMissing before version 1.1.",
+                "Value": "33"
+            },
+            {
+                "Execution Mode": "Finalizer\nIndicates that this entry point is a module finalizer.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Kernel\n\nMissing before version 1.1.",
+                "Value": "34"
+            },
+            {
+                "Execution Mode": "SubgroupSize\nIndicates that this entry point requires the specified Subgroup Size. Subgroup Size is an unsigned 32-bit integer.",
+                "Extra Operands": [
+                    "Literal\nSubgroup Size"
+                ],
+                "Enabling Capabilities": "SubgroupDispatch\n\nMissing before version 1.1.",
+                "Value": "35"
+            },
+            {
+                "Execution Mode": "SubgroupsPerWorkgroup\nIndicates that this entry point requires the specified number of Subgroups Per Workgroup. Subgroups Per Workgroup is an unsigned 32-bit integer.",
+                "Extra Operands": [
+                    "Literal\nSubgroups Per Workgroup"
+                ],
+                "Enabling Capabilities": "SubgroupDispatch\n\nMissing before version 1.1.",
+                "Value": "36"
+            },
+            {
+                "Execution Mode": "SubgroupsPerWorkgroupId\nSame as the  SubgroupsPerWorkgroup mode, but using an <id> operand instead of a literal. The operand is consumed as unsigned and  must be an integer type scalar.",
+                "Extra Operands": [
+                    "<id>\nSubgroups Per Workgroup"
+                ],
+                "Enabling Capabilities": "SubgroupDispatch\n\nMissing before version 1.2.",
+                "Value": "37"
+            },
+            {
+                "Execution Mode": "LocalSizeId\nSame as the LocalSize Mode, but using <id> operands instead of literals. The operands are consumed as unsigned and each  must be an integer type scalar.",
+                "Extra Operands": [
+                    "<id>\nx size",
+                    "<id>\ny size",
+                    "<id>\nz size"
+                ],
+                "Enabling Capabilities": "Missing before version 1.2.",
+                "Value": "38"
+            },
+            {
+                "Execution Mode": "LocalSizeHintId\nSame as the LocalSizeHint Mode, but using <id> operands instead of literals. The operands are consumed as unsigned and each  must be an integer type scalar.",
+                "Extra Operands": [
+                    "<id>\nLocal Size Hint"
+                ],
+                "Enabling Capabilities": "Kernel\n\nMissing before version 1.2.",
+                "Value": "39"
+            },
+            {
+                "Execution Mode": "PostDepthCoverage",
+                "Extra Operands": [],
+                "Enabling Capabilities": "SampleMaskPostDepthCoverage\n\nReserved.\n\nAlso see extension: SPV_KHR_post_depth_coverage",
+                "Value": "4446"
+            },
+            {
+                "Execution Mode": "DenormPreserve\nAny denormalized value input into a shader or potentially generated by any instruction in a shader is preserved. Denormalized values obtained via unpacking an integer into a vector of values with smaller bit width and interpreting those values as floating-point numbers is preserved.\n\n Only affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
+                "Extra Operands": [
+                    "Literal\nTarget Width"
+                ],
+                "Enabling Capabilities": "DenormPreserve\n\nMissing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls",
+                "Value": "4459"
+            },
+            {
+                "Execution Mode": "DenormFlushToZero\nAny denormalized value input into a shader or potentially generated by any instruction in a shader is flushed to zero. Denormalized values obtained via unpacking an integer into a vector of values with smaller bit width and interpreting those values as floating-point numbers is flushed to zero.\n\n Only affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
+                "Extra Operands": [
+                    "Literal\nTarget Width"
+                ],
+                "Enabling Capabilities": "DenormFlushToZero\n\nMissing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls",
+                "Value": "4460"
+            },
+            {
+                "Execution Mode": "SignedZeroInfNanPreserve\nThe implementation does not perform optimizations on floating-point instructions that do not preserve sign of a zero, or assume that operands and results are not NaNs or infinities. Bit patterns for NaNs might not be preserved.\n\n Only affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
+                "Extra Operands": [
+                    "Literal\nTarget Width"
+                ],
+                "Enabling Capabilities": "SignedZeroInfNanPreserve\n\nMissing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls",
+                "Value": "4461"
+            },
+            {
+                "Execution Mode": "RoundingModeRTE\nThe default rounding mode for floating-point arithmetic and conversions instructions is round to nearest even. If an instruction is decorated with FPRoundingMode or defines a rounding mode in its description, that rounding mode is applied and RoundingModeRTE is ignored.\n\n Only affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
+                "Extra Operands": [
+                    "Literal\nTarget Width"
+                ],
+                "Enabling Capabilities": "RoundingModeRTE\n\nMissing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls",
+                "Value": "4462"
+            },
+            {
+                "Execution Mode": "RoundingModeRTZ\nThe default rounding mode for floating-point arithmetic and conversions instructions is round toward zero. If an instruction is decorated with FPRoundingMode or defines a rounding mode in its description, that rounding mode is applied and RoundingModeRTZ is ignored.\n\n Only affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
+                "Extra Operands": [
+                    "Literal\nTarget Width"
+                ],
+                "Enabling Capabilities": "RoundingModeRTZ\n\nMissing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls",
+                "Value": "4463"
+            },
+            {
+                "Execution Mode": "StencilRefReplacingEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "StencilExportEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_shader_stencil_export",
+                "Value": "5027"
+            },
+            {
+                "Execution Mode": "OutputLinesNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader",
+                "Value": "5269"
+            },
+            {
+                "Execution Mode": "OutputPrimitivesNV",
+                "Extra Operands": [
+                    "Literal\nPrimitive count"
+                ],
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader",
+                "Value": "5270"
+            },
+            {
+                "Execution Mode": "DerivativeGroupQuadsNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "ComputeDerivativeGroupQuadsNV\n\nReserved.\n\nAlso see extension: SPV_NV_compute_shader_derivatives",
+                "Value": "5289"
+            },
+            {
+                "Execution Mode": "DerivativeGroupLinearNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "ComputeDerivativeGroupLinearNV\n\nReserved.\n\nAlso see extension: SPV_NV_compute_shader_derivatives",
+                "Value": "5290"
+            },
+            {
+                "Execution Mode": "OutputTrianglesNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader",
+                "Value": "5298"
+            },
+            {
+                "Execution Mode": "PixelInterlockOrderedEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FragmentShaderPixelInterlockEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock",
+                "Value": "5366"
+            },
+            {
+                "Execution Mode": "PixelInterlockUnorderedEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FragmentShaderPixelInterlockEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock",
+                "Value": "5367"
+            },
+            {
+                "Execution Mode": "SampleInterlockOrderedEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FragmentShaderSampleInterlockEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock",
+                "Value": "5368"
+            },
+            {
+                "Execution Mode": "SampleInterlockUnorderedEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FragmentShaderSampleInterlockEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock",
+                "Value": "5369"
+            },
+            {
+                "Execution Mode": "ShadingRateInterlockOrderedEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FragmentShaderShadingRateInterlockEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock",
+                "Value": "5370"
+            },
+            {
+                "Execution Mode": "ShadingRateInterlockUnorderedEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FragmentShaderShadingRateInterlockEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock",
+                "Value": "5371"
+            },
+            {
+                "Execution Mode": "MaxWorkgroupSizeINTEL",
+                "Extra Operands": [
+                    "Literal\nmax_x_size",
+                    "Literal\nmax_y_size",
+                    "Literal\nmax_z_size"
+                ],
+                "Enabling Capabilities": "KernelAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_kernel_attributes",
+                "Value": "5893"
+            },
+            {
+                "Execution Mode": "MaxWorkDimINTEL",
+                "Extra Operands": [
+                    "Literal\nmax_dimensions"
+                ],
+                "Enabling Capabilities": "KernelAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_kernel_attributes",
+                "Value": "5894"
+            },
+            {
+                "Execution Mode": "NoGlobalOffsetINTEL",
+                "Extra Operands": [],
+                "Enabling Capabilities": "KernelAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_kernel_attributes",
+                "Value": "5895"
+            },
+            {
+                "Execution Mode": "NumSIMDWorkitemsINTEL",
+                "Extra Operands": [
+                    "Literal\nvector_width"
+                ],
+                "Enabling Capabilities": "FPGAKernelAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_kernel_attributes",
+                "Value": "5896"
+            }
+        ],
+        "Addressing": [
+            {
+                "Value": "0",
+                "Addressing Model": "Logical",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "1",
+                "Addressing Model": "Physical32\nIndicates a 32-bit module, where the address width is equal to 32 bits.",
+                "Enabling Capabilities": "Addresses"
+            },
+            {
+                "Value": "2",
+                "Addressing Model": "Physical64\nIndicates a 64-bit module, where the address width is equal to 64 bits.",
+                "Enabling Capabilities": "Addresses"
+            },
+            {
+                "Value": "5348",
+                "Addressing Model": "PhysicalStorageBuffer64\nIndicates that pointers with a storage class of PhysicalStorageBuffer are physical pointer types with an  address width of 64 bits, while pointers to all other storage classes are logical.",
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extensions: SPV_EXT_physical_storage_buffer, SPV_KHR_physical_storage_buffer"
+            },
+            {
+                "Value": "5348",
+                "Addressing Model": "PhysicalStorageBuffer64EXT",
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_physical_storage_buffer"
+            }
+        ],
+        "Memory": [
+            {
+                "Value": "0x0",
+                "Memory Operands": "None",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x1",
+                "Memory Operands": "Volatile\nThis access cannot be eliminated, duplicated, or combined with other accesses.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x2",
+                "Memory Operands": "Aligned\nThis access has a known alignment. The alignment is specified in a subsequent unsigned 32-bit integer literal operand.  Valid values are defined by the execution environment.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x4",
+                "Memory Operands": "Nontemporal\nHints that the accessed address is not likely to be accessed again in the near future.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x8",
+                "Memory Operands": "MakePointerAvailable\nPerform an availability operation on the locations pointed to by the pointer operand, after a store. A following operand is the memory scope for the availability operation. Requires NonPrivatePointer to also be set. Not valid with OpLoad.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "0x8",
+                "Memory Operands": "MakePointerAvailableKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "0x10",
+                "Memory Operands": "MakePointerVisible\nPerform a visibility operation on the locations pointed to by the pointer operand, before a load. A following operand is the memory scope for the visibility operation. Requires NonPrivatePointer to also be set. Not valid with OpStore.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "0x10",
+                "Memory Operands": "MakePointerVisibleKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "0x20",
+                "Memory Operands": "NonPrivatePointer\nThe memory access obeys inter-thread ordering, as specified by the client API.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "0x20",
+                "Memory Operands": "NonPrivatePointerKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            }
+        ],
+        "Storage": [
+            {
+                "Value": "0",
+                "Storage Class": "UniformConstant\nShared externally, visible across all functions in all invocations in all work groups. Graphics uniform memory. OpenCL constant memory. Variables declared with this storage class are read-only. They may have initializers, as allowed by the client API.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "1",
+                "Storage Class": "Input\nInput from pipeline. Visible across all functions in the current invocation. Variables declared with this storage class are read-only, and must not have initializers.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "2",
+                "Storage Class": "Uniform\nShared externally, visible across all functions in all invocations in all work groups. Graphics uniform blocks and buffer blocks.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "3",
+                "Storage Class": "Output\nOutput to pipeline. Visible across all functions in the current invocation.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "4",
+                "Storage Class": "Workgroup\nShared across all invocations within a work group. Visible across all functions. The OpenGL \"shared\" storage qualifier.  OpenCL local memory.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "5",
+                "Storage Class": "CrossWorkgroup\nVisible across all functions of all invocations of all work groups. OpenCL global memory.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "6",
+                "Storage Class": "Private\nVisible to all functions in the current invocation. Regular global memory.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "7",
+                "Storage Class": "Function\nVisible only within the declaring function of the current invocation. Regular function memory.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "8",
+                "Storage Class": "Generic\nFor generic pointers, which overload the Function, Workgroup, and CrossWorkgroup Storage Classes.",
+                "Enabling Capabilities": "GenericPointer"
+            },
+            {
+                "Value": "9",
+                "Storage Class": "PushConstant\nFor holding push-constant memory, visible across all functions in all invocations in all work groups. Intended to contain a small bank of values pushed from the client API. Variables declared with this storage class are read-only, and must not have initializers.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "10",
+                "Storage Class": "AtomicCounter\nFor holding atomic counters.  Visible across all functions of the current invocation. Atomic counter-specific memory.",
+                "Enabling Capabilities": "AtomicStorage"
+            },
+            {
+                "Value": "11",
+                "Storage Class": "Image\nFor holding image memory.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "12",
+                "Storage Class": "StorageBuffer\nShared externally, readable and writable, visible across all functions in all invocations in all work groups. Graphics storage buffers (buffer blocks).",
+                "Enabling Capabilities": "Shader\n\nMissing before version 1.3.\n\n\nAlso see extensions: SPV_KHR_storage_buffer_storage_class, SPV_KHR_variable_pointers"
+            },
+            {
+                "Value": "5328",
+                "Storage Class": "CallableDataNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5328",
+                "Storage Class": "CallableDataKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5329",
+                "Storage Class": "IncomingCallableDataNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5329",
+                "Storage Class": "IncomingCallableDataKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5338",
+                "Storage Class": "RayPayloadNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5338",
+                "Storage Class": "RayPayloadKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5339",
+                "Storage Class": "HitAttributeNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5339",
+                "Storage Class": "HitAttributeKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5342",
+                "Storage Class": "IncomingRayPayloadNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5342",
+                "Storage Class": "IncomingRayPayloadKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5343",
+                "Storage Class": "ShaderRecordBufferNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5343",
+                "Storage Class": "ShaderRecordBufferKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5349",
+                "Storage Class": "PhysicalStorageBuffer\nShared externally, readable and writable, visible across all functions in all invocations in all work groups. Graphics storage buffers using physical addressing.",
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extensions: SPV_EXT_physical_storage_buffer, SPV_KHR_physical_storage_buffer"
+            },
+            {
+                "Value": "5349",
+                "Storage Class": "PhysicalStorageBufferEXT",
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_physical_storage_buffer"
+            },
+            {
+                "Value": "5605",
+                "Storage Class": "CodeSectionINTEL",
+                "Enabling Capabilities": "FunctionPointersINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_function_pointers"
+            }
+        ],
+        "Dim": [
+            {
+                "Value": "0",
+                "Dim": "1D",
+                "Enabling Capabilities": "Sampled1D, Image1D"
+            },
+            {
+                "Value": "1",
+                "Dim": "2D",
+                "Enabling Capabilities": "Shader, Kernel, ImageMSArray"
+            },
+            {
+                "Value": "2",
+                "Dim": "3D",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "3",
+                "Dim": "Cube",
+                "Enabling Capabilities": "Shader, ImageCubeArray"
+            },
+            {
+                "Value": "4",
+                "Dim": "Rect",
+                "Enabling Capabilities": "SampledRect, ImageRect"
+            },
+            {
+                "Value": "5",
+                "Dim": "Buffer",
+                "Enabling Capabilities": "SampledBuffer, ImageBuffer"
+            },
+            {
+                "Value": "6",
+                "Dim": "SubpassData",
+                "Enabling Capabilities": "InputAttachment"
+            }
+        ],
+        "Sampler": [
+            {
+                "Value": "0",
+                "Sampler Filter Mode": "Nearest\nUse filter nearest mode when performing a read image operation.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "1",
+                "Sampler Filter Mode": "Linear\nUse filter linear mode when performing a read image operation.",
+                "Enabling Capabilities": "Kernel"
+            }
+        ],
+        "Image": [
+            {
+                "Value": "0x0",
+                "Image Operands": "None",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x1",
+                "Image Operands": "Bias\nA following operand is the bias added to the implicit level of detail. Only valid with implicit-lod instructions. It must be a floating-point type scalar.  This must only be used with an OpTypeImage that has a Dim operand of 1D, 2D, 3D, or Cube, and the MS operand must be 0.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "0x2",
+                "Image Operands": "Lod\nA following operand is the explicit level-of-detail to use.  Only valid with explicit-lod instructions. For sampling operations, it must be a floating-point type scalar.  For fetch operations, it must be an integer type scalar.  This must only be used with an OpTypeImage that has a Dim operand of 1D, 2D, 3D, or Cube, and the MS operand must be 0.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x4",
+                "Image Operands": "Grad\nTwo following operands are dx followed by dy. These are explicit derivatives in the x and y direction to use in computing level of detail. Each is a scalar or vector containing (du/dx[, dv/dx] [, dw/dx]) and (du/dy[, dv/dy] [, dw/dy]). The number of components of each must equal the number of components in Coordinate, minus the array layer component, if present. Only valid with explicit-lod instructions. They must be a scalar or vector of floating-point type.  This must only be used with an OpTypeImage that has an MS operand of 0. It is invalid to set both the Lod and Grad bits.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x8",
+                "Image Operands": "ConstOffset\nA following operand is added to (u, v, w) before texel lookup. It must be an <id> of an integer-based constant instruction of scalar or vector type. It is invalid for these to be outside a target-dependent allowed range. The number of components must equal the number of components in Coordinate, minus the array layer component, if present. Not valid with the Cube dimension. An instruction must specify at most one of the ConstOffset, Offset, and ConstOffsets image operands.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x10",
+                "Image Operands": "Offset\nA following operand is added to (u, v, w) before texel lookup. It  must be a scalar or vector of integer type.  It is invalid for these to be outside a target-dependent allowed range. The number of components must equal the number of components in Coordinate, minus the array layer component, if present. Not valid with the Cube dimension. An instruction must specify at most one of the ConstOffset, Offset, and ConstOffsets image operands.",
+                "Enabling Capabilities": "ImageGatherExtended"
+            },
+            {
+                "Value": "0x20",
+                "Image Operands": "ConstOffsets\nA following operand is Offsets. Offsets must be an <id> of a constant instruction making an array of size four of vectors of two integer components. Each gathered texel is identified by adding one of these array elements to the (u, v) sampled location. It is invalid for these to be outside a target-dependent allowed range. Only valid with OpImageGather or OpImageDrefGather. Not valid with the Cube dimension. An instruction must specify at most one of the ConstOffset, Offset, and ConstOffsets image operands.",
+                "Enabling Capabilities": "ImageGatherExtended"
+            },
+            {
+                "Value": "0x40",
+                "Image Operands": "Sample\nA following operand is the sample number of the sample to use. Only valid with OpImageFetch, OpImageRead, OpImageWrite, OpImageSparseFetch, and OpImageSparseRead. The Sample operand must be used if and only if the underlying OpTypeImage has MS of 1. It must be an integer type scalar.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x80",
+                "Image Operands": "MinLod\nA following operand is the minimum level-of-detail to use when accessing the image. Only valid with Implicit instructions and Grad instructions. It must be a floating-point type scalar.  This must only be used with an OpTypeImage that has a Dim operand of 1D, 2D, 3D, or Cube, and the MS operand must be 0.",
+                "Enabling Capabilities": "MinLod"
+            },
+            {
+                "Value": "0x100",
+                "Image Operands": "MakeTexelAvailable\nPerform an availability operation on the texel locations after the store. A following operand is the memory scope that controls the availability operation. Requires NonPrivateTexel to also be set. Only valid with OpImageWrite.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "0x100",
+                "Image Operands": "MakeTexelAvailableKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "0x200",
+                "Image Operands": "MakeTexelVisible\nPerform a visibility operation on the texel locations before the load. A following operand is the memory scope that controls the visibility operation. Requires NonPrivateTexel to also be set. Only valid with OpImageRead and OpImageSparseRead.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "0x200",
+                "Image Operands": "MakeTexelVisibleKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "0x400",
+                "Image Operands": "NonPrivateTexel\nThe image access obeys inter-thread ordering, as specified by the client API.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "0x400",
+                "Image Operands": "NonPrivateTexelKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "0x800",
+                "Image Operands": "VolatileTexel\nThis access cannot be eliminated, duplicated, or combined with other accesses.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "0x800",
+                "Image Operands": "VolatileTexelKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "0x1000",
+                "Image Operands": "SignExtend\nThe texel value is converted to the target value via sign extension. Only valid if the texel type is a scalar or vector of integer type.",
+                "Enabling Capabilities": "Missing before version 1.4."
+            },
+            {
+                "Value": "0x2000",
+                "Image Operands": "ZeroExtend\nThe texel value is converted to the target value via zero extension. Only valid if the texel type is a scalar or vector of integer type.",
+                "Enabling Capabilities": "Missing before version 1.4."
+            }
+        ],
+        "FP": [
+            {
+                "FP Rounding Mode": "RTE\nRound to nearest even.",
+                "Value": "0"
+            },
+            {
+                "FP Rounding Mode": "RTZ\nRound towards zero.",
+                "Value": "1"
+            },
+            {
+                "FP Rounding Mode": "RTP\nRound towards positive infinity.",
+                "Value": "2"
+            },
+            {
+                "FP Rounding Mode": "RTN\nRound towards negative infinity.",
+                "Value": "3"
+            }
+        ],
+        "Linkage": [
+            {
+                "Value": "0",
+                "Linkage Type": "Export\nAccessible by other modules as well.",
+                "Enabling Capabilities": "Linkage"
+            },
+            {
+                "Value": "1",
+                "Linkage Type": "Import\nA declaration of a global variable or a function that exists in another module.",
+                "Enabling Capabilities": "Linkage"
+            }
+        ],
+        "Access": [
+            {
+                "Value": "0",
+                "Access Qualifier": "ReadOnly\nA read-only object.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "1",
+                "Access Qualifier": "WriteOnly\nA write-only object.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "2",
+                "Access Qualifier": "ReadWrite\nA readable and writable object.",
+                "Enabling Capabilities": "Kernel"
+            }
+        ],
+        "Function": [
+            {
+                "Function Control": "None",
+                "Value": "0x0"
+            },
+            {
+                "Function Control": "Inline\nStrong request, to the extent possible, to inline the function.",
+                "Value": "0x1"
+            },
+            {
+                "Function Control": "DontInline\nStrong request, to the extent possible, to not inline the function.",
+                "Value": "0x2"
+            },
+            {
+                "Function Control": "Pure\nCompiler can assume this function has no side effect, but might read global memory or read through dereferenced function parameters. Always computes the same result when called with the same argument values and the same global state.",
+                "Value": "0x4"
+            },
+            {
+                "Function Control": "Const\nCompiler assumes this function has no side effects, and does not access global memory or dereference function parameters. Always computes the same result for the same argument values.",
+                "Value": "0x8"
+            }
+        ],
+        "Decoration": [
+            {
+                "Decoration": "RelaxedPrecision\nAllow reduced precision operations. To be used as described in Relaxed Precision.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "0"
+            },
+            {
+                "Decoration": "SpecId\nApply only to a scalar specialization constant. Specialization Constant ID is an unsigned 32-bit integer forming the external linkage for setting a specialized value. See specialization.",
+                "Extra Operands": [
+                    "Literal\nSpecialization Constant ID"
+                ],
+                "Enabling Capabilities": "Shader, Kernel",
+                "Value": "1"
+            },
+            {
+                "Decoration": "Block\nApply only to a structure type to establish it is a non-SSBO-like shader-interface block.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "2"
+            },
+            {
+                "Decoration": "BufferBlock\nDeprecated (use Block-decorated StorageBuffer Storage Class objects).\nApply only to a structure type to establish it is an SSBO-like shader-interface block.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader\n\nMissing after version 1.3.",
+                "Value": "3"
+            },
+            {
+                "Decoration": "RowMajor\n Applies only to a member of a structure type.  Only valid on a matrix or array whose most basic element is a matrix. Indicates that components within a row are contiguous in memory. Must not be used with ColMajor on the same matrix or matrix aggregate.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Matrix",
+                "Value": "4"
+            },
+            {
+                "Decoration": "ColMajor\n Applies only to a member of a structure type.  Only valid on a matrix or array whose most basic element is a matrix. Indicates that components within a column are contiguous in memory. Must not be used with RowMajor on the same matrix or matrix aggregate.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Matrix",
+                "Value": "5"
+            },
+            {
+                "Decoration": "ArrayStride\nApply to an array type to specify the stride, in bytes, of the array\u2019s elements. Can also apply to a pointer type to an array element.  Array Stride is an unsigned 32-bit integer specifying the stride of the array that the element resides in. Must not be applied to any other type.",
+                "Extra Operands": [
+                    "Literal\nArray Stride"
+                ],
+                "Enabling Capabilities": "Shader",
+                "Value": "6"
+            },
+            {
+                "Decoration": "MatrixStride\n Applies only to a member of a structure type.  Only valid on a matrix or array whose most basic element is a matrix. Matrix Stride is an unsigned 32-bit integer specifying the stride of the rows in a RowMajor-decorated matrix or columns in a ColMajor-decorated matrix.",
+                "Extra Operands": [
+                    "Literal\nMatrix Stride"
+                ],
+                "Enabling Capabilities": "Matrix",
+                "Value": "7"
+            },
+            {
+                "Decoration": "GLSLShared\nApply only to a structure type to get GLSL shared memory layout.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "8"
+            },
+            {
+                "Decoration": "GLSLPacked\nApply only to a structure type to get GLSL packed memory layout.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "9"
+            },
+            {
+                "Decoration": "CPacked\nApply only to a structure type, to marks it as \"packed\", indicating that the alignment of the structure is one and that there is no padding between structure members.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Kernel",
+                "Value": "10"
+            },
+            {
+                "Decoration": "BuiltIn\nIndicates which built-in variable an object represents.  See BuiltIn for more information.",
+                "Extra Operands": [
+                    "BuiltIn"
+                ],
+                "Enabling Capabilities": "",
+                "Value": "11"
+            },
+            {
+                "Decoration": "NoPerspective\n Must only be used on a memory object declaration or a member of a structure type.  Requests linear, non-perspective correct, interpolation. Only valid for the Input and Output Storage Classes.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "13"
+            },
+            {
+                "Decoration": "Flat\n Must only be used on a memory object declaration or a member of a structure type.  Indicates no interpolation is done. The non-interpolated value comes from a vertex, as specified by the client API. Only valid for the Input and Output Storage Classes.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "14"
+            },
+            {
+                "Decoration": "Patch\n Must only be used on a memory object declaration or a member of a structure type.  Indicates a tessellation patch. Only valid for the Input and Output Storage Classes.  Invalid to use on objects or types referenced by non-tessellation Execution Models.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Tessellation",
+                "Value": "15"
+            },
+            {
+                "Decoration": "Centroid\n Must only be used on a memory object declaration or a member of a structure type. If used with multi-sampling rasterization, allows a single interpolation location for an entire pixel. The interpolation location lies in both the pixel and in the primitive being rasterized. Only valid for the Input and Output Storage Classes.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "16"
+            },
+            {
+                "Decoration": "Sample\n Must only be used on a memory object declaration or a member of a structure type. If used with multi-sampling rasterization, requires per-sample interpolation. The interpolation locations are the locations of the samples lying in both the pixel and in the primitive being rasterized. Only valid for the Input and Output Storage Classes.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "SampleRateShading",
+                "Value": "17"
+            },
+            {
+                "Decoration": "Invariant\nApply only to a variable or member of a block-decorated structure type to indicate that expressions computing its value be computed invariantly with respect to other shaders computing the same expressions.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "18"
+            },
+            {
+                "Decoration": "Restrict\nApply only to a memory object declaration, to indicate the compiler may compile as if there is no aliasing.  See the Aliasing section for more detail.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "",
+                "Value": "19"
+            },
+            {
+                "Decoration": "Aliased\nApply only to a memory object declaration, to indicate the compiler is to generate accesses to the variable that work correctly in the presence of aliasing.  See the Aliasing section for more detail.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "",
+                "Value": "20"
+            },
+            {
+                "Decoration": "Volatile\n Must be applied only to memory object declarations or members of a structure type. Any such memory object declaration, or any memory object declaration that contains such a structure type, must be one of:\n - A storage image (see OpTypeImage).\n - A block in the StorageBuffer storage class, or in the   Uniform storage class with the BufferBlock decoration.\nThis indicates the memory holding the variable is volatile memory. Accesses to volatile memory cannot be eliminated, duplicated, or combined with other accesses. Volatile applies only to a single invocation and does not guarantee each invocation performs the access.\nVolatile is not allowed if the declared memory model is Vulkan. The memory operand bit Volatile, the image operand bit VolatileTexel, or  the memory semantic bit Volatile can be used instead.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "",
+                "Value": "21"
+            },
+            {
+                "Decoration": "Constant\nIndicates that a global variable is constant and never modified. Only allowed on global variables.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Kernel",
+                "Value": "22"
+            },
+            {
+                "Decoration": "Coherent\n Must be applied only to memory object declarations or members of a structure type. Any such memory object declaration, or any memory object declaration that contains such a structure type, must be one of:\n - A storage image (see OpTypeImage).\n - A block in the StorageBuffer storage class, or in the   Uniform storage class with the BufferBlock decoration.\nThis indicates the memory backing the object is coherent. \nCoherent is not allowed if the declared memory model is Vulkan. The memory operand bits MakePointerAvailable and MakePointerVisible or the image operand bits MakeTexelAvailable and MakeTexelVisible can be used instead.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "",
+                "Value": "23"
+            },
+            {
+                "Decoration": "NonWritable\n Must be applied only to memory object declarations or members of a structure type. Any such memory object declaration, or any memory object declaration that contains such a structure type, must be one of:\n - A storage image (see OpTypeImage).\n - A block in the StorageBuffer storage class, or in the   Uniform storage class with the BufferBlock decoration.\n - Missing before version 1.4: An object in the Private or Function storage classes.\nThis decoration indicates the memory holding the variable is not writable, and that this module does not write to it. It does not prevent the use of initializers on a declaration.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "",
+                "Value": "24"
+            },
+            {
+                "Decoration": "NonReadable\n Must be applied only to memory object declarations or members of a structure type. Any such memory object declaration, or any memory object declaration that contains such a structure type, must be one of:\n - A storage image (see OpTypeImage).\n - A block in the StorageBuffer storage class, or in the   Uniform storage class with the BufferBlock decoration.\nThis indicates the memory holding the variable is not readable, and that this module does not read from it.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "",
+                "Value": "25"
+            },
+            {
+                "Decoration": "Uniform\nApply only to an object. Asserts that, for each dynamic instance of the instruction that computes the result, all active invocations in the invocation\u2019s Subgroup scope compute the same result value.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "26"
+            },
+            {
+                "Decoration": "UniformId\nApply only to an object. Asserts that, for each dynamic instance of the instruction that computes the result, all active invocations in the Execution scope compute the same result value. Execution must not be Invocation.",
+                "Extra Operands": [
+                    "Scope <id>\nExecution"
+                ],
+                "Enabling Capabilities": "Shader\n\nMissing before version 1.4.",
+                "Value": "27"
+            },
+            {
+                "Decoration": "SaturatedConversion\nIndicates that a conversion to an integer type which is outside the representable range of Result Type is clamped to the nearest representable value of Result Type. NaN is converted to 0. \n\nThis decoration must be applied only to conversion instructions to integer types, not including the OpSatConvertUToS and OpSatConvertSToU instructions.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Kernel",
+                "Value": "28"
+            },
+            {
+                "Decoration": "Stream\n Must only be used on a memory object declaration or a member of a structure type.  Stream Number is an unsigned 32-bit integer indicating the stream number to put an output on. Only valid for the Output Storage Class and the Geometry Execution Model.",
+                "Extra Operands": [
+                    "Literal\nStream Number"
+                ],
+                "Enabling Capabilities": "GeometryStreams",
+                "Value": "29"
+            },
+            {
+                "Decoration": "Location\nApply only to a variable or a structure-type member. Location is an unsigned 32-bit integer that forms the main linkage for Storage Class Input and Output variables:\n- between the client API and vertex-stage inputs,\n- between consecutive programmable stages, or\n- between fragment-stage outputs and the client API.\nIt can also tag variables or structure-type members in the UniformConstant Storage Class for linkage with the client API.\n Only valid for the Input, Output, and UniformConstant Storage Classes.",
+                "Extra Operands": [
+                    "Literal\nLocation"
+                ],
+                "Enabling Capabilities": "Shader",
+                "Value": "30"
+            },
+            {
+                "Decoration": "Component\n Must only be used on a memory object declaration or a member of a structure type.  Component is an unsigned 32-bit integer indicating which component within a Location is taken by the decorated entity. Only valid for the Input and Output Storage Classes.",
+                "Extra Operands": [
+                    "Literal\nComponent"
+                ],
+                "Enabling Capabilities": "Shader",
+                "Value": "31"
+            },
+            {
+                "Decoration": "Index\nApply only to a variable. Index is an unsigned 32-bit integer identifying a blend equation input index, used as specified by the client API. Only valid for the Output Storage Class and the Fragment Execution Model.",
+                "Extra Operands": [
+                    "Literal\nIndex"
+                ],
+                "Enabling Capabilities": "Shader",
+                "Value": "32"
+            },
+            {
+                "Decoration": "Binding\nApply only to a variable.Binding Point is an unsigned 32-bit integer forming part of the linkage between the client API and SPIR-V memory buffers, images, etc. See the client API specification for more detail.",
+                "Extra Operands": [
+                    "Literal\nBinding Point"
+                ],
+                "Enabling Capabilities": "Shader",
+                "Value": "33"
+            },
+            {
+                "Decoration": "DescriptorSet\nApply only to a variable.Descriptor Set is an unsigned 32-bit integer forming part of the linkage between the client API and SPIR-V memory buffers, images, etc. See the client API specification for more detail.",
+                "Extra Operands": [
+                    "Literal\nDescriptor Set"
+                ],
+                "Enabling Capabilities": "Shader",
+                "Value": "34"
+            },
+            {
+                "Decoration": "Offset\nApply only to a structure-type member. Byte Offset is an unsigned 32-bit integer.  It dictates the byte offset of the member relative to the beginning of the structure. It can be used, for example, by both uniform and transform-feedback buffers. It must not cause any overlap of the structure\u2019s members, or overflow of a transform-feedback buffer\u2019s XfbStride.",
+                "Extra Operands": [
+                    "Literal\nByte Offset"
+                ],
+                "Enabling Capabilities": "Shader",
+                "Value": "35"
+            },
+            {
+                "Decoration": "XfbBuffer\n Must only be used on a memory object declaration or a member of a structure type.  XFB Buffer is an unsigned 32-bit integer indicating which transform-feedback buffer an output is written to. Only valid for the Output Storage Classes of vertex processing Execution Models.",
+                "Extra Operands": [
+                    "Literal\nXFB Buffer Number"
+                ],
+                "Enabling Capabilities": "TransformFeedback",
+                "Value": "36"
+            },
+            {
+                "Decoration": "XfbStride\nApply to anything XfbBuffer is applied to. XFB Stride is an unsigned 32-bit integer specifying the stride, in bytes, of transform-feedback buffer vertices. If the transform-feedback buffer is capturing any double-precision components, the stride must be a multiple of 8, otherwise it must be a multiple of 4.",
+                "Extra Operands": [
+                    "Literal\nXFB Stride"
+                ],
+                "Enabling Capabilities": "TransformFeedback",
+                "Value": "37"
+            },
+            {
+                "Decoration": "FuncParamAttr\nIndicates a function return value or parameter attribute.",
+                "Extra Operands": [
+                    "Function Parameter Attribute\nFunction Parameter Attribute"
+                ],
+                "Enabling Capabilities": "Kernel",
+                "Value": "38"
+            },
+            {
+                "Decoration": "FPRoundingMode\nIndicates a floating-point rounding mode.",
+                "Extra Operands": [
+                    "FP Rounding Mode\nFloating-Point Rounding Mode"
+                ],
+                "Enabling Capabilities": "",
+                "Value": "39"
+            },
+            {
+                "Decoration": "FPFastMathMode\nIndicates a floating-point fast math flag.",
+                "Extra Operands": [
+                    "FP Fast Math Mode\nFast-Math Mode"
+                ],
+                "Enabling Capabilities": "Kernel",
+                "Value": "40"
+            },
+            {
+                "Decoration": "LinkageAttributes\nAssociate linkage attributes to values. Name is a string specifying what name the Linkage Type applies to. Only valid on OpFunction or global (module scope) OpVariable. See linkage.",
+                "Extra Operands": [
+                    "Literal\nName",
+                    "Linkage Type\nLinkage Type"
+                ],
+                "Enabling Capabilities": "Linkage",
+                "Value": "41"
+            },
+            {
+                "Decoration": "NoContraction\nApply only to an arithmetic instruction to indicate the operation cannot be combined with another instruction to form a single operation.  For example, if applied to an OpFMul, that multiply can\u2019t be combined with an addition to yield a fused multiply-add operation. Furthermore, such operations are not allowed to reassociate; e.g., add(a + add(b+c)) cannot be transformed to add(add(a+b) + c).",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Shader",
+                "Value": "42"
+            },
+            {
+                "Decoration": "InputAttachmentIndex\nApply only to a variable. Attachment Index is an unsigned 32-bit integer providing an input-target index (as specified by the client API). Only valid in the Fragment Execution Model and for variables of type OpTypeImage  with a Dim operand of SubpassData.",
+                "Extra Operands": [
+                    "Literal\nAttachment Index"
+                ],
+                "Enabling Capabilities": "InputAttachment",
+                "Value": "43"
+            },
+            {
+                "Decoration": "Alignment\nApply only to a pointer. Alignment is an unsigned 32-bit integer declaring a known minimum alignment the pointer has.",
+                "Extra Operands": [
+                    "Literal\nAlignment"
+                ],
+                "Enabling Capabilities": "Kernel",
+                "Value": "44"
+            },
+            {
+                "Decoration": "MaxByteOffset\nApply only to a pointer.Max Byte Offset is an unsigned 32-bit integer declaring a known maximum byte offset this pointer will be incremented by from the point of the decoration. This is a guaranteed upper bound when applied to OpFunctionParameter.",
+                "Extra Operands": [
+                    "Literal\nMax Byte Offset"
+                ],
+                "Enabling Capabilities": "Addresses\n\nMissing before version 1.1.",
+                "Value": "45"
+            },
+            {
+                "Decoration": "AlignmentId\nSame as the Alignment decoration, but using an <id> operand instead of a literal. The operand is consumed as unsigned and  must be an integer type scalar.",
+                "Extra Operands": [
+                    "<id>\nAlignment"
+                ],
+                "Enabling Capabilities": "Kernel\n\nMissing before version 1.2.",
+                "Value": "46"
+            },
+            {
+                "Decoration": "MaxByteOffsetId\nSame as the MaxByteOffset decoration, but using an <id> operand instead of a literal. The operand is consumed as unsigned and  must be an integer type scalar.",
+                "Extra Operands": [
+                    "<id>\nMax Byte Offset"
+                ],
+                "Enabling Capabilities": "Addresses\n\nMissing before version 1.2.",
+                "Value": "47"
+            },
+            {
+                "Decoration": "NoSignedWrap\nApply to an instruction to indicate that it does not cause signed integer wrapping to occur, in the form of overflow or underflow.\n\nIt must decorate only the following instructions:\n- OpIAdd\n- OpISub\n- OpIMul\n- OpShiftLeftLogical\n- OpSNegate\n- OpExtInst for instruction numbers specified in the extended instruction-set   specifications as accepting this decoration.\n\nIf an instruction decorated with NoSignedWrap does overflow or underflow, behavior is undefined.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Missing before version 1.4.\n\n\nAlso see extension: SPV_KHR_no_integer_wrap_decoration",
+                "Value": "4469"
+            },
+            {
+                "Decoration": "NoUnsignedWrap\nApply to an instruction to indicate that it does not cause unsigned integer wrapping to occur, in the form of overflow or underflow.\n\nIt must decorate only the following instructions:\n- OpIAdd\n- OpISub\n- OpIMul\n- OpShiftLeftLogical\n- OpExtInst for instruction numbers specified in the extended instruction-set   specifications as accepting this decoration.\n\nIf an instruction decorated with NoUnsignedWrap does overflow or underflow, behavior is undefined.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Missing before version 1.4.\n\n\nAlso see extension: SPV_KHR_no_integer_wrap_decoration",
+                "Value": "4470"
+            },
+            {
+                "Decoration": "ExplicitInterpAMD",
+                "Extra Operands": [],
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter",
+                "Value": "4999"
+            },
+            {
+                "Decoration": "OverrideCoverageNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "SampleMaskOverrideCoverageNV\n\nReserved.\n\nAlso see extension: SPV_NV_sample_mask_override_coverage",
+                "Value": "5248"
+            },
+            {
+                "Decoration": "PassthroughNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "GeometryShaderPassthroughNV\n\nReserved.\n\nAlso see extension: SPV_NV_geometry_shader_passthrough",
+                "Value": "5250"
+            },
+            {
+                "Decoration": "ViewportRelativeNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "ShaderViewportMaskNV\n\nReserved.",
+                "Value": "5252"
+            },
+            {
+                "Decoration": "SecondaryViewportRelativeNV",
+                "Extra Operands": [
+                    "Literal\nOffset"
+                ],
+                "Enabling Capabilities": "ShaderStereoViewNV\n\nReserved.\n\nAlso see extension: SPV_NV_stereo_view_rendering",
+                "Value": "5256"
+            },
+            {
+                "Decoration": "PerPrimitiveNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader",
+                "Value": "5271"
+            },
+            {
+                "Decoration": "PerViewNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader",
+                "Value": "5272"
+            },
+            {
+                "Decoration": "PerTaskNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader",
+                "Value": "5273"
+            },
+            {
+                "Decoration": "PerVertexNV",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FragmentBarycentricNV\n\nReserved.\n\nAlso see extension: SPV_NV_fragment_shader_barycentric",
+                "Value": "5285"
+            },
+            {
+                "Decoration": "NonUniform\nApply only to an object. Asserts that the value backing the decorated <id> is not dynamically uniform. See the client API specification for more detail.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "ShaderNonUniform\n\nMissing before version 1.5.",
+                "Value": "5300"
+            },
+            {
+                "Decoration": "NonUniformEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing",
+                "Value": "5300"
+            },
+            {
+                "Decoration": "RestrictPointer\nApply only to an OpVariable, to indicate the compiler may compile as if there is no aliasing of the pointer stored in the variable. See the aliasing section for more detail.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extensions: SPV_EXT_physical_storage_buffer, SPV_KHR_physical_storage_buffer",
+                "Value": "5355"
+            },
+            {
+                "Decoration": "RestrictPointerEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_physical_storage_buffer",
+                "Value": "5355"
+            },
+            {
+                "Decoration": "AliasedPointer\nApply only to an OpVariable, to indicate the compiler is to generate accesses to the pointer stored in the variable that work correctly in the presence of aliasing. See the aliasing section for more detail.",
+                "Extra Operands": [],
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extensions: SPV_EXT_physical_storage_buffer, SPV_KHR_physical_storage_buffer",
+                "Value": "5356"
+            },
+            {
+                "Decoration": "AliasedPointerEXT",
+                "Extra Operands": [],
+                "Enabling Capabilities": "PhysicalStorageBufferAddresses\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_physical_storage_buffer",
+                "Value": "5356"
+            },
+            {
+                "Decoration": "ReferencedIndirectlyINTEL",
+                "Extra Operands": [],
+                "Enabling Capabilities": "IndirectReferencesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_function_pointers",
+                "Value": "5602"
+            },
+            {
+                "Decoration": "CounterBuffer\nThe <id> of a counter buffer associated with the decorated buffer. It must decorate only a variable in the Uniform storage class. Counter Buffer must be a variable in the Uniform storage class.",
+                "Extra Operands": [
+                    "<id>\nCounter Buffer"
+                ],
+                "Enabling Capabilities": "Missing before version 1.4.",
+                "Value": "5634"
+            },
+            {
+                "Decoration": "HlslCounterBufferGOOGLE",
+                "Extra Operands": [
+                    "<id>\nCounter Buffer"
+                ],
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_GOOGLE_hlsl_functionality1",
+                "Value": "5634"
+            },
+            {
+                "Decoration": "UserSemantic\nSemantic is a string describing a user-defined semantic intent of what it decorates. User-defined semantics are case insensitive. It must decorate only a variable or a member of a structure type. If decorating a variable, it must be in the Input or Output storage classes.",
+                "Extra Operands": [
+                    "Literal\nSemantic"
+                ],
+                "Enabling Capabilities": "Missing before version 1.4.",
+                "Value": "5635"
+            },
+            {
+                "Decoration": "HlslSemanticGOOGLE",
+                "Extra Operands": [
+                    "Literal\nSemantic"
+                ],
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_GOOGLE_hlsl_functionality1",
+                "Value": "5635"
+            },
+            {
+                "Decoration": "UserTypeGOOGLE",
+                "Extra Operands": [
+                    "Literal\nUser Type"
+                ],
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_GOOGLE_user_type",
+                "Value": "5636"
+            },
+            {
+                "Decoration": "RegisterINTEL",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5825"
+            },
+            {
+                "Decoration": "MemoryINTEL",
+                "Extra Operands": [
+                    "Literal\nMemory Type"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5826"
+            },
+            {
+                "Decoration": "NumbanksINTEL",
+                "Extra Operands": [
+                    "Literal\nBanks"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5827"
+            },
+            {
+                "Decoration": "BankwidthINTEL",
+                "Extra Operands": [
+                    "Literal\nBank Width"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5828"
+            },
+            {
+                "Decoration": "MaxPrivateCopiesINTEL",
+                "Extra Operands": [
+                    "Literal\nMaximum Copies"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5829"
+            },
+            {
+                "Decoration": "SinglepumpINTEL",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5830"
+            },
+            {
+                "Decoration": "DoublepumpINTEL",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5831"
+            },
+            {
+                "Decoration": "MaxReplicatesINTEL",
+                "Extra Operands": [
+                    "Literal\nMaximum Replicates"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5832"
+            },
+            {
+                "Decoration": "SimpleDualPortINTEL",
+                "Extra Operands": [],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5833"
+            },
+            {
+                "Decoration": "MergeINTEL",
+                "Extra Operands": [
+                    "Literal\nMerge Key",
+                    "Literal\nMerge Type"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5834"
+            },
+            {
+                "Decoration": "BankBitsINTEL",
+                "Extra Operands": [
+                    "Literal\nBank Bits"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5835"
+            },
+            {
+                "Decoration": "ForcePow2DepthINTEL",
+                "Extra Operands": [
+                    "Literal\nForce Key"
+                ],
+                "Enabling Capabilities": "FPGAMemoryAttributesINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes",
+                "Value": "5836"
+            }
+        ],
+        "BuiltIn": [
+            {
+                "Value": "0",
+                "BuiltIn": "Position\nOutput vertex position from a vertex processing Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "1",
+                "BuiltIn": "PointSize\nOutput point size from a vertex processing Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "3",
+                "BuiltIn": "ClipDistance\nArray of clip distances. See the client API specification for more detail.",
+                "Enabling Capabilities": "ClipDistance"
+            },
+            {
+                "Value": "4",
+                "BuiltIn": "CullDistance\nArray of clip distances. See the client API specification for more detail.",
+                "Enabling Capabilities": "CullDistance"
+            },
+            {
+                "Value": "5",
+                "BuiltIn": "VertexId\nInput vertex ID to a Vertex Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "6",
+                "BuiltIn": "InstanceId\nInput instance ID to a Vertex Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "7",
+                "BuiltIn": "PrimitiveId\nPrimitive ID in a Geometry Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Geometry, Tessellation, RayTracingNV, RayTracingKHR, MeshShadingNV"
+            },
+            {
+                "Value": "8",
+                "BuiltIn": "InvocationId\nInvocation ID, input to Geometry and TessellationControl Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Geometry, Tessellation"
+            },
+            {
+                "Value": "9",
+                "BuiltIn": "Layer\nLayer selection for multi-layer framebuffer. See the client API specification for more detail. \n\nThe Geometry capability allows for a Layer output by a Geometry Execution Model, input to a Fragment Execution Model.\n\nThe ShaderLayer capability allows for Layer output by a Vertex or Tessellation Execution Model.",
+                "Enabling Capabilities": "Geometry, ShaderLayer, ShaderViewportIndexLayerEXT, MeshShadingNV"
+            },
+            {
+                "Value": "10",
+                "BuiltIn": "ViewportIndex\nViewport selection for viewport transformation when using multiple viewports. See the client API specification for more detail. \n\nThe MultiViewport capability allows for a ViewportIndex output by a Geometry Execution Model, input to a Fragment Execution Model.\n\nThe ShaderViewportIndex capability allows for a ViewportIndex output by a Vertex or Tessellation Execution Model.",
+                "Enabling Capabilities": "MultiViewport, ShaderViewportIndex, ShaderViewportIndexLayerEXT, MeshShadingNV"
+            },
+            {
+                "Value": "11",
+                "BuiltIn": "TessLevelOuter\nOutput patch outer levels in a TessellationControl Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Tessellation"
+            },
+            {
+                "Value": "12",
+                "BuiltIn": "TessLevelInner\nOutput patch inner levels in a TessellationControl Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Tessellation"
+            },
+            {
+                "Value": "13",
+                "BuiltIn": "TessCoord\nInput vertex position in TessellationEvaluation Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Tessellation"
+            },
+            {
+                "Value": "14",
+                "BuiltIn": "PatchVertices\nInput patch vertex count in a tessellation Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Tessellation"
+            },
+            {
+                "Value": "15",
+                "BuiltIn": "FragCoord\nCoordinates (x, y, z, 1/w) of the current fragment, input to the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "16",
+                "BuiltIn": "PointCoord\nCoordinates within a point, input to the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "17",
+                "BuiltIn": "FrontFacing\nFace direction, input to the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "18",
+                "BuiltIn": "SampleId\nInput sample number to the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "SampleRateShading"
+            },
+            {
+                "Value": "19",
+                "BuiltIn": "SamplePosition\nInput sample position to the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "SampleRateShading"
+            },
+            {
+                "Value": "20",
+                "BuiltIn": "SampleMask\nInput or output sample mask to the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "22",
+                "BuiltIn": "FragDepth\nOutput fragment depth from the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "23",
+                "BuiltIn": "HelperInvocation\nInput whether a helper invocation, to the Fragment Execution Model. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "24",
+                "BuiltIn": "NumWorkgroups\nNumber of workgroups in GLCompute or Kernel  Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "25",
+                "BuiltIn": "WorkgroupSize\nWork-group size in GLCompute or Kernel  Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "26",
+                "BuiltIn": "WorkgroupId\nWork-group ID in GLCompute or Kernel  Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "27",
+                "BuiltIn": "LocalInvocationId\nLocal invocation ID in GLCompute or Kernel  Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "28",
+                "BuiltIn": "GlobalInvocationId\nGlobal invocation ID in GLCompute or Kernel  Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "29",
+                "BuiltIn": "LocalInvocationIndex\nLocal invocation index in GLCompute Execution Models. See the client API specification for more detail. \n\nWork-group Linear ID in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "30",
+                "BuiltIn": "WorkDim\nWork dimensions in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "31",
+                "BuiltIn": "GlobalSize\nGlobal size in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "32",
+                "BuiltIn": "EnqueuedWorkgroupSize\nEnqueued work-group size in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "33",
+                "BuiltIn": "GlobalOffset\nGlobal offset in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "34",
+                "BuiltIn": "GlobalLinearId\nGlobal linear ID in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "36",
+                "BuiltIn": "SubgroupSize\nSubgroup size. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel, GroupNonUniform, SubgroupBallotKHR"
+            },
+            {
+                "Value": "37",
+                "BuiltIn": "SubgroupMaxSize\nSubgroup maximum size in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "38",
+                "BuiltIn": "NumSubgroups\nNumber of subgroups in GLCompute or Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel, GroupNonUniform"
+            },
+            {
+                "Value": "39",
+                "BuiltIn": "NumEnqueuedSubgroups\nNumber of enqueued subgroups in Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel"
+            },
+            {
+                "Value": "40",
+                "BuiltIn": "SubgroupId\nSubgroup ID in GLCompute or Kernel Execution Models. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel, GroupNonUniform"
+            },
+            {
+                "Value": "41",
+                "BuiltIn": "SubgroupLocalInvocationId\nSubgroup local invocation ID. See the client API specification for more detail.",
+                "Enabling Capabilities": "Kernel, GroupNonUniform, SubgroupBallotKHR"
+            },
+            {
+                "Value": "42",
+                "BuiltIn": "VertexIndex\nVertex index. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "43",
+                "BuiltIn": "InstanceIndex\nInstance index. See the client API specification for more detail.",
+                "Enabling Capabilities": "Shader"
+            },
+            {
+                "Value": "4416",
+                "BuiltIn": "SubgroupEqMask\nSubgroup invocations bitmask where bit index == SubgroupLocalInvocationId.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "4417",
+                "BuiltIn": "SubgroupGeMask\nSubgroup invocations bitmask where bit index >= SubgroupLocalInvocationId.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "4418",
+                "BuiltIn": "SubgroupGtMask\nSubgroup invocations bitmask where bit index > SubgroupLocalInvocationId.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "4419",
+                "BuiltIn": "SubgroupLeMask\nSubgroup invocations bitmask where bit index <= SubgroupLocalInvocationId.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "4420",
+                "BuiltIn": "SubgroupLtMask\nSubgroup invocations bitmask where bit index < SubgroupLocalInvocationId.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "4416",
+                "BuiltIn": "SubgroupEqMaskKHR",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_ballot"
+            },
+            {
+                "Value": "4417",
+                "BuiltIn": "SubgroupGeMaskKHR",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_ballot"
+            },
+            {
+                "Value": "4418",
+                "BuiltIn": "SubgroupGtMaskKHR",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_ballot"
+            },
+            {
+                "Value": "4419",
+                "BuiltIn": "SubgroupLeMaskKHR",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_ballot"
+            },
+            {
+                "Value": "4420",
+                "BuiltIn": "SubgroupLtMaskKHR",
+                "Enabling Capabilities": "SubgroupBallotKHR, GroupNonUniformBallot\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_ballot"
+            },
+            {
+                "Value": "4424",
+                "BuiltIn": "BaseVertex\nBase vertex component of vertex ID.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "DrawParameters\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_draw_parameters"
+            },
+            {
+                "Value": "4425",
+                "BuiltIn": "BaseInstance\nBase instance component of instance ID.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "DrawParameters\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_draw_parameters"
+            },
+            {
+                "Value": "4426",
+                "BuiltIn": "DrawIndex\nContains the index of the draw currently being processed.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "DrawParameters, MeshShadingNV\n\nMissing before version 1.3.\n\n\nAlso see extensions: SPV_KHR_shader_draw_parameters, SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "4432",
+                "BuiltIn": "PrimitiveShadingRateKHR",
+                "Enabling Capabilities": "FragmentShadingRateKHR\n\nReserved.\n\nAlso see extension: SPV_KHR_fragment_shading_rate"
+            },
+            {
+                "Value": "4438",
+                "BuiltIn": "DeviceIndex\nInput device index of the logical device.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "DeviceGroup\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_device_group"
+            },
+            {
+                "Value": "4440",
+                "BuiltIn": "ViewIndex\nInput view index of the view currently being rendered to.\n See the client API specification for more detail.",
+                "Enabling Capabilities": "MultiView\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_multiview"
+            },
+            {
+                "Value": "4444",
+                "BuiltIn": "ShadingRateKHR",
+                "Enabling Capabilities": "FragmentShadingRateKHR\n\nReserved.\n\nAlso see extension: SPV_KHR_fragment_shading_rate"
+            },
+            {
+                "Value": "4992",
+                "BuiltIn": "BaryCoordNoPerspAMD",
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter"
+            },
+            {
+                "Value": "4993",
+                "BuiltIn": "BaryCoordNoPerspCentroidAMD",
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter"
+            },
+            {
+                "Value": "4994",
+                "BuiltIn": "BaryCoordNoPerspSampleAMD",
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter"
+            },
+            {
+                "Value": "4995",
+                "BuiltIn": "BaryCoordSmoothAMD",
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter"
+            },
+            {
+                "Value": "4996",
+                "BuiltIn": "BaryCoordSmoothCentroidAMD",
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter"
+            },
+            {
+                "Value": "4997",
+                "BuiltIn": "BaryCoordSmoothSampleAMD",
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter"
+            },
+            {
+                "Value": "4998",
+                "BuiltIn": "BaryCoordPullModelAMD",
+                "Enabling Capabilities": "Reserved.\n\nAlso see extension: SPV_AMD_shader_explicit_vertex_parameter"
+            },
+            {
+                "Value": "5014",
+                "BuiltIn": "FragStencilRefEXT",
+                "Enabling Capabilities": "StencilExportEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_shader_stencil_export"
+            },
+            {
+                "Value": "5253",
+                "BuiltIn": "ViewportMaskNV",
+                "Enabling Capabilities": "ShaderViewportMaskNV, MeshShadingNV\n\nReserved.\n\nAlso see extensions: SPV_NV_viewport_array2, SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5257",
+                "BuiltIn": "SecondaryPositionNV",
+                "Enabling Capabilities": "ShaderStereoViewNV\n\nReserved.\n\nAlso see extension: SPV_NV_stereo_view_rendering"
+            },
+            {
+                "Value": "5258",
+                "BuiltIn": "SecondaryViewportMaskNV",
+                "Enabling Capabilities": "ShaderStereoViewNV\n\nReserved.\n\nAlso see extension: SPV_NV_stereo_view_rendering"
+            },
+            {
+                "Value": "5261",
+                "BuiltIn": "PositionPerViewNV",
+                "Enabling Capabilities": "PerViewAttributesNV, MeshShadingNV\n\nReserved.\n\nAlso see extensions: SPV_NVX_multiview_per_view_attributes, SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5262",
+                "BuiltIn": "ViewportMaskPerViewNV",
+                "Enabling Capabilities": "PerViewAttributesNV, MeshShadingNV\n\nReserved.\n\nAlso see extensions: SPV_NVX_multiview_per_view_attributes, SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5264",
+                "BuiltIn": "FullyCoveredEXT",
+                "Enabling Capabilities": "FragmentFullyCoveredEXT\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_fully_covered"
+            },
+            {
+                "Value": "5274",
+                "BuiltIn": "TaskCountNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5275",
+                "BuiltIn": "PrimitiveCountNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5276",
+                "BuiltIn": "PrimitiveIndicesNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5277",
+                "BuiltIn": "ClipDistancePerViewNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5278",
+                "BuiltIn": "CullDistancePerViewNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5279",
+                "BuiltIn": "LayerPerViewNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5280",
+                "BuiltIn": "MeshViewCountNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5281",
+                "BuiltIn": "MeshViewIndicesNV",
+                "Enabling Capabilities": "MeshShadingNV\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5286",
+                "BuiltIn": "BaryCoordNV",
+                "Enabling Capabilities": "FragmentBarycentricNV\n\nReserved.\n\nAlso see extension: SPV_NV_fragment_shader_barycentric"
+            },
+            {
+                "Value": "5287",
+                "BuiltIn": "BaryCoordNoPerspNV",
+                "Enabling Capabilities": "FragmentBarycentricNV\n\nReserved.\n\nAlso see extension: SPV_NV_fragment_shader_barycentric"
+            },
+            {
+                "Value": "5292",
+                "BuiltIn": "FragSizeEXT",
+                "Enabling Capabilities": "FragmentDensityEXT, ShadingRateNV\n\nReserved.\n\nAlso see extensions: SPV_EXT_fragment_invocation_density, SPV_NV_shading_rate"
+            },
+            {
+                "Value": "5292",
+                "BuiltIn": "FragmentSizeNV",
+                "Enabling Capabilities": "ShadingRateNV, FragmentDensityEXT\n\nReserved.\n\nAlso see extensions: SPV_NV_shading_rate, SPV_EXT_fragment_invocation_density"
+            },
+            {
+                "Value": "5293",
+                "BuiltIn": "FragInvocationCountEXT",
+                "Enabling Capabilities": "FragmentDensityEXT, ShadingRateNV\n\nReserved.\n\nAlso see extensions: SPV_EXT_fragment_invocation_density, SPV_NV_shading_rate"
+            },
+            {
+                "Value": "5293",
+                "BuiltIn": "InvocationsPerPixelNV",
+                "Enabling Capabilities": "ShadingRateNV, FragmentDensityEXT\n\nReserved.\n\nAlso see extensions: SPV_NV_shading_rate, SPV_EXT_fragment_invocation_density"
+            },
+            {
+                "Value": "5319",
+                "BuiltIn": "LaunchIdNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5319",
+                "BuiltIn": "LaunchIdKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5320",
+                "BuiltIn": "LaunchSizeNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5320",
+                "BuiltIn": "LaunchSizeKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5321",
+                "BuiltIn": "WorldRayOriginNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5321",
+                "BuiltIn": "WorldRayOriginKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5322",
+                "BuiltIn": "WorldRayDirectionNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5322",
+                "BuiltIn": "WorldRayDirectionKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5323",
+                "BuiltIn": "ObjectRayOriginNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5323",
+                "BuiltIn": "ObjectRayOriginKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5324",
+                "BuiltIn": "ObjectRayDirectionNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5324",
+                "BuiltIn": "ObjectRayDirectionKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5325",
+                "BuiltIn": "RayTminNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5325",
+                "BuiltIn": "RayTminKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5326",
+                "BuiltIn": "RayTmaxNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5326",
+                "BuiltIn": "RayTmaxKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5327",
+                "BuiltIn": "InstanceCustomIndexNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5327",
+                "BuiltIn": "InstanceCustomIndexKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5330",
+                "BuiltIn": "ObjectToWorldNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5330",
+                "BuiltIn": "ObjectToWorldKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5331",
+                "BuiltIn": "WorldToObjectNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5331",
+                "BuiltIn": "WorldToObjectKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5332",
+                "BuiltIn": "HitTNV",
+                "Enabling Capabilities": "RayTracingNV\n\nReserved.\n\nAlso see extension: SPV_NV_ray_tracing"
+            },
+            {
+                "Value": "5333",
+                "BuiltIn": "HitKindNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5333",
+                "BuiltIn": "HitKindKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5351",
+                "BuiltIn": "IncomingRayFlagsNV",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5351",
+                "BuiltIn": "IncomingRayFlagsKHR",
+                "Enabling Capabilities": "RayTracingNV, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_NV_ray_tracing, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5352",
+                "BuiltIn": "RayGeometryIndexKHR",
+                "Enabling Capabilities": "RayTracingKHR\n\nReserved.\n\nAlso see extension: SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5374",
+                "BuiltIn": "WarpsPerSMNV",
+                "Enabling Capabilities": "ShaderSMBuiltinsNV\n\nReserved.\n\nAlso see extension: SPV_NV_shader_sm_builtins"
+            },
+            {
+                "Value": "5375",
+                "BuiltIn": "SMCountNV",
+                "Enabling Capabilities": "ShaderSMBuiltinsNV\n\nReserved.\n\nAlso see extension: SPV_NV_shader_sm_builtins"
+            },
+            {
+                "Value": "5376",
+                "BuiltIn": "WarpIDNV",
+                "Enabling Capabilities": "ShaderSMBuiltinsNV\n\nReserved.\n\nAlso see extension: SPV_NV_shader_sm_builtins"
+            },
+            {
+                "Value": "5377",
+                "BuiltIn": "SMIDNV",
+                "Enabling Capabilities": "ShaderSMBuiltinsNV\n\nReserved.\n\nAlso see extension: SPV_NV_shader_sm_builtins"
+            }
+        ],
+        "Selection": [
+            {
+                "Selection Control": "None",
+                "Value": "0x0"
+            },
+            {
+                "Selection Control": "Flatten\nStrong request, to the extent possible, to remove the control flow for this selection.",
+                "Value": "0x1"
+            },
+            {
+                "Selection Control": "DontFlatten\nStrong request, to the extent possible, to keep this selection as control flow.",
+                "Value": "0x2"
+            }
+        ],
+        "Loop": [
+            {
+                "Value": "0x0",
+                "Loop Control": "None",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x1",
+                "Loop Control": "Unroll\nStrong request, to the extent possible, to unroll or unwind this loop.\nThis must not be used with the DontUnroll bit.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x2",
+                "Loop Control": "DontUnroll\nStrong request, to the extent possible, to keep this loop as a loop, without unrolling.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x4",
+                "Loop Control": "DependencyInfinite\nGuarantees that there are no dependencies between loop iterations.",
+                "Enabling Capabilities": "Missing before version 1.1."
+            },
+            {
+                "Value": "0x8",
+                "Loop Control": "DependencyLength\nGuarantees that there are no dependencies between a number of loop iterations. The dependency length is specified in a subsequent unsigned 32-bit integer literal operand.",
+                "Enabling Capabilities": "Missing before version 1.1."
+            },
+            {
+                "Value": "0x10",
+                "Loop Control": "MinIterations\nUnchecked assertion that the loop executes at least a given number of iterations. The iteration count is specified in a subsequent unsigned 32-bit integer literal operand.",
+                "Enabling Capabilities": "Missing before version 1.4."
+            },
+            {
+                "Value": "0x20",
+                "Loop Control": "MaxIterations\nUnchecked assertion that the loop executes at most a given number of iterations. The iteration count is specified in a subsequent unsigned 32-bit integer literal operand.",
+                "Enabling Capabilities": "Missing before version 1.4."
+            },
+            {
+                "Value": "0x40",
+                "Loop Control": "IterationMultiple\nUnchecked assertion that the loop executes a multiple of a given number of iterations. The number is specified in a subsequent unsigned 32-bit integer literal operand.  It must be greater than 0.",
+                "Enabling Capabilities": "Missing before version 1.4."
+            },
+            {
+                "Value": "0x80",
+                "Loop Control": "PeelCount\nRequest that the loop be peeled by a given number of loop iterations. The peel count is specified in a subsequent unsigned 32-bit integer literal operand. \nThis must not be used with the DontUnroll bit.",
+                "Enabling Capabilities": "Missing before version 1.4."
+            },
+            {
+                "Value": "0x100",
+                "Loop Control": "PartialCount\nRequest that the loop be partially unrolled by a given number of loop iterations. The unroll count is specified in a subsequent unsigned 32-bit integer literal operand. \nThis must not be used with the DontUnroll bit.",
+                "Enabling Capabilities": "Missing before version 1.4."
+            },
+            {
+                "Value": "0x10000",
+                "Loop Control": "InitiationIntervalINTEL",
+                "Enabling Capabilities": "FPGALoopControlsINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            },
+            {
+                "Value": "0x20000",
+                "Loop Control": "MaxConcurrencyINTEL",
+                "Enabling Capabilities": "FPGALoopControlsINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            },
+            {
+                "Value": "0x40000",
+                "Loop Control": "DependencyArrayINTEL",
+                "Enabling Capabilities": "FPGALoopControlsINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            },
+            {
+                "Value": "0x80000",
+                "Loop Control": "PipelineEnableINTEL",
+                "Enabling Capabilities": "FPGALoopControlsINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            },
+            {
+                "Value": "0x100000",
+                "Loop Control": "LoopCoalesceINTEL",
+                "Enabling Capabilities": "FPGALoopControlsINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            },
+            {
+                "Value": "0x200000",
+                "Loop Control": "MaxInterleavingINTEL",
+                "Enabling Capabilities": "FPGALoopControlsINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            },
+            {
+                "Value": "0x400000",
+                "Loop Control": "SpeculatedIterationsINTEL",
+                "Enabling Capabilities": "FPGALoopControlsINTEL\n\nReserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            }
+        ],
+        "Scope": [
+            {
+                "Value": "0",
+                "Scope": "CrossDevice\nScope crosses multiple devices.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "1",
+                "Scope": "Device\nScope is the current device.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "2",
+                "Scope": "Workgroup\nScope is the current workgroup.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "3",
+                "Scope": "Subgroup\nScope is the current subgroup.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "4",
+                "Scope": "Invocation\nScope is the current Invocation.",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "5",
+                "Scope": "QueueFamily\nScope is the current queue family.",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5",
+                "Scope": "QueueFamilyKHR",
+                "Enabling Capabilities": "VulkanMemoryModel\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "6",
+                "Scope": "ShaderCallKHR",
+                "Enabling Capabilities": "RayTracingKHR\n\nReserved."
+            }
+        ],
+        "Group": [
+            {
+                "Value": "0",
+                "Group Operation": "Reduce\nA reduction operation for all values of a specific value X specified by invocations within a workgroup.",
+                "Enabling Capabilities": "Kernel, GroupNonUniformArithmetic, GroupNonUniformBallot"
+            },
+            {
+                "Value": "1",
+                "Group Operation": "InclusiveScan\nA binary operation with an identity I and n (where n is the size of the workgroup) elements[a0, a1, \u2026 an-1] resulting in [a0, (a0 op a1), \u2026(a0 op a1 op \u2026 op an-1)]",
+                "Enabling Capabilities": "Kernel, GroupNonUniformArithmetic, GroupNonUniformBallot"
+            },
+            {
+                "Value": "2",
+                "Group Operation": "ExclusiveScan\nA binary operation with an identity I and n (where n is the size of the workgroup) elements[a0, a1, \u2026 an-1] resulting in [I, a0, (a0 op a1), \u2026 (a0 op a1 op \u2026 op an-2)].",
+                "Enabling Capabilities": "Kernel, GroupNonUniformArithmetic, GroupNonUniformBallot"
+            },
+            {
+                "Value": "3",
+                "Group Operation": "ClusteredReduce",
+                "Enabling Capabilities": "GroupNonUniformClustered\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "6",
+                "Group Operation": "PartitionedReduceNV",
+                "Enabling Capabilities": "GroupNonUniformPartitionedNV\n\nReserved.\n\nAlso see extension: SPV_NV_shader_subgroup_partitioned"
+            },
+            {
+                "Value": "7",
+                "Group Operation": "PartitionedInclusiveScanNV",
+                "Enabling Capabilities": "GroupNonUniformPartitionedNV\n\nReserved.\n\nAlso see extension: SPV_NV_shader_subgroup_partitioned"
+            },
+            {
+                "Value": "8",
+                "Group Operation": "PartitionedExclusiveScanNV",
+                "Enabling Capabilities": "GroupNonUniformPartitionedNV\n\nReserved.\n\nAlso see extension: SPV_NV_shader_subgroup_partitioned"
+            }
+        ],
+        "Kernel": [
+            {
+                "Value": "0x0",
+                "Kernel Profiling Info": "None",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x1",
+                "Kernel Profiling Info": "CmdExecTime\nIndicates that the profiling info queried is the execution time.",
+                "Enabling Capabilities": "Kernel"
+            }
+        ],
+        "Capability": [
+            {
+                "Value": "0",
+                "Capability": "Matrix\nUses OpTypeMatrix.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "1",
+                "Capability": "Shader\nUses Vertex, Fragment, or GLCompute Execution Models.",
+                "Implicitly Declares": "Matrix"
+            },
+            {
+                "Value": "2",
+                "Capability": "Geometry\nUses the Geometry Execution Model.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "3",
+                "Capability": "Tessellation\nUses the TessellationControl or TessellationEvaluation Execution Models.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "4",
+                "Capability": "Addresses\nUses physical addressing, non-logical addressing modes.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "5",
+                "Capability": "Linkage\nUses partially linked modules and libraries.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "6",
+                "Capability": "Kernel\nUses the Kernel Execution Model.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "7",
+                "Capability": "Vector16\nUses OpTypeVector to declare 8 component or 16 component vectors.",
+                "Implicitly Declares": "Kernel"
+            },
+            {
+                "Value": "8",
+                "Capability": "Float16Buffer\nAllows a 16-bit OpTypeFloat instruction for creating an OpTypePointer to a 16-bit float. Pointers to a 16-bit float must not be dereferenced, unless specifically allowed by a specific instruction. All other uses of 16-bit OpTypeFloat are disallowed.",
+                "Implicitly Declares": "Kernel"
+            },
+            {
+                "Value": "9",
+                "Capability": "Float16\nUses OpTypeFloat to declare the 16-bit floating-point type.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "10",
+                "Capability": "Float64\nUses OpTypeFloat to declare the 64-bit floating-point type.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "11",
+                "Capability": "Int64\nUses OpTypeInt to declare 64-bit integer types.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "12",
+                "Capability": "Int64Atomics\nUses atomic instructions on 64-bit integer types.",
+                "Implicitly Declares": "Int64"
+            },
+            {
+                "Value": "13",
+                "Capability": "ImageBasic\nUses OpTypeImage or OpTypeSampler in a Kernel.",
+                "Implicitly Declares": "Kernel"
+            },
+            {
+                "Value": "14",
+                "Capability": "ImageReadWrite\nUses OpTypeImage with the ReadWrite access qualifier in a kernel.",
+                "Implicitly Declares": "ImageBasic"
+            },
+            {
+                "Value": "15",
+                "Capability": "ImageMipmap\nUses non-zero Lod Image Operands in a kernel.",
+                "Implicitly Declares": "ImageBasic"
+            },
+            {
+                "Value": "17",
+                "Capability": "Pipes\nUses OpTypePipe, OpTypeReserveId or pipe instructions.",
+                "Implicitly Declares": "Kernel"
+            },
+            {
+                "Value": "18",
+                "Capability": "Groups\nUses common group instructions.",
+                "Implicitly Declares": "Also see extension: SPV_AMD_shader_ballot"
+            },
+            {
+                "Value": "19",
+                "Capability": "DeviceEnqueue\nUses OpTypeQueue, OpTypeDeviceEvent, and device side enqueue instructions.",
+                "Implicitly Declares": "Kernel"
+            },
+            {
+                "Value": "20",
+                "Capability": "LiteralSampler\nSamplers are made from literals within the module. See OpConstantSampler.",
+                "Implicitly Declares": "Kernel"
+            },
+            {
+                "Value": "21",
+                "Capability": "AtomicStorage\nUses the AtomicCounter Storage Class, allowing use of only the OpAtomicLoad, OpAtomicIIncrement, and OpAtomicIDecrement instructions.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "22",
+                "Capability": "Int16\nUses OpTypeInt to declare 16-bit integer types.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "23",
+                "Capability": "TessellationPointSize\nTessellation stage exports point size.",
+                "Implicitly Declares": "Tessellation"
+            },
+            {
+                "Value": "24",
+                "Capability": "GeometryPointSize\nGeometry stage exports point size",
+                "Implicitly Declares": "Geometry"
+            },
+            {
+                "Value": "25",
+                "Capability": "ImageGatherExtended\nUses texture gather with non-constant or independent offsets",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "27",
+                "Capability": "StorageImageMultisample\nUses multi-sample images for non-sampled images.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "28",
+                "Capability": "UniformBufferArrayDynamicIndexing\nBlock-decorated arrays in uniform storage classes use dynamically uniform indexing.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "29",
+                "Capability": "SampledImageArrayDynamicIndexing\nArrays of sampled images, samplers, or images with Sampled = 0 or 1 use dynamically uniform indexing.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "30",
+                "Capability": "StorageBufferArrayDynamicIndexing\nArrays in the StorageBuffer Storage Class, or BufferBlock-decorated arrays, use dynamically uniform indexing.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "31",
+                "Capability": "StorageImageArrayDynamicIndexing\nArrays of images with Sampled = 2 are accessed with dynamically uniform indexing.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "32",
+                "Capability": "ClipDistance\nUses the ClipDistance BuiltIn.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "33",
+                "Capability": "CullDistance\nUses the CullDistance BuiltIn.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "34",
+                "Capability": "ImageCubeArray\nUses the Cube Dim with the Arrayed operand in OpTypeImage, with an OpTypeImage having Sampled == 2.",
+                "Implicitly Declares": "SampledCubeArray"
+            },
+            {
+                "Value": "35",
+                "Capability": "SampleRateShading\nUses per-sample rate shading.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "36",
+                "Capability": "ImageRect\nUses the Rect Dim with an OpTypeImage having Sampled == 2.",
+                "Implicitly Declares": "SampledRect"
+            },
+            {
+                "Value": "37",
+                "Capability": "SampledRect\nUses the Rect Dim with an OpTypeImage having Sampled == 0 or 1.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "38",
+                "Capability": "GenericPointer\nUses the Generic Storage Class.",
+                "Implicitly Declares": "Addresses"
+            },
+            {
+                "Value": "39",
+                "Capability": "Int8\nUses OpTypeInt to declare 8-bit integer types.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "40",
+                "Capability": "InputAttachment\nUses the SubpassData Dim.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "41",
+                "Capability": "SparseResidency\nUses OpImageSparse\u2026 instructions.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "42",
+                "Capability": "MinLod\nUses the MinLod Image Operand.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "43",
+                "Capability": "Sampled1D\nUses the 1D Dim with an OpTypeImage having Sampled == 0 or 1.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "44",
+                "Capability": "Image1D\nUses the 1D Dim with an OpTypeImage having Sampled == 2.",
+                "Implicitly Declares": "Sampled1D"
+            },
+            {
+                "Value": "45",
+                "Capability": "SampledCubeArray\nUses the Cube Dim with the Arrayed operand in OpTypeImage, with an OpTypeImage having Sampled == 0 or 1.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "46",
+                "Capability": "SampledBuffer\nUses the Buffer Dim with an OpTypeImage having Sampled == 0 or 1.",
+                "Implicitly Declares": ""
+            },
+            {
+                "Value": "47",
+                "Capability": "ImageBuffer\nUses the Buffer Dim with an OpTypeImage having Sampled == 2.",
+                "Implicitly Declares": "SampledBuffer"
+            },
+            {
+                "Value": "48",
+                "Capability": "ImageMSArray\nAn MS operand in OpTypeImage indicates multisampled, used with an OpTypeImage having Sampled == 2.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "49",
+                "Capability": "StorageImageExtendedFormats\nOne of a large set of more advanced image formats are used, namely one of those in the Image Format table listed as requiring this capability.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "50",
+                "Capability": "ImageQuery\nThe sizes, number of samples, or lod, etc. are queried.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "51",
+                "Capability": "DerivativeControl\nUses fine or coarse-grained derivatives, e.g., OpDPdxFine.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "52",
+                "Capability": "InterpolationFunction\nUses one of the InterpolateAtCentroid, InterpolateAtSample, or InterpolateAtOffset GLSL.std.450 extended instructions.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "53",
+                "Capability": "TransformFeedback\nUses the Xfb Execution Mode.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "54",
+                "Capability": "GeometryStreams\nUses multiple numbered streams for geometry-stage output.",
+                "Implicitly Declares": "Geometry"
+            },
+            {
+                "Value": "55",
+                "Capability": "StorageImageReadWithoutFormat\nOpImageRead can use the Unknown Image Format.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "56",
+                "Capability": "StorageImageWriteWithoutFormat\nOpImageWrite can use the Unknown Image Format.",
+                "Implicitly Declares": "Shader"
+            },
+            {
+                "Value": "57",
+                "Capability": "MultiViewport\nMultiple viewports are used.",
+                "Implicitly Declares": "Geometry"
+            },
+            {
+                "Value": "58",
+                "Capability": "SubgroupDispatch\nUses subgroup dispatch instructions.",
+                "Implicitly Declares": "DeviceEnqueue\n\nMissing before version 1.1."
+            },
+            {
+                "Value": "59",
+                "Capability": "NamedBarrier\nUses OpTypeNamedBarrier.",
+                "Implicitly Declares": "Kernel\n\nMissing before version 1.1."
+            },
+            {
+                "Value": "60",
+                "Capability": "PipeStorage\nUses OpTypePipeStorage.",
+                "Implicitly Declares": "Pipes\n\nMissing before version 1.1."
+            },
+            {
+                "Value": "61",
+                "Capability": "GroupNonUniform",
+                "Implicitly Declares": "Missing before version 1.3."
+            },
+            {
+                "Value": "62",
+                "Capability": "GroupNonUniformVote",
+                "Implicitly Declares": "GroupNonUniform\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "63",
+                "Capability": "GroupNonUniformArithmetic",
+                "Implicitly Declares": "GroupNonUniform\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "64",
+                "Capability": "GroupNonUniformBallot",
+                "Implicitly Declares": "GroupNonUniform\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "65",
+                "Capability": "GroupNonUniformShuffle",
+                "Implicitly Declares": "GroupNonUniform\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "66",
+                "Capability": "GroupNonUniformShuffleRelative",
+                "Implicitly Declares": "GroupNonUniform\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "67",
+                "Capability": "GroupNonUniformClustered",
+                "Implicitly Declares": "GroupNonUniform\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "68",
+                "Capability": "GroupNonUniformQuad",
+                "Implicitly Declares": "GroupNonUniform\n\nMissing before version 1.3."
+            },
+            {
+                "Value": "69",
+                "Capability": "ShaderLayer",
+                "Implicitly Declares": "Missing before version 1.5."
+            },
+            {
+                "Value": "70",
+                "Capability": "ShaderViewportIndex",
+                "Implicitly Declares": "Missing before version 1.5."
+            },
+            {
+                "Value": "4422",
+                "Capability": "FragmentShadingRateKHR",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_KHR_fragment_shading_rate"
+            },
+            {
+                "Value": "4423",
+                "Capability": "SubgroupBallotKHR",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_KHR_shader_ballot"
+            },
+            {
+                "Value": "4427",
+                "Capability": "DrawParameters",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_shader_draw_parameters"
+            },
+            {
+                "Value": "4431",
+                "Capability": "SubgroupVoteKHR",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_KHR_subgroup_vote"
+            },
+            {
+                "Value": "4433",
+                "Capability": "StorageBuffer16BitAccess\nUses 16-bit OpTypeFloat and OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the StorageBuffer storage class, the PhysicalStorageBuffer storage class, or the Uniform storage class with the BufferBlock decoration.",
+                "Implicitly Declares": "Missing before version 1.3.\n\n\nAlso see extension: SPV_KHR_16bit_storage"
+            },
+            {
+                "Value": "4433",
+                "Capability": "StorageUniformBufferBlock16",
+                "Implicitly Declares": "Missing before version 1.3.\n\n\nAlso see extension: SPV_KHR_16bit_storage"
+            },
+            {
+                "Value": "4434",
+                "Capability": "UniformAndStorageBuffer16BitAccess\nUses 16-bit OpTypeFloat and OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the StorageBuffer storage class, the PhysicalStorageBuffer storage class, or the Uniform storage class.",
+                "Implicitly Declares": "StorageBuffer16BitAccess, StorageUniformBufferBlock16\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_16bit_storage"
+            },
+            {
+                "Value": "4434",
+                "Capability": "StorageUniform16",
+                "Implicitly Declares": "StorageBuffer16BitAccess, StorageUniformBufferBlock16\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_16bit_storage"
+            },
+            {
+                "Value": "4435",
+                "Capability": "StoragePushConstant16\nUses 16-bit OpTypeFloat and OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the PushConstant storage class.",
+                "Implicitly Declares": "Missing before version 1.3.\n\n\nAlso see extension: SPV_KHR_16bit_storage"
+            },
+            {
+                "Value": "4436",
+                "Capability": "StorageInputOutput16\nUses 16-bit OpTypeFloat and OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the Output storage class.",
+                "Implicitly Declares": "Missing before version 1.3.\n\n\nAlso see extension: SPV_KHR_16bit_storage"
+            },
+            {
+                "Value": "4437",
+                "Capability": "DeviceGroup",
+                "Implicitly Declares": "Missing before version 1.3.\n\n\nAlso see extension: SPV_KHR_device_group"
+            },
+            {
+                "Value": "4439",
+                "Capability": "MultiView",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_multiview"
+            },
+            {
+                "Value": "4441",
+                "Capability": "VariablePointersStorageBuffer\nAllow variable pointers, each confined to a single Block-decorated struct in the StorageBuffer storage class.",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_variable_pointers"
+            },
+            {
+                "Value": "4442",
+                "Capability": "VariablePointers\nAllow variable pointers.",
+                "Implicitly Declares": "VariablePointersStorageBuffer\n\nMissing before version 1.3.\n\n\nAlso see extension: SPV_KHR_variable_pointers"
+            },
+            {
+                "Value": "4445",
+                "Capability": "AtomicStorageOps",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_KHR_shader_atomic_counter_ops"
+            },
+            {
+                "Value": "4447",
+                "Capability": "SampleMaskPostDepthCoverage",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_KHR_post_depth_coverage"
+            },
+            {
+                "Value": "4448",
+                "Capability": "StorageBuffer8BitAccess\nUses 8-bit OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the StorageBuffer storage class or the PhysicalStorageBuffer storage class.",
+                "Implicitly Declares": "Missing before version 1.5.\n\n\nAlso see extension: SPV_KHR_8bit_storage"
+            },
+            {
+                "Value": "4449",
+                "Capability": "UniformAndStorageBuffer8BitAccess\nUses 8-bit OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the StorageBuffer storage class, the PhysicalStorageBuffer storage class, or the Uniform storage class.",
+                "Implicitly Declares": "StorageBuffer8BitAccess\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_KHR_8bit_storage"
+            },
+            {
+                "Value": "4450",
+                "Capability": "StoragePushConstant8\nUses 8-bit OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the PushConstant storage class.",
+                "Implicitly Declares": "Missing before version 1.5.\n\n\nAlso see extension: SPV_KHR_8bit_storage"
+            },
+            {
+                "Value": "4464",
+                "Capability": "DenormPreserve\nUses the DenormPreserve execution mode.",
+                "Implicitly Declares": "Missing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls"
+            },
+            {
+                "Value": "4465",
+                "Capability": "DenormFlushToZero\nUses the DenormFlushToZero execution mode.",
+                "Implicitly Declares": "Missing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls"
+            },
+            {
+                "Value": "4466",
+                "Capability": "SignedZeroInfNanPreserve\nUses the SignedZeroInfNanPreserve execution mode.",
+                "Implicitly Declares": "Missing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls"
+            },
+            {
+                "Value": "4467",
+                "Capability": "RoundingModeRTE\nUses the RoundingModeRTE execution mode.",
+                "Implicitly Declares": "Missing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls"
+            },
+            {
+                "Value": "4468",
+                "Capability": "RoundingModeRTZ\nUses the RoundingModeRTZ execution mode.",
+                "Implicitly Declares": "Missing before version 1.4.\n\n\nAlso see extension: SPV_KHR_float_controls"
+            },
+            {
+                "Value": "4471",
+                "Capability": "RayQueryProvisionalKHR",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_KHR_ray_query"
+            },
+            {
+                "Value": "4472",
+                "Capability": "RayQueryKHR",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_KHR_ray_query"
+            },
+            {
+                "Value": "4478",
+                "Capability": "RayTraversalPrimitiveCullingKHR",
+                "Implicitly Declares": "RayQueryKHR, RayTracingKHR\n\nReserved.\n\nAlso see extensions: SPV_KHR_ray_query, SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "4479",
+                "Capability": "RayTracingKHR",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5008",
+                "Capability": "Float16ImageAMD",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_AMD_gpu_shader_half_float_fetch"
+            },
+            {
+                "Value": "5009",
+                "Capability": "ImageGatherBiasLodAMD",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_AMD_texture_gather_bias_lod"
+            },
+            {
+                "Value": "5010",
+                "Capability": "FragmentMaskAMD",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_AMD_shader_fragment_mask"
+            },
+            {
+                "Value": "5013",
+                "Capability": "StencilExportEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_shader_stencil_export"
+            },
+            {
+                "Value": "5015",
+                "Capability": "ImageReadWriteLodAMD",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_AMD_shader_image_load_store_lod"
+            },
+            {
+                "Value": "5016",
+                "Capability": "Int64ImageEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_shader_image_int64"
+            },
+            {
+                "Value": "5055",
+                "Capability": "ShaderClockKHR",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_KHR_shader_clock"
+            },
+            {
+                "Value": "5249",
+                "Capability": "SampleMaskOverrideCoverageNV",
+                "Implicitly Declares": "SampleRateShading\n\nReserved.\n\nAlso see extension: SPV_NV_sample_mask_override_coverage"
+            },
+            {
+                "Value": "5251",
+                "Capability": "GeometryShaderPassthroughNV",
+                "Implicitly Declares": "Geometry\n\nReserved.\n\nAlso see extension: SPV_NV_geometry_shader_passthrough"
+            },
+            {
+                "Value": "5254",
+                "Capability": "ShaderViewportIndexLayerEXT",
+                "Implicitly Declares": "MultiViewport\n\nReserved.\n\nAlso see extension: SPV_EXT_shader_viewport_index_layer"
+            },
+            {
+                "Value": "5254",
+                "Capability": "ShaderViewportIndexLayerNV",
+                "Implicitly Declares": "MultiViewport\n\nReserved.\n\nAlso see extension: SPV_NV_viewport_array2"
+            },
+            {
+                "Value": "5255",
+                "Capability": "ShaderViewportMaskNV",
+                "Implicitly Declares": "ShaderViewportIndexLayerNV\n\nReserved.\n\nAlso see extension: SPV_NV_viewport_array2"
+            },
+            {
+                "Value": "5259",
+                "Capability": "ShaderStereoViewNV",
+                "Implicitly Declares": "ShaderViewportMaskNV\n\nReserved.\n\nAlso see extension: SPV_NV_stereo_view_rendering"
+            },
+            {
+                "Value": "5260",
+                "Capability": "PerViewAttributesNV",
+                "Implicitly Declares": "MultiView\n\nReserved.\n\nAlso see extension: SPV_NVX_multiview_per_view_attributes"
+            },
+            {
+                "Value": "5265",
+                "Capability": "FragmentFullyCoveredEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_fully_covered"
+            },
+            {
+                "Value": "5266",
+                "Capability": "MeshShadingNV",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_NV_mesh_shader"
+            },
+            {
+                "Value": "5282",
+                "Capability": "ImageFootprintNV",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_NV_shader_image_footprint"
+            },
+            {
+                "Value": "5284",
+                "Capability": "FragmentBarycentricNV",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_NV_fragment_shader_barycentric"
+            },
+            {
+                "Value": "5288",
+                "Capability": "ComputeDerivativeGroupQuadsNV",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_NV_compute_shader_derivatives"
+            },
+            {
+                "Value": "5291",
+                "Capability": "FragmentDensityEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extensions: SPV_EXT_fragment_invocation_density, SPV_NV_shading_rate"
+            },
+            {
+                "Value": "5291",
+                "Capability": "ShadingRateNV",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extensions: SPV_NV_shading_rate, SPV_EXT_fragment_invocation_density"
+            },
+            {
+                "Value": "5297",
+                "Capability": "GroupNonUniformPartitionedNV",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_NV_shader_subgroup_partitioned"
+            },
+            {
+                "Value": "5301",
+                "Capability": "ShaderNonUniform\nUses the NonUniform decoration on a variable or instruction.",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5301",
+                "Capability": "ShaderNonUniformEXT",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5302",
+                "Capability": "RuntimeDescriptorArray\nUses arrays of resources which are sized at run-time.",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5302",
+                "Capability": "RuntimeDescriptorArrayEXT",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5303",
+                "Capability": "InputAttachmentArrayDynamicIndexing\nArrays of InputAttachments use dynamically uniform indexing.",
+                "Implicitly Declares": "InputAttachment\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5303",
+                "Capability": "InputAttachmentArrayDynamicIndexingEXT",
+                "Implicitly Declares": "InputAttachment\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5304",
+                "Capability": "UniformTexelBufferArrayDynamicIndexing\nArrays of SampledBuffers use dynamically uniform indexing.",
+                "Implicitly Declares": "SampledBuffer\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5304",
+                "Capability": "UniformTexelBufferArrayDynamicIndexingEXT",
+                "Implicitly Declares": "SampledBuffer\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5305",
+                "Capability": "StorageTexelBufferArrayDynamicIndexing\nArrays of ImageBuffers use dynamically uniform indexing.",
+                "Implicitly Declares": "ImageBuffer\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5305",
+                "Capability": "StorageTexelBufferArrayDynamicIndexingEXT",
+                "Implicitly Declares": "ImageBuffer\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5306",
+                "Capability": "UniformBufferArrayNonUniformIndexing\nBlock-decorated arrays in uniform storage classes use non-uniform indexing.",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5306",
+                "Capability": "UniformBufferArrayNonUniformIndexingEXT",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5307",
+                "Capability": "SampledImageArrayNonUniformIndexing\nArrays of sampled images use non-uniform indexing.",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5307",
+                "Capability": "SampledImageArrayNonUniformIndexingEXT",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5308",
+                "Capability": "StorageBufferArrayNonUniformIndexing\nArrays in the StorageBuffer storage class or BufferBlock-decorated arrays use non-uniform indexing.",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5308",
+                "Capability": "StorageBufferArrayNonUniformIndexingEXT",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5309",
+                "Capability": "StorageImageArrayNonUniformIndexing\nArrays of non-sampled images use non-uniform indexing.",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5309",
+                "Capability": "StorageImageArrayNonUniformIndexingEXT",
+                "Implicitly Declares": "ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5310",
+                "Capability": "InputAttachmentArrayNonUniformIndexing\nArrays of InputAttachments use non-uniform indexing.",
+                "Implicitly Declares": "InputAttachment, ShaderNonUniform\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5310",
+                "Capability": "InputAttachmentArrayNonUniformIndexingEXT",
+                "Implicitly Declares": "InputAttachment, ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5311",
+                "Capability": "UniformTexelBufferArrayNonUniformIndexing\nArrays of SampledBuffers use non-uniform indexing.",
+                "Implicitly Declares": "SampledBuffer, ShaderNonUniform\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5311",
+                "Capability": "UniformTexelBufferArrayNonUniformIndexingEXT",
+                "Implicitly Declares": "SampledBuffer, ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5312",
+                "Capability": "StorageTexelBufferArrayNonUniformIndexing\nArrays of ImageBuffers use non-uniform indexing.",
+                "Implicitly Declares": "ImageBuffer, ShaderNonUniform\n\nMissing before version 1.5."
+            },
+            {
+                "Value": "5312",
+                "Capability": "StorageTexelBufferArrayNonUniformIndexingEXT",
+                "Implicitly Declares": "ImageBuffer, ShaderNonUniform\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_descriptor_indexing"
+            },
+            {
+                "Value": "5340",
+                "Capability": "RayTracingNV",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_NV_ray_tracing"
+            },
+            {
+                "Value": "5345",
+                "Capability": "VulkanMemoryModel\nUses the Vulkan memory model. This capability must be declared if and only if the Vulkan memory model is declared.",
+                "Implicitly Declares": "Missing before version 1.5."
+            },
+            {
+                "Value": "5345",
+                "Capability": "VulkanMemoryModelKHR",
+                "Implicitly Declares": "Missing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "5346",
+                "Capability": "VulkanMemoryModelDeviceScope\nUses Device scope with any instruction when the Vulkan memory model is declared.",
+                "Implicitly Declares": "Missing before version 1.5."
+            },
+            {
+                "Value": "5346",
+                "Capability": "VulkanMemoryModelDeviceScopeKHR",
+                "Implicitly Declares": "Missing before version 1.5.\n\n\nAlso see extension: SPV_KHR_vulkan_memory_model"
+            },
+            {
+                "Value": "5347",
+                "Capability": "PhysicalStorageBufferAddresses\nUses physical addressing on storage buffers.",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.5.\n\n\nAlso see extensions: SPV_EXT_physical_storage_buffer, SPV_KHR_physical_storage_buffer"
+            },
+            {
+                "Value": "5347",
+                "Capability": "PhysicalStorageBufferAddressesEXT",
+                "Implicitly Declares": "Shader\n\nMissing before version 1.5.\n\n\nAlso see extension: SPV_EXT_physical_storage_buffer"
+            },
+            {
+                "Value": "5350",
+                "Capability": "ComputeDerivativeGroupLinearNV",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_NV_compute_shader_derivatives"
+            },
+            {
+                "Value": "5353",
+                "Capability": "RayTracingProvisionalKHR",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_KHR_ray_tracing"
+            },
+            {
+                "Value": "5357",
+                "Capability": "CooperativeMatrixNV",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_NV_cooperative_matrix"
+            },
+            {
+                "Value": "5363",
+                "Capability": "FragmentShaderSampleInterlockEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock"
+            },
+            {
+                "Value": "5372",
+                "Capability": "FragmentShaderShadingRateInterlockEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock"
+            },
+            {
+                "Value": "5373",
+                "Capability": "ShaderSMBuiltinsNV",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_NV_shader_sm_builtins"
+            },
+            {
+                "Value": "5378",
+                "Capability": "FragmentShaderPixelInterlockEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_fragment_shader_interlock"
+            },
+            {
+                "Value": "5379",
+                "Capability": "DemoteToHelperInvocationEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_demote_to_helper_invocation"
+            },
+            {
+                "Value": "5568",
+                "Capability": "SubgroupShuffleINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_subgroups"
+            },
+            {
+                "Value": "5569",
+                "Capability": "SubgroupBufferBlockIOINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_subgroups"
+            },
+            {
+                "Value": "5570",
+                "Capability": "SubgroupImageBlockIOINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_subgroups"
+            },
+            {
+                "Value": "5579",
+                "Capability": "SubgroupImageMediaBlockIOINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_media_block_io"
+            },
+            {
+                "Value": "5584",
+                "Capability": "IntegerFunctions2INTEL",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_INTEL_shader_integer_functions2"
+            },
+            {
+                "Value": "5603",
+                "Capability": "FunctionPointersINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_function_pointers"
+            },
+            {
+                "Value": "5604",
+                "Capability": "IndirectReferencesINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_function_pointers"
+            },
+            {
+                "Value": "5696",
+                "Capability": "SubgroupAvcMotionEstimationINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_device_side_avc_motion_estimation"
+            },
+            {
+                "Value": "5697",
+                "Capability": "SubgroupAvcMotionEstimationIntraINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_device_side_avc_motion_estimation"
+            },
+            {
+                "Value": "5698",
+                "Capability": "SubgroupAvcMotionEstimationChromaINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_device_side_avc_motion_estimation"
+            },
+            {
+                "Value": "5824",
+                "Capability": "FPGAMemoryAttributesINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_fpga_memory_attributes"
+            },
+            {
+                "Value": "5886",
+                "Capability": "UnstructuredLoopControlsINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_unstructured_loop_controls"
+            },
+            {
+                "Value": "5888",
+                "Capability": "FPGALoopControlsINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_fpga_loop_controls"
+            },
+            {
+                "Value": "5892",
+                "Capability": "KernelAttributesINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_kernel_attributes"
+            },
+            {
+                "Value": "5897",
+                "Capability": "FPGAKernelAttributesINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_kernel_attributes"
+            },
+            {
+                "Value": "5945",
+                "Capability": "BlockingPipesINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_blocking_pipes"
+            },
+            {
+                "Value": "5948",
+                "Capability": "FPGARegINTEL",
+                "Implicitly Declares": "Reserved.\n\nAlso see extension: SPV_INTEL_fpga_reg"
+            },
+            {
+                "Value": "6033",
+                "Capability": "AtomicFloat32AddEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_shader_atomic_float_add"
+            },
+            {
+                "Value": "6034",
+                "Capability": "AtomicFloat64AddEXT",
+                "Implicitly Declares": "Shader\n\nReserved.\n\nAlso see extension: SPV_EXT_shader_atomic_float_add"
+            }
+        ],
+        "Reserved": [
+            {
+                "Value": "0x0",
+                "Reserved Fragment Shading Rate": "None",
+                "Enabling Capabilities": ""
+            },
+            {
+                "Value": "0x1",
+                "Reserved Fragment Shading Rate": "Vertical2Pixels",
+                "Enabling Capabilities": "FragmentShadingRateKHR\n\nReserved."
+            },
+            {
+                "Value": "0x2",
+                "Reserved Fragment Shading Rate": "Vertical4Pixels",
+                "Enabling Capabilities": "FragmentShadingRateKHR\n\nReserved."
+            },
+            {
+                "Value": "0x4",
+                "Reserved Fragment Shading Rate": "Horizontal2Pixels",
+                "Enabling Capabilities": "FragmentShadingRateKHR\n\nReserved."
+            },
+            {
+                "Value": "0x8",
+                "Reserved Fragment Shading Rate": "Horizontal4Pixels",
+                "Enabling Capabilities": "FragmentShadingRateKHR\n\nReserved."
+            }
+        ]
+    }
+}
