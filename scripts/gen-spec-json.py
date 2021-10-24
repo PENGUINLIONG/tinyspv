@@ -103,8 +103,10 @@ def table2enum(table: TableParser, subsec):
             # If the extra operand is empty, just remove it.
             if len(row[2]) == 0:
                 del row[2]
+            name, desc = tuple((row[1] + "\n").split("\n", maxsplit=1))
             elem = {
-                table.col_defs[0]: row[1],
+                "Name": name.strip(),
+                "Description": desc.strip(),
                 table.col_defs[1]: row[2:-1],
                 table.col_defs[2]: row[-1],
                 "Value": row[0]
@@ -114,7 +116,13 @@ def table2enum(table: TableParser, subsec):
         # General cases for other literal number specifications.
         for row in table.rows:
             assert len(row) == ncol_def + 1
-            elem = dict(zip(["Value"] + table.col_defs, row))
+            name, desc = tuple((row[1] + "\n").split("\n", maxsplit=1))
+            elem = {
+                "Name": name.strip(),
+                "Description": desc.strip(),
+                table.col_defs[1]: row[2],
+                "Value": row[0]
+            }
             out += [elem]
     elif ncol_def >= 1:
         for row in table.rows:
