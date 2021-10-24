@@ -5,6 +5,7 @@ Generate machine readable JSON referring to the SPIR-V specification.
 from html.parser import HTMLParser
 import json
 from collections import defaultdict
+import re
 
 with open("specs/unified1/SPIRV.html") as f:
     spec = f.read()
@@ -82,6 +83,36 @@ class TableParser:
         elif tag == "td" and self.should_update_rows:
             self.rows[-1] += [self.gather_text.strip()]
 
+def decompose_enabling_capabilities(cap):
+    segs = [x.strip() for x in cap.split('\n')]
+    out_caps = []
+    out_reserved = False
+    out_miss_before = ""
+    out_miss_after = ""
+    out_exts = []
+
+    if len(segs) > 0:
+        out_caps = [x.strip() for x in segs[0].split(',')]
+    # Remove trailing empty extra operands.
+    while len(out_caps) > 0 and len(out_caps[-1]) == 0:
+        del out_caps[-1]
+    for seg in segs[1:]:
+        if seg == "":
+            pass
+        elif seg == "Reserved.":
+            out_reserved = True
+        elif seg.startswith("Missing before version ") and seg.endswith("."):
+            out_miss_before = seg[len("Missing before version "):-1]
+        elif seg.startswith("Missing after version ") and seg.endswith("."):
+            out_miss_after = seg[len("Missing after version "):-1]
+        elif seg.startswith("Also see extension: "):
+            out_exts = [x.strip() for x in seg[len("Also see extension: "):].split(',')]
+        elif seg.startswith("Also see extensions: "):
+            out_exts = [x.strip() for x in seg[len("Also see extensions: "):].split(',')]
+        else:
+            raise RuntimeError(f"unknown capability pattern: {seg}")
+    return (out_caps, out_reserved, out_miss_before, out_miss_after, out_exts)
+
 def table2enum(table: TableParser, subsec):
     out = []
     ncol_def = len(table.col_defs)
@@ -100,16 +131,22 @@ def table2enum(table: TableParser, subsec):
             "column 3 must be the enabling capabilities"
         for row in table.rows:
             assert len(row) >= ncol_def
-            # If the extra operand is empty, just remove it.
-            if len(row[2]) == 0:
-                del row[2]
             name, desc = tuple((row[1] + "\n").split("\n", maxsplit=1))
+            extra = row[2:-1]
+            # Remove trailing empty extra operands.
+            while len(extra) > 0 and len(extra[-1]) == 0:
+                del extra[-1]
+            caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[-1])
             elem = {
                 "Name": name.strip(),
                 "Description": desc.strip(),
-                table.col_defs[1]: row[2:-1],
-                table.col_defs[2]: row[-1],
-                "Value": row[0]
+                table.col_defs[1]: extra,
+                table.col_defs[2]: caps,
+                "Reserved": reserved,
+                "Missing Before": miss_before,
+                "Missing After": miss_after,
+                "See Extensions": exts,
+                "Value": row[0],
             }
             out += [elem]
     elif ncol_def >= 2:
@@ -117,10 +154,18 @@ def table2enum(table: TableParser, subsec):
         for row in table.rows:
             assert len(row) == ncol_def + 1
             name, desc = tuple((row[1] + "\n").split("\n", maxsplit=1))
+            assert table.col_defs[1] == "Enabling Capabilities" or \
+                table.col_defs[1] == "Implicitly Declares", \
+                "unsupported capability column"
+            caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[2])
             elem = {
                 "Name": name.strip(),
                 "Description": desc.strip(),
-                table.col_defs[1]: row[2],
+                table.col_defs[1]: caps,
+                "Reserved": reserved,
+                "Missing Before": miss_before,
+                "Missing After": miss_after,
+                "See Extensions": exts,
                 "Value": row[0]
             }
             out += [elem]
@@ -137,6 +182,21 @@ def table2enum(table: TableParser, subsec):
         raise RuntimeError("unsupported column pattern")
     return out
 
+def decompose_instr_desc(desc):
+    segs = desc.split('\n')
+    out_desc = []
+    out_exts = []
+    for seg in segs:
+        if seg.startswith("See extension "):
+            out_exts = [x.strip() for x in seg[len("See extension "):].split(",")]
+        elif seg.startswith("See extensions "):
+            out_exts = [x.strip() for x in seg[len("See extensions "):].split(",")]
+        else:
+            # There might be other descriptions but these are safe to ignore.
+            out_desc += [seg]
+    out_desc = '\n'.join(out_desc)
+    return (out_desc, out_exts)
+
 def table2instr(table: TableParser, subsubsec):
     assert len(table.rows) == 2, \
         "instruction specification must have two rows"
@@ -144,19 +204,57 @@ def table2instr(table: TableParser, subsubsec):
     first_row = table.rows[0]
     name, desc = tuple(x.strip() for x in first_row[0].split("\n", maxsplit=1))
     cap = first_row[1] if len(first_row) > 1 else ""
+    if cap.startswith("Capability:"):
+        cap = cap[len("Capability:"):]
+    cap = cap.strip()
+    caps, reserved, miss_before, miss_after, _ = decompose_enabling_capabilities(cap)
+    desc, exts = decompose_instr_desc(desc)
 
     second_row = table.rows[1]
     word_count = second_row[0]
+    if word_count.endswith(" + variable"):
+        variable_word_count = True
+        min_word_count = word_count[:-len(" + variable")]
+    else:
+        variable_word_count = False
+        min_word_count = word_count
     opcode = second_row[1]
-    operands = second_row[2:]
+    out_operands = []
+    for operand in second_row[2:]:
+        segs = [x.strip() for x in operand.split("\n")]
+        if segs[0].startswith("Optional"):
+            optional = True
+            del segs[0]
+        else:
+            optional = False
+
+        # Concatenate multi-line operand list description. See `OpSwitch`.
+        segs2 = [""]
+        for seg in segs:
+            segs2[-1] += seg
+            segs2[-1] += " "
+            if not seg.endswith(','):
+                segs2 += [""]
+        assert segs2[-1] == ""
+        segs = segs2[:-1]
+
+        assert len(segs) <= 2, f"unexpected operand description row {segs}"
+        ty = segs[0]
+        desc2 = segs[1] if len(segs) == 2 else ""
+        out_operands += [{ "Type": ty.strip(), "Description": desc2.strip(), "Optional": optional }]
 
     return {
         "Name": name,
         "Description": desc,
-        "Enabling Capabilities": cap,
-        "Word Count": word_count,
-        "Opcode": opcode,
-        "Operands": operands,
+        "Enabling Capabilities": caps,
+        "Reserved": reserved,
+        "Missing Before": miss_before,
+        "Missing After": miss_after,
+        "See Extensions": exts,
+        "Min Word Count": int(min_word_count),
+        "Variable Word Count": variable_word_count,
+        "Opcode": int(opcode),
+        "Operands": out_operands,
     }
 
 
