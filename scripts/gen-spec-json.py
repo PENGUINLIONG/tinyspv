@@ -243,8 +243,14 @@ def table2instr(table: TableParser, subsubsec):
         desc2 = segs[1] if len(segs) == 2 else ""
         out_operands += [{ "Type": ty.strip(), "Description": desc2.strip(), "Optional": optional }]
 
+    m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
+    assert m, f"invalid op name pattern {name}"
+    name = m[1]
+    aliases = [] if m[2] == None else m[2].split(",")
+
     return {
         "Name": name,
+        "Aliases": aliases,
         "Description": desc,
         "Enabling Capabilities": caps,
         "Reserved": reserved,
