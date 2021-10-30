@@ -9,6 +9,8 @@ with open("./include/tinyspv/spirv/unified1/spirv.hpp") as f:
             break
         HEADERS += [line]
     for line in lines:
+        if "Alias" in line:
+            continue
         m = match(r"Op([A-Za-z0-9]+) = [0-9]+,", line)
         if m:
             op_names += [m[1]]

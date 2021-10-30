@@ -24,9 +24,7 @@ const char* opcode2str(int opcode) {
   case Op::OpGroupMemberDecorate: return "GroupMemberDecorate";
   case Op::OpDecorateId: return "DecorateId";
   case Op::OpDecorateString: return "DecorateString";
-  case Op::OpDecorateStringGOOGLE: return "DecorateStringGOOGLE";
   case Op::OpMemberDecorateString: return "MemberDecorateString";
-  case Op::OpMemberDecorateStringGOOGLE: return "MemberDecorateStringGOOGLE";
   case Op::OpExtension: return "Extension";
   case Op::OpExtInstImport: return "ExtInstImport";
   case Op::OpExtInst: return "ExtInst";
@@ -400,12 +398,10 @@ const char* opcode2str(int opcode) {
   case Op::OpReadClockKHR: return "ReadClockKHR";
   case Op::OpWritePackedPrimitiveIndices4x8NV: return "WritePackedPrimitiveIndices4x8NV";
   case Op::OpReportIntersectionNV: return "ReportIntersectionNV";
-  case Op::OpReportIntersectionKHR: return "ReportIntersectionKHR";
   case Op::OpIgnoreIntersectionNV: return "IgnoreIntersectionNV";
   case Op::OpTerminateRayNV: return "TerminateRayNV";
   case Op::OpTraceNV: return "TraceNV";
   case Op::OpTypeAccelerationStructureNV: return "TypeAccelerationStructureNV";
-  case Op::OpTypeAccelerationStructureKHR: return "TypeAccelerationStructureKHR";
   case Op::OpExecuteCallableNV: return "ExecuteCallableNV";
   case Op::OpTypeCooperativeMatrixNV: return "TypeCooperativeMatrixNV";
   case Op::OpCooperativeMatrixLoadNV: return "CooperativeMatrixLoadNV";
