@@ -1,337 +1,73 @@
 // THIS IS A GENERATED SOURCE. MODIFICATION WILL BE OVERWRITTEN.
+// USING JSON FROM:
+//   PENGUINLIONG/tinyspv @ db18ea116bd8c195ee18714eb9dffab473dfa7da
 #pragma once
 #include <vector>
 #include <optional>
 #include "spirv/unified1/spirv.hpp"
 namespace tinyspv {
 typedef uint32_t Id;
-// ------ composite type definition begins ------
-struct PairLiteralIntegerIdRef {
-  uint32_t literal_integer;
-  Id id_ref;
-};
-struct PairIdRefLiteralInteger {
-  Id id_ref;
-  uint32_t literal_integer;
-};
-struct PairIdRefIdRef {
-  Id id_ref;
-  Id id_ref2;
-};
-// ------ composite type definition ends ------
+typedef std::vector<uint32_t> Literal;
 // ------ operand struct definition begins ------
 struct OpNop {
 };
 struct OpUndef {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
+};
+struct OpSizeOf {
+  Id result_type;
+  Id result_id;
+  Id pointer;
 };
 struct OpSourceContinued {
-  uint32_t continued_source;
+  Literal continued_source;
 };
 struct OpSource {
-  spv::SourceLanguage source_language;
-  uint32_t version;
+  SourceLanguage source_language;
+  Literal version;
   std::optional<Id> file;
-  std::optional<uint32_t> source;
+  std::optional<Literal> source;
 };
 struct OpSourceExtension {
-  uint32_t extension;
+  Literal extension;
 };
 struct OpName {
   Id target;
-  uint32_t name;
+  Literal name;
 };
 struct OpMemberName {
   Id type;
-  uint32_t member;
-  uint32_t name;
+  Literal member;
+  Literal name;
 };
 struct OpString {
-  Id id_result;
-  uint32_t string;
+  Id result_id;
+  Literal string;
 };
 struct OpLine {
   Id file;
-  uint32_t line;
-  uint32_t column;
+  Literal line;
+  Literal column;
 };
-struct OpExtension {
-  uint32_t name;
+struct OpNoLine {
 };
-struct OpExtInstImport {
-  Id id_result;
-  uint32_t name;
-};
-struct OpExtInst {
-  Id id_result_type;
-  Id id_result;
-  Id set;
-  uint32_t instruction;
-  std::vector<Id> operands;
-};
-struct OpMemoryModel {
-  spv::AddressingModel addressing_model;
-  spv::MemoryModel memory_model;
-};
-struct OpEntryPoint {
-  spv::ExecutionModel execution_model;
-  Id entry_point;
-  uint32_t name;
-  std::vector<Id> interface;
-};
-struct OpExecutionMode {
-  Id entry_point;
-  spv::ExecutionMode mode;
-};
-struct OpCapability {
-  spv::Capability capability;
-};
-struct OpTypeVoid {
-  Id id_result;
-};
-struct OpTypeBool {
-  Id id_result;
-};
-struct OpTypeInt {
-  Id id_result;
-  uint32_t width;
-  uint32_t signedness;
-};
-struct OpTypeFloat {
-  Id id_result;
-  uint32_t width;
-};
-struct OpTypeVector {
-  Id id_result;
-  Id component_type;
-  uint32_t component_count;
-};
-struct OpTypeMatrix {
-  Id id_result;
-  Id column_type;
-  uint32_t column_count;
-};
-struct OpTypeImage {
-  Id id_result;
-  Id sampled_type;
-  spv::Dim dim;
-  uint32_t depth;
-  uint32_t arrayed;
-  uint32_t ms;
-  uint32_t sampled;
-  spv::ImageFormat image_format;
-  std::optional<spv::AccessQualifier> access_qualifier;
-};
-struct OpTypeSampler {
-  Id id_result;
-};
-struct OpTypeSampledImage {
-  Id id_result;
-  Id image_type;
-};
-struct OpTypeArray {
-  Id id_result;
-  Id element_type;
-  Id length;
-};
-struct OpTypeRuntimeArray {
-  Id id_result;
-  Id element_type;
-};
-struct OpTypeStruct {
-  Id id_result;
-  std::vector<Id> member_types;
-};
-struct OpTypeOpaque {
-  Id id_result;
-  uint32_t literal_string;
-};
-struct OpTypePointer {
-  Id id_result;
-  spv::StorageClass storage_class;
-  Id type;
-};
-struct OpTypeFunction {
-  Id id_result;
-  Id return_type;
-  std::vector<Id> parameter_types;
-};
-struct OpTypeEvent {
-  Id id_result;
-};
-struct OpTypeDeviceEvent {
-  Id id_result;
-};
-struct OpTypeReserveId {
-  Id id_result;
-};
-struct OpTypeQueue {
-  Id id_result;
-};
-struct OpTypePipe {
-  Id id_result;
-  spv::AccessQualifier qualifier;
-};
-struct OpTypeForwardPointer {
-  Id pointer_type;
-  spv::StorageClass storage_class;
-};
-struct OpConstantTrue {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpConstantFalse {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpConstant {
-  Id id_result_type;
-  Id id_result;
-  uint32_t value;
-};
-struct OpConstantComposite {
-  Id id_result_type;
-  Id id_result;
-  std::vector<Id> constituents;
-};
-struct OpConstantSampler {
-  Id id_result_type;
-  Id id_result;
-  spv::SamplerAddressingMode sampler_addressing_mode;
-  uint32_t param;
-  spv::SamplerFilterMode sampler_filter_mode;
-};
-struct OpConstantNull {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpSpecConstantTrue {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpSpecConstantFalse {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpSpecConstant {
-  Id id_result_type;
-  Id id_result;
-  uint32_t value;
-};
-struct OpSpecConstantComposite {
-  Id id_result_type;
-  Id id_result;
-  std::vector<Id> constituents;
-};
-struct OpSpecConstantOp {
-  Id id_result_type;
-  Id id_result;
-  uint32_t opcode;
-};
-struct OpFunction {
-  Id id_result_type;
-  Id id_result;
-  spv::FunctionControlMask function_control;
-  Id function_type;
-};
-struct OpFunctionParameter {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpFunctionEnd {
-};
-struct OpFunctionCall {
-  Id id_result_type;
-  Id id_result;
-  Id function;
-  std::vector<Id> arguments;
-};
-struct OpVariable {
-  Id id_result_type;
-  Id id_result;
-  spv::StorageClass storage_class;
-  std::optional<Id> initializer;
-};
-struct OpImageTexelPointer {
-  Id id_result_type;
-  Id id_result;
-  Id image;
-  Id coordinate;
-  Id sample;
-};
-struct OpLoad {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  std::optional<spv::MemoryAccessMask> memory_access;
-};
-struct OpStore {
-  Id pointer;
-  Id object;
-  std::optional<spv::MemoryAccessMask> memory_access;
-};
-struct OpCopyMemory {
-  Id target;
-  Id source;
-  std::optional<spv::MemoryAccessMask> memory_access;
-  std::optional<spv::MemoryAccessMask> memory_access2;
-};
-struct OpCopyMemorySized {
-  Id target;
-  Id source;
-  Id size;
-  std::optional<spv::MemoryAccessMask> memory_access;
-  std::optional<spv::MemoryAccessMask> memory_access2;
-};
-struct OpAccessChain {
-  Id id_result_type;
-  Id id_result;
-  Id base;
-  std::vector<Id> indexes;
-};
-struct OpInBoundsAccessChain {
-  Id id_result_type;
-  Id id_result;
-  Id base;
-  std::vector<Id> indexes;
-};
-struct OpPtrAccessChain {
-  Id id_result_type;
-  Id id_result;
-  Id base;
-  Id element;
-  std::vector<Id> indexes;
-};
-struct OpArrayLength {
-  Id id_result_type;
-  Id id_result;
-  Id structure;
-  uint32_t array_member;
-};
-struct OpGenericPtrMemSemantics {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-};
-struct OpInBoundsPtrAccessChain {
-  Id id_result_type;
-  Id id_result;
-  Id base;
-  Id element;
-  std::vector<Id> indexes;
+struct OpModuleProcessed {
+  Literal process;
 };
 struct OpDecorate {
   Id target;
-  spv::Decoration decoration;
+  Decoration decoration;
+  std::vector<Literal> see_decoration;
 };
 struct OpMemberDecorate {
   Id structure_type;
-  uint32_t member;
-  spv::Decoration decoration;
+  Literal member;
+  Decoration decoration;
+  std::vector<Literal> see_decoration;
 };
 struct OpDecorationGroup {
-  Id id_result;
+  Id result_id;
 };
 struct OpGroupDecorate {
   Id decoration_group;
@@ -339,779 +75,1436 @@ struct OpGroupDecorate {
 };
 struct OpGroupMemberDecorate {
   Id decoration_group;
-  std::vector<PairIdRefLiteralInteger> targets;
+  std::vector<Id> targets;
+  std::vector<Literal> targets2;
 };
-struct OpVectorExtractDynamic {
-  Id id_result_type;
-  Id id_result;
-  Id vector;
-  Id index;
+struct OpDecorateId {
+  Id target;
+  Decoration decoration;
+  std::vector<Id> see_decoration;
 };
-struct OpVectorInsertDynamic {
-  Id id_result_type;
-  Id id_result;
-  Id vector;
-  Id component;
-  Id index;
+struct OpDecorateString {
+  Id target;
+  Decoration decoration;
+  Literal see_decoration;
+  std::vector<Literal> see_decoration2;
 };
-struct OpVectorShuffle {
-  Id id_result_type;
-  Id id_result;
-  Id vector_1;
-  Id vector_2;
-  std::vector<uint32_t> components;
+struct OpMemberDecorateString {
+  Id struct_type;
+  Literal member;
+  Decoration decoration;
+  Literal see_decoration;
+  std::vector<Literal> see_decoration2;
 };
-struct OpCompositeConstruct {
-  Id id_result_type;
-  Id id_result;
+struct OpExtension {
+  Literal name;
+};
+struct OpExtInstImport {
+  Id result_id;
+  Literal name;
+};
+struct OpExtInst {
+  Id result_type;
+  Id result_id;
+  Id set;
+  Literal instruction;
+  std::vector<Id> operand;
+};
+struct OpMemoryModel {
+  AddressingModel addressing_model;
+  MemoryModel memory_model;
+};
+struct OpEntryPoint {
+  ExecutionModel execution_model;
+  Id entry_point;
+  Literal name;
+  std::vector<Id> interface;
+};
+struct OpExecutionMode {
+  Id entry_point;
+  ExecutionMode mode;
+  std::vector<Literal> see_execution_mode;
+};
+struct OpCapability {
+  Capability capability;
+};
+struct OpExecutionModeId {
+  Id entry_point;
+  ExecutionMode mode;
+  std::vector<Id> see_execution_mode;
+};
+struct OpTypeVoid {
+  Id result_id;
+};
+struct OpTypeBool {
+  Id result_id;
+};
+struct OpTypeInt {
+  Id result_id;
+  Literal width;
+  Literal signedness;
+};
+struct OpTypeFloat {
+  Id result_id;
+  Literal width;
+};
+struct OpTypeVector {
+  Id result_id;
+  Id component_type;
+  Literal component_count;
+};
+struct OpTypeMatrix {
+  Id result_id;
+  Id column_type;
+  Literal column_count;
+};
+struct OpTypeImage {
+  Id result_id;
+  Id sampled_type;
+  Dim dim;
+  Literal depth;
+  Literal arrayed;
+  Literal ms;
+  Literal sampled;
+  ImageFormat image_format;
+  std::optional<AccessQualifier> access_qualifier;
+};
+struct OpTypeSampler {
+  Id result_id;
+};
+struct OpTypeSampledImage {
+  Id result_id;
+  Id image_type;
+};
+struct OpTypeArray {
+  Id result_id;
+  Id element_type;
+  Id length;
+};
+struct OpTypeRuntimeArray {
+  Id result_id;
+  Id element_type;
+};
+struct OpTypeStruct {
+  Id result_id;
+  std::vector<Id> member_type;
+};
+struct OpTypeOpaque {
+  Id result_id;
+  Literal the_name_of_the_opaque_type;
+};
+struct OpTypePointer {
+  Id result_id;
+  StorageClass storage_class;
+  Id type;
+};
+struct OpTypeFunction {
+  Id result_id;
+  Id return_type;
+  std::vector<Id> parameter_type;
+};
+struct OpTypeEvent {
+  Id result_id;
+};
+struct OpTypeDeviceEvent {
+  Id result_id;
+};
+struct OpTypeReserveId {
+  Id result_id;
+};
+struct OpTypeQueue {
+  Id result_id;
+};
+struct OpTypePipe {
+  Id result_id;
+  AccessQualifier qualifier;
+};
+struct OpTypeForwardPointer {
+  Id pointer_type;
+  StorageClass storage_class;
+};
+struct OpTypePipeStorage {
+  Id result_id;
+};
+struct OpTypeNamedBarrier {
+  Id result_id;
+};
+struct OpConstantTrue {
+  Id result_type;
+  Id result_id;
+};
+struct OpConstantFalse {
+  Id result_type;
+  Id result_id;
+};
+struct OpConstant {
+  Id result_type;
+  Id result_id;
+  Literal value;
+};
+struct OpConstantComposite {
+  Id result_type;
+  Id result_id;
   std::vector<Id> constituents;
 };
-struct OpCompositeExtract {
-  Id id_result_type;
-  Id id_result;
-  Id composite;
-  std::vector<uint32_t> indexes;
+struct OpConstantSampler {
+  Id result_type;
+  Id result_id;
+  SamplerAddressingMode sampler_addressing_mode;
+  Literal param;
+  SamplerFilterMode sampler_filter_mode;
 };
-struct OpCompositeInsert {
-  Id id_result_type;
-  Id id_result;
+struct OpConstantNull {
+  Id result_type;
+  Id result_id;
+};
+struct OpSpecConstantTrue {
+  Id result_type;
+  Id result_id;
+};
+struct OpSpecConstantFalse {
+  Id result_type;
+  Id result_id;
+};
+struct OpSpecConstant {
+  Id result_type;
+  Id result_id;
+  Literal value;
+};
+struct OpSpecConstantComposite {
+  Id result_type;
+  Id result_id;
+  std::vector<Id> constituents;
+};
+struct OpSpecConstantOp {
+  Id result_type;
+  Id result_id;
+  Literal opcode;
+  std::vector<Id> operands;
+};
+struct OpVariable {
+  Id result_type;
+  Id result_id;
+  StorageClass storage_class;
+  std::optional<Id> initializer;
+};
+struct OpImageTexelPointer {
+  Id result_type;
+  Id result_id;
+  Id image;
+  Id coordinate;
+  Id sample;
+};
+struct OpLoad {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  std::optional<MemoryOperands> memory_operands;
+};
+struct OpStore {
+  Id pointer;
   Id object;
-  Id composite;
-  std::vector<uint32_t> indexes;
+  std::optional<MemoryOperands> memory_operands;
 };
-struct OpCopyObject {
-  Id id_result_type;
-  Id id_result;
-  Id operand;
+struct OpCopyMemory {
+  Id target;
+  Id source;
+  std::optional<MemoryOperands> memory_operands;
+  std::optional<MemoryOperands> memory_operands2;
 };
-struct OpTranspose {
-  Id id_result_type;
-  Id id_result;
-  Id matrix;
+struct OpCopyMemorySized {
+  Id target;
+  Id source;
+  Id size;
+  std::optional<MemoryOperands> memory_operands;
+  std::optional<MemoryOperands> memory_operands2;
+};
+struct OpAccessChain {
+  Id result_type;
+  Id result_id;
+  Id base;
+  std::vector<Id> indexes;
+};
+struct OpInBoundsAccessChain {
+  Id result_type;
+  Id result_id;
+  Id base;
+  std::vector<Id> indexes;
+};
+struct OpPtrAccessChain {
+  Id result_type;
+  Id result_id;
+  Id base;
+  Id element;
+  std::vector<Id> indexes;
+};
+struct OpArrayLength {
+  Id result_type;
+  Id result_id;
+  Id structure;
+  Literal array_member;
+};
+struct OpGenericPtrMemSemantics {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+};
+struct OpInBoundsPtrAccessChain {
+  Id result_type;
+  Id result_id;
+  Id base;
+  Id element;
+  std::vector<Id> indexes;
+};
+struct OpPtrEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpPtrNotEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpPtrDiff {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFunction {
+  Id result_type;
+  Id result_id;
+  FunctionControl function_control;
+  Id function_type;
+};
+struct OpFunctionParameter {
+  Id result_type;
+  Id result_id;
+};
+struct OpFunctionEnd {
+};
+struct OpFunctionCall {
+  Id result_type;
+  Id result_id;
+  Id function;
+  std::vector<Id> argument;
 };
 struct OpSampledImage {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
   Id sampler;
 };
 struct OpImageSampleImplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageSampleExplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  spv::ImageOperandsMask image_operands;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
 };
 struct OpImageSampleDrefImplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  Id d_ref;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  Id dref;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageSampleDrefExplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  Id d_ref;
-  spv::ImageOperandsMask image_operands;
+  Id dref;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
 };
 struct OpImageSampleProjImplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageSampleProjExplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  spv::ImageOperandsMask image_operands;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
 };
 struct OpImageSampleProjDrefImplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  Id d_ref;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  Id dref;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageSampleProjDrefExplicitLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  Id d_ref;
-  spv::ImageOperandsMask image_operands;
+  Id dref;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
 };
 struct OpImageFetch {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
   Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageGather {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
   Id component;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageDrefGather {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
-  Id d_ref;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  Id dref;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageRead {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
   Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImageWrite {
   Id image;
   Id coordinate;
   Id texel;
-  std::optional<spv::ImageOperandsMask> image_operands;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
 };
 struct OpImage {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
 };
 struct OpImageQueryFormat {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
 };
 struct OpImageQueryOrder {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
 };
 struct OpImageQuerySizeLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
   Id level_of_detail;
 };
 struct OpImageQuerySize {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
 };
 struct OpImageQueryLod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id sampled_image;
   Id coordinate;
 };
 struct OpImageQueryLevels {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
 };
 struct OpImageQuerySamples {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
 };
+struct OpImageSparseSampleImplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSparseSampleExplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
+};
+struct OpImageSparseSampleDrefImplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  Id dref;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSparseSampleDrefExplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  Id dref;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
+};
+struct OpImageSparseSampleProjImplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSparseSampleProjExplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
+};
+struct OpImageSparseSampleProjDrefImplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  Id dref;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSparseSampleProjDrefExplicitLod {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  Id dref;
+  ImageOperands image_operands;
+  Id id;
+  std::vector<Id> id2;
+};
+struct OpImageSparseFetch {
+  Id result_type;
+  Id result_id;
+  Id image;
+  Id coordinate;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSparseGather {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  Id component;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSparseDrefGather {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  Id dref;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSparseTexelsResident {
+  Id result_type;
+  Id result_id;
+  Id resident_code;
+};
+struct OpImageSparseRead {
+  Id result_type;
+  Id result_id;
+  Id image;
+  Id coordinate;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
+struct OpImageSampleFootprintNV {
+  Id result_type;
+  Id result_id;
+  Id sampled_image;
+  Id coordinate;
+  Id granularity;
+  Id coarse;
+  std::optional<ImageOperands> image_operands;
+  std::vector<Id> id;
+};
 struct OpConvertFToU {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id float_value;
 };
 struct OpConvertFToS {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id float_value;
 };
 struct OpConvertSToF {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id signed_value;
 };
 struct OpConvertUToF {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id unsigned_value;
 };
 struct OpUConvert {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id unsigned_value;
 };
 struct OpSConvert {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id signed_value;
 };
 struct OpFConvert {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id float_value;
 };
 struct OpQuantizeToF16 {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id value;
 };
 struct OpConvertPtrToU {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pointer;
 };
 struct OpSatConvertSToU {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id signed_value;
 };
 struct OpSatConvertUToS {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id unsigned_value;
 };
 struct OpConvertUToPtr {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id integer_value;
 };
 struct OpPtrCastToGeneric {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pointer;
 };
 struct OpGenericCastToPtr {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pointer;
 };
 struct OpGenericCastToPtrExplicit {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pointer;
-  spv::StorageClass storage;
+  StorageClass storage;
 };
 struct OpBitcast {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
+  Id operand;
+};
+struct OpVectorExtractDynamic {
+  Id result_type;
+  Id result_id;
+  Id vector;
+  Id index;
+};
+struct OpVectorInsertDynamic {
+  Id result_type;
+  Id result_id;
+  Id vector;
+  Id component;
+  Id index;
+};
+struct OpVectorShuffle {
+  Id result_type;
+  Id result_id;
+  Id vector_1;
+  Id vector_2;
+  std::vector<Literal> components;
+};
+struct OpCompositeConstruct {
+  Id result_type;
+  Id result_id;
+  std::vector<Id> constituents;
+};
+struct OpCompositeExtract {
+  Id result_type;
+  Id result_id;
+  Id composite;
+  std::vector<Literal> indexes;
+};
+struct OpCompositeInsert {
+  Id result_type;
+  Id result_id;
+  Id object;
+  Id composite;
+  std::vector<Literal> indexes;
+};
+struct OpCopyObject {
+  Id result_type;
+  Id result_id;
+  Id operand;
+};
+struct OpTranspose {
+  Id result_type;
+  Id result_id;
+  Id matrix;
+};
+struct OpCopyLogical {
+  Id result_type;
+  Id result_id;
   Id operand;
 };
 struct OpSNegate {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand;
 };
 struct OpFNegate {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand;
 };
 struct OpIAdd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpFAdd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpISub {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpFSub {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpIMul {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpFMul {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUDiv {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpSDiv {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpFDiv {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUMod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpSRem {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpSMod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpFRem {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpFMod {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpVectorTimesScalar {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id vector;
   Id scalar;
 };
 struct OpMatrixTimesScalar {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id matrix;
   Id scalar;
 };
 struct OpVectorTimesMatrix {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id vector;
   Id matrix;
 };
 struct OpMatrixTimesVector {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id matrix;
   Id vector;
 };
 struct OpMatrixTimesMatrix {
-  Id id_result_type;
-  Id id_result;
-  Id leftmatrix;
-  Id rightmatrix;
+  Id result_type;
+  Id result_id;
+  Id left_matrix;
+  Id right_matrix;
 };
 struct OpOuterProduct {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id vector_1;
   Id vector_2;
 };
 struct OpDot {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id vector_1;
   Id vector_2;
 };
 struct OpIAddCarry {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpISubBorrow {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUMulExtended {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpSMulExtended {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpAny {
-  Id id_result_type;
-  Id id_result;
-  Id vector;
-};
-struct OpAll {
-  Id id_result_type;
-  Id id_result;
-  Id vector;
-};
-struct OpIsNan {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-};
-struct OpIsInf {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-};
-struct OpIsFinite {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-};
-struct OpIsNormal {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-};
-struct OpSignBitSet {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-};
-struct OpLessOrGreater {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-  Id y;
-};
-struct OpOrdered {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-  Id y;
-};
-struct OpUnordered {
-  Id id_result_type;
-  Id id_result;
-  Id x;
-  Id y;
-};
-struct OpLogicalEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpLogicalNotEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpLogicalOr {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpLogicalAnd {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpLogicalNot {
-  Id id_result_type;
-  Id id_result;
-  Id operand;
-};
-struct OpSelect {
-  Id id_result_type;
-  Id id_result;
-  Id condition;
-  Id object_1;
-  Id object_2;
-};
-struct OpIEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpINotEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpUGreaterThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpSGreaterThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpUGreaterThanEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpSGreaterThanEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpULessThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpSLessThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpULessThanEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpSLessThanEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFOrdEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFUnordEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFOrdNotEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFUnordNotEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFOrdLessThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFUnordLessThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFOrdGreaterThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFUnordGreaterThan {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFOrdLessThanEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFUnordLessThanEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFOrdGreaterThanEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpFUnordGreaterThanEqual {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpShiftRightLogical {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
   Id shift;
 };
 struct OpShiftRightArithmetic {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
   Id shift;
 };
 struct OpShiftLeftLogical {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
   Id shift;
 };
 struct OpBitwiseOr {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpBitwiseXor {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpBitwiseAnd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpNot {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand;
 };
 struct OpBitFieldInsert {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
   Id insert;
   Id offset;
   Id count;
 };
 struct OpBitFieldSExtract {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
   Id offset;
   Id count;
 };
 struct OpBitFieldUExtract {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
   Id offset;
   Id count;
 };
 struct OpBitReverse {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
 };
 struct OpBitCount {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id base;
 };
+struct OpAny {
+  Id result_type;
+  Id result_id;
+  Id vector;
+};
+struct OpAll {
+  Id result_type;
+  Id result_id;
+  Id vector;
+};
+struct OpIsNan {
+  Id result_type;
+  Id result_id;
+  Id x;
+};
+struct OpIsInf {
+  Id result_type;
+  Id result_id;
+  Id x;
+};
+struct OpIsFinite {
+  Id result_type;
+  Id result_id;
+  Id x;
+};
+struct OpIsNormal {
+  Id result_type;
+  Id result_id;
+  Id x;
+};
+struct OpSignBitSet {
+  Id result_type;
+  Id result_id;
+  Id x;
+};
+struct OpLessOrGreater {
+  Id result_type;
+  Id result_id;
+  Id x;
+  Id y;
+};
+struct OpOrdered {
+  Id result_type;
+  Id result_id;
+  Id x;
+  Id y;
+};
+struct OpUnordered {
+  Id result_type;
+  Id result_id;
+  Id x;
+  Id y;
+};
+struct OpLogicalEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpLogicalNotEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpLogicalOr {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpLogicalAnd {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpLogicalNot {
+  Id result_type;
+  Id result_id;
+  Id operand;
+};
+struct OpSelect {
+  Id result_type;
+  Id result_id;
+  Id condition;
+  Id object_1;
+  Id object_2;
+};
+struct OpIEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpINotEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpUGreaterThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpSGreaterThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpUGreaterThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpSGreaterThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpULessThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpSLessThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpULessThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpSLessThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFOrdEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFUnordEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFOrdNotEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFUnordNotEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFOrdLessThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFUnordLessThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFOrdGreaterThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFUnordGreaterThan {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFOrdLessThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFUnordLessThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFOrdGreaterThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
+struct OpFUnordGreaterThanEqual {
+  Id result_type;
+  Id result_id;
+  Id operand_1;
+  Id operand_2;
+};
 struct OpDPdx {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpDPdy {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpFwidth {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpDPdxFine {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpDPdyFine {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpFwidthFine {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpDPdxCoarse {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpDPdyCoarse {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
 };
 struct OpFwidthCoarse {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id p;
+};
+struct OpPhi {
+  Id result_type;
+  Id result_id;
+  std::vector<Id> variable;
+};
+struct OpLoopMerge {
+  Id merge_block;
+  Id continue_target;
+  LoopControl loop_control;
+  std::vector<Literal> loop_control_parameters;
+};
+struct OpSelectionMerge {
+  Id merge_block;
+  SelectionControl selection_control;
+};
+struct OpLabel {
+  Id result_id;
+};
+struct OpBranch {
+  Id target_label;
+};
+struct OpBranchConditional {
+  Id condition;
+  Id true_label;
+  Id false_label;
+  std::vector<Literal> branch_weights;
+};
+struct OpSwitch {
+  Id selector;
+  Id default;
+  std::vector<Literal> target;
+  std::vector<Id> target2;
+};
+struct OpKill {
+};
+struct OpReturn {
+};
+struct OpReturnValue {
+  Id value;
+};
+struct OpUnreachable {
+};
+struct OpLifetimeStart {
+  Id pointer;
+  Literal size;
+};
+struct OpLifetimeStop {
+  Id pointer;
+  Literal size;
+};
+struct OpTerminateInvocation {
+};
+struct OpAtomicLoad {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+};
+struct OpAtomicStore {
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicExchange {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicCompareExchange {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id equal;
+  Id unequal;
+  Id value;
+  Id comparator;
+};
+struct OpAtomicCompareExchangeWeak {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id equal;
+  Id unequal;
+  Id value;
+  Id comparator;
+};
+struct OpAtomicIIncrement {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+};
+struct OpAtomicIDecrement {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+};
+struct OpAtomicIAdd {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicISub {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicSMin {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicUMin {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicSMax {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicUMax {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicAnd {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicOr {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicXor {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
+};
+struct OpAtomicFlagTestAndSet {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+};
+struct OpAtomicFlagClear {
+  Id pointer;
+  Id memory;
+  Id semantics;
+};
+struct OpAtomicFAddEXT {
+  Id result_type;
+  Id result_id;
+  Id pointer;
+  Id memory;
+  Id semantics;
+  Id value;
 };
 struct OpEmitVertex {
 };
@@ -1132,184 +1525,19 @@ struct OpMemoryBarrier {
   Id memory;
   Id semantics;
 };
-struct OpAtomicLoad {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
+struct OpNamedBarrierInitialize {
+  Id result_type;
+  Id result_id;
+  Id subgroup_count;
+};
+struct OpMemoryNamedBarrier {
+  Id named_barrier;
   Id memory;
   Id semantics;
-};
-struct OpAtomicStore {
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicExchange {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicCompareExchange {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id equal;
-  Id unequal;
-  Id value;
-  Id comparator;
-};
-struct OpAtomicCompareExchangeWeak {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id equal;
-  Id unequal;
-  Id value;
-  Id comparator;
-};
-struct OpAtomicIIncrement {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-};
-struct OpAtomicIDecrement {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-};
-struct OpAtomicIAdd {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicISub {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicSMin {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicUMin {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicSMax {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicUMax {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicAnd {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicOr {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicXor {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpPhi {
-  Id id_result_type;
-  Id id_result;
-  std::vector<PairIdRefIdRef> variable_parents;
-};
-struct OpLoopMerge {
-  Id merge_block;
-  Id continue_target;
-  spv::LoopControlMask loop_control;
-};
-struct OpSelectionMerge {
-  Id merge_block;
-  spv::SelectionControlMask selection_control;
-};
-struct OpLabel {
-  Id id_result;
-};
-struct OpBranch {
-  Id target_label;
-};
-struct OpBranchConditional {
-  Id condition;
-  Id true_label;
-  Id false_label;
-  std::vector<uint32_t> branch_weights;
-};
-struct OpSwitch {
-  Id selector;
-  Id default;
-  std::vector<PairLiteralIntegerIdRef> target;
-};
-struct OpKill {
-};
-struct OpReturn {
-};
-struct OpReturnValue {
-  Id value;
-};
-struct OpUnreachable {
-};
-struct OpLifetimeStart {
-  Id pointer;
-  uint32_t size;
-};
-struct OpLifetimeStop {
-  Id pointer;
-  uint32_t size;
 };
 struct OpGroupAsyncCopy {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id destination;
   Id source;
@@ -1323,99 +1551,356 @@ struct OpGroupWaitEvents {
   Id events_list;
 };
 struct OpGroupAll {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id predicate;
 };
 struct OpGroupAny {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id predicate;
 };
 struct OpGroupBroadcast {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
-  Id localid;
+  Id local_id;
 };
 struct OpGroupIAdd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
 struct OpGroupFAdd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
 struct OpGroupFMin {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
 struct OpGroupUMin {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
 struct OpGroupSMin {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
 struct OpGroupFMax {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
 struct OpGroupUMax {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
 struct OpGroupSMax {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id x;
 };
+struct OpSubgroupBallotKHR {
+  Id result_type;
+  Id result_id;
+  Id predicate;
+};
+struct OpSubgroupFirstInvocationKHR {
+  Id result_type;
+  Id result_id;
+  Id value;
+};
+struct OpSubgroupAllKHR {
+  Id result_type;
+  Id result_id;
+  Id predicate;
+};
+struct OpSubgroupAnyKHR {
+  Id result_type;
+  Id result_id;
+  Id predicate;
+};
+struct OpSubgroupAllEqualKHR {
+  Id result_type;
+  Id result_id;
+  Id predicate;
+};
+struct OpSubgroupReadInvocationKHR {
+  Id result_type;
+  Id result_id;
+  Id value;
+  Id index;
+};
+struct OpGroupIAddNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpGroupFAddNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpGroupFMinNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpGroupUMinNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpGroupSMinNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpGroupFMaxNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpGroupUMaxNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpGroupSMaxNonUniformAMD {
+  Id result_type;
+  Id result_id;
+  Id execution;
+  GroupOperation operation;
+  Id x;
+};
+struct OpSubgroupShuffleINTEL {
+  Id result_type;
+  Id result_id;
+  Id data;
+  Id invocation_id;
+};
+struct OpSubgroupShuffleDownINTEL {
+  Id result_type;
+  Id result_id;
+  Id current;
+  Id next;
+  Id delta;
+};
+struct OpSubgroupShuffleUpINTEL {
+  Id result_type;
+  Id result_id;
+  Id previous;
+  Id current;
+  Id delta;
+};
+struct OpSubgroupShuffleXorINTEL {
+  Id result_type;
+  Id result_id;
+  Id data;
+  Id value;
+};
+struct OpSubgroupBlockReadINTEL {
+  Id result_type;
+  Id result_id;
+  Id ptr;
+};
+struct OpSubgroupBlockWriteINTEL {
+  Id ptr;
+  Id data;
+};
+struct OpSubgroupImageBlockReadINTEL {
+  Id result_type;
+  Id result_id;
+  Id image;
+  Id coordinate;
+};
+struct OpSubgroupImageBlockWriteINTEL {
+  Id image;
+  Id coordinate;
+  Id data;
+};
+struct OpSubgroupImageMediaBlockReadINTEL {
+  Id result_type;
+  Id result_id;
+  Id image;
+  Id coordinate;
+  Id width;
+  Id height;
+};
+struct OpSubgroupImageMediaBlockWriteINTEL {
+  Id image;
+  Id coordinate;
+  Id width;
+  Id height;
+  Id data;
+};
+struct OpEnqueueMarker {
+  Id result_type;
+  Id result_id;
+  Id queue;
+  Id num_events;
+  Id wait_events;
+  Id ret_event;
+};
+struct OpEnqueueKernel {
+  Id result_type;
+  Id result_id;
+  Id queue;
+  Id flags;
+  Id nd_range;
+  Id num_events;
+  Id wait_events;
+  Id ret_event;
+  Id invoke;
+  Id param;
+  Id param_size;
+  Id param_align;
+  std::vector<Id> local_size;
+};
+struct OpGetKernelNDrangeSubGroupCount {
+  Id result_type;
+  Id result_id;
+  Id nd_range;
+  Id invoke;
+  Id param;
+  Id param_size;
+  Id param_align;
+};
+struct OpGetKernelNDrangeMaxSubGroupSize {
+  Id result_type;
+  Id result_id;
+  Id nd_range;
+  Id invoke;
+  Id param;
+  Id param_size;
+  Id param_align;
+};
+struct OpGetKernelWorkGroupSize {
+  Id result_type;
+  Id result_id;
+  Id invoke;
+  Id param;
+  Id param_size;
+  Id param_align;
+};
+struct OpGetKernelPreferredWorkGroupSizeMultiple {
+  Id result_type;
+  Id result_id;
+  Id invoke;
+  Id param;
+  Id param_size;
+  Id param_align;
+};
+struct OpRetainEvent {
+  Id event;
+};
+struct OpReleaseEvent {
+  Id event;
+};
+struct OpCreateUserEvent {
+  Id result_type;
+  Id result_id;
+};
+struct OpIsValidEvent {
+  Id result_type;
+  Id result_id;
+  Id event;
+};
+struct OpSetUserEventStatus {
+  Id event;
+  Id status;
+};
+struct OpCaptureEventProfilingInfo {
+  Id event;
+  Id profiling_info;
+  Id value;
+};
+struct OpGetDefaultQueue {
+  Id result_type;
+  Id result_id;
+};
+struct OpBuildNDRange {
+  Id result_type;
+  Id result_id;
+  Id global_work_size;
+  Id local_work_size;
+  Id global_work_offset;
+};
+struct OpGetKernelLocalSizeForSubgroupCount {
+  Id result_type;
+  Id result_id;
+  Id subgroup_count;
+  Id invoke;
+  Id param;
+  Id param_size;
+  Id param_align;
+};
+struct OpGetKernelMaxNumSubgroups {
+  Id result_type;
+  Id result_id;
+  Id invoke;
+  Id param;
+  Id param_size;
+  Id param_align;
+};
 struct OpReadPipe {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id pointer;
   Id packet_size;
   Id packet_alignment;
 };
 struct OpWritePipe {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id pointer;
   Id packet_size;
   Id packet_alignment;
 };
 struct OpReservedReadPipe {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id reserve_id;
   Id index;
@@ -1424,8 +1909,8 @@ struct OpReservedReadPipe {
   Id packet_alignment;
 };
 struct OpReservedWritePipe {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id reserve_id;
   Id index;
@@ -1434,16 +1919,16 @@ struct OpReservedWritePipe {
   Id packet_alignment;
 };
 struct OpReserveReadPipePackets {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id num_packets;
   Id packet_size;
   Id packet_alignment;
 };
 struct OpReserveWritePipePackets {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id num_packets;
   Id packet_size;
@@ -1462,27 +1947,27 @@ struct OpCommitWritePipe {
   Id packet_alignment;
 };
 struct OpIsValidReserveId {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id reserve_id;
 };
 struct OpGetNumPipePackets {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id packet_size;
   Id packet_alignment;
 };
 struct OpGetMaxPipePackets {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe;
   Id packet_size;
   Id packet_alignment;
 };
 struct OpGroupReserveReadPipePackets {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id pipe;
   Id num_packets;
@@ -1490,8 +1975,8 @@ struct OpGroupReserveReadPipePackets {
   Id packet_alignment;
 };
 struct OpGroupReserveWritePipePackets {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id pipe;
   Id num_packets;
@@ -1512,567 +1997,278 @@ struct OpGroupCommitWritePipe {
   Id packet_size;
   Id packet_alignment;
 };
-struct OpEnqueueMarker {
-  Id id_result_type;
-  Id id_result;
-  Id queue;
-  Id num_events;
-  Id wait_events;
-  Id ret_event;
-};
-struct OpEnqueueKernel {
-  Id id_result_type;
-  Id id_result;
-  Id queue;
-  Id flags;
-  Id nd_range;
-  Id num_events;
-  Id wait_events;
-  Id ret_event;
-  Id invoke;
-  Id param;
-  Id param_size;
-  Id param_align;
-  std::vector<Id> local_size;
-};
-struct OpGetKernelNDrangeSubGroupCount {
-  Id id_result_type;
-  Id id_result;
-  Id nd_range;
-  Id invoke;
-  Id param;
-  Id param_size;
-  Id param_align;
-};
-struct OpGetKernelNDrangeMaxSubGroupSize {
-  Id id_result_type;
-  Id id_result;
-  Id nd_range;
-  Id invoke;
-  Id param;
-  Id param_size;
-  Id param_align;
-};
-struct OpGetKernelWorkGroupSize {
-  Id id_result_type;
-  Id id_result;
-  Id invoke;
-  Id param;
-  Id param_size;
-  Id param_align;
-};
-struct OpGetKernelPreferredWorkGroupSizeMultiple {
-  Id id_result_type;
-  Id id_result;
-  Id invoke;
-  Id param;
-  Id param_size;
-  Id param_align;
-};
-struct OpRetainEvent {
-  Id event;
-};
-struct OpReleaseEvent {
-  Id event;
-};
-struct OpCreateUserEvent {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpIsValidEvent {
-  Id id_result_type;
-  Id id_result;
-  Id event;
-};
-struct OpSetUserEventStatus {
-  Id event;
-  Id status;
-};
-struct OpCaptureEventProfilingInfo {
-  Id event;
-  Id profiling_info;
-  Id value;
-};
-struct OpGetDefaultQueue {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpBuildNDRange {
-  Id id_result_type;
-  Id id_result;
-  Id globalworksize;
-  Id localworksize;
-  Id globalworkoffset;
-};
-struct OpImageSparseSampleImplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpImageSparseSampleExplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  spv::ImageOperandsMask image_operands;
-};
-struct OpImageSparseSampleDrefImplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  Id d_ref;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpImageSparseSampleDrefExplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  Id d_ref;
-  spv::ImageOperandsMask image_operands;
-};
-struct OpImageSparseSampleProjImplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpImageSparseSampleProjExplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  spv::ImageOperandsMask image_operands;
-};
-struct OpImageSparseSampleProjDrefImplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  Id d_ref;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpImageSparseSampleProjDrefExplicitLod {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  Id d_ref;
-  spv::ImageOperandsMask image_operands;
-};
-struct OpImageSparseFetch {
-  Id id_result_type;
-  Id id_result;
-  Id image;
-  Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpImageSparseGather {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  Id component;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpImageSparseDrefGather {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  Id d_ref;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpImageSparseTexelsResident {
-  Id id_result_type;
-  Id id_result;
-  Id resident_code;
-};
-struct OpNoLine {
-};
-struct OpAtomicFlagTestAndSet {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-};
-struct OpAtomicFlagClear {
-  Id pointer;
-  Id memory;
-  Id semantics;
-};
-struct OpImageSparseRead {
-  Id id_result_type;
-  Id id_result;
-  Id image;
-  Id coordinate;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpSizeOf {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-};
-struct OpTypePipeStorage {
-  Id id_result;
-};
 struct OpConstantPipeStorage {
-  Id id_result_type;
-  Id id_result;
-  uint32_t packet_size;
-  uint32_t packet_alignment;
-  uint32_t capacity;
+  Id result_type;
+  Id result_id;
+  Literal packet_size;
+  Literal packet_alignment;
+  Literal capacity;
 };
 struct OpCreatePipeFromPipeStorage {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pipe_storage;
 };
-struct OpGetKernelLocalSizeForSubgroupCount {
-  Id id_result_type;
-  Id id_result;
-  Id subgroup_count;
-  Id invoke;
-  Id param;
-  Id param_size;
-  Id param_align;
+struct OpReadPipeBlockingINTEL {
+  Id result_type;
+  Id result_id;
+  Id packet_size;
+  Id packet_alignment;
 };
-struct OpGetKernelMaxNumSubgroups {
-  Id id_result_type;
-  Id id_result;
-  Id invoke;
-  Id param;
-  Id param_size;
-  Id param_align;
-};
-struct OpTypeNamedBarrier {
-  Id id_result;
-};
-struct OpNamedBarrierInitialize {
-  Id id_result_type;
-  Id id_result;
-  Id subgroup_count;
-};
-struct OpMemoryNamedBarrier {
-  Id named_barrier;
-  Id memory;
-  Id semantics;
-};
-struct OpModuleProcessed {
-  uint32_t process;
-};
-struct OpExecutionModeId {
-  Id entry_point;
-  spv::ExecutionMode mode;
-};
-struct OpDecorateId {
-  Id target;
-  spv::Decoration decoration;
+struct OpWritePipeBlockingINTEL {
+  Id result_type;
+  Id result_id;
+  Id packet_size;
+  Id packet_alignment;
 };
 struct OpGroupNonUniformElect {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
 };
 struct OpGroupNonUniformAll {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id predicate;
 };
 struct OpGroupNonUniformAny {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id predicate;
 };
 struct OpGroupNonUniformAllEqual {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
 };
 struct OpGroupNonUniformBroadcast {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id id;
 };
 struct OpGroupNonUniformBroadcastFirst {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
 };
 struct OpGroupNonUniformBallot {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id predicate;
 };
 struct OpGroupNonUniformInverseBallot {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
 };
 struct OpGroupNonUniformBallotBitExtract {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id index;
 };
 struct OpGroupNonUniformBallotBitCount {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
 };
 struct OpGroupNonUniformBallotFindLSB {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
 };
 struct OpGroupNonUniformBallotFindMSB {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
 };
 struct OpGroupNonUniformShuffle {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id id;
 };
 struct OpGroupNonUniformShuffleXor {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id mask;
 };
 struct OpGroupNonUniformShuffleUp {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id delta;
 };
 struct OpGroupNonUniformShuffleDown {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id delta;
 };
 struct OpGroupNonUniformIAdd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformFAdd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformIMul {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformFMul {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformSMin {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformUMin {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformFMin {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformSMax {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformUMax {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformFMax {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformBitwiseAnd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformBitwiseOr {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformBitwiseXor {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformLogicalAnd {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformLogicalOr {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformLogicalXor {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
-  spv::GroupOperation operation;
+  GroupOperation operation;
   Id value;
-  std::optional<Id> clustersize;
+  std::optional<Id> cluster_size;
 };
 struct OpGroupNonUniformQuadBroadcast {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id index;
 };
 struct OpGroupNonUniformQuadSwap {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id execution;
   Id value;
   Id direction;
 };
-struct OpCopyLogical {
-  Id id_result_type;
-  Id id_result;
-  Id operand;
-};
-struct OpPtrEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpPtrNotEqual {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpPtrDiff {
-  Id id_result_type;
-  Id id_result;
-  Id operand_1;
-  Id operand_2;
-};
-struct OpTerminateInvocation {
-};
-struct OpSubgroupBallotKHR {
-  Id id_result_type;
-  Id id_result;
-  Id predicate;
-};
-struct OpSubgroupFirstInvocationKHR {
-  Id id_result_type;
-  Id id_result;
+struct OpGroupNonUniformPartitionNV {
+  Id result_type;
+  Id result_id;
   Id value;
-};
-struct OpSubgroupAllKHR {
-  Id id_result_type;
-  Id id_result;
-  Id predicate;
-};
-struct OpSubgroupAnyKHR {
-  Id id_result_type;
-  Id id_result;
-  Id predicate;
-};
-struct OpSubgroupAllEqualKHR {
-  Id id_result_type;
-  Id id_result;
-  Id predicate;
-};
-struct OpSubgroupReadInvocationKHR {
-  Id id_result_type;
-  Id id_result;
-  Id value;
-  Id index;
 };
 struct OpTraceRayKHR {
   Id accel;
@@ -2092,196 +2288,75 @@ struct OpExecuteCallableKHR {
   Id callable_data;
 };
 struct OpConvertUToAccelerationStructureKHR {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id accel;
 };
 struct OpIgnoreIntersectionKHR {
 };
 struct OpTerminateRayKHR {
 };
-struct OpSDotKHR {
-  Id id_result_type;
-  Id id_result;
-  Id vector_1;
-  Id vector_2;
-  std::optional<spv::PackedVectorFormat> packed_vector_format;
-};
-struct OpUDotKHR {
-  Id id_result_type;
-  Id id_result;
-  Id vector_1;
-  Id vector_2;
-  std::optional<spv::PackedVectorFormat> packed_vector_format;
-};
-struct OpSUDotKHR {
-  Id id_result_type;
-  Id id_result;
-  Id vector_1;
-  Id vector_2;
-  std::optional<spv::PackedVectorFormat> packed_vector_format;
-};
-struct OpSDotAccSatKHR {
-  Id id_result_type;
-  Id id_result;
-  Id vector_1;
-  Id vector_2;
-  Id accumulator;
-  std::optional<spv::PackedVectorFormat> packed_vector_format;
-};
-struct OpUDotAccSatKHR {
-  Id id_result_type;
-  Id id_result;
-  Id vector_1;
-  Id vector_2;
-  Id accumulator;
-  std::optional<spv::PackedVectorFormat> packed_vector_format;
-};
-struct OpSUDotAccSatKHR {
-  Id id_result_type;
-  Id id_result;
-  Id vector_1;
-  Id vector_2;
-  Id accumulator;
-  std::optional<spv::PackedVectorFormat> packed_vector_format;
-};
 struct OpTypeRayQueryKHR {
-  Id id_result;
+  Id result_id;
 };
 struct OpRayQueryInitializeKHR {
-  Id rayquery;
+  Id ray_query;
   Id accel;
-  Id rayflags;
-  Id cullmask;
-  Id rayorigin;
-  Id raytmin;
-  Id raydirection;
-  Id raytmax;
+  Id ray_flags;
+  Id cull_mask;
+  Id ray_origin;
+  Id ray_tmin;
+  Id ray_direction;
+  Id ray_tmax;
 };
 struct OpRayQueryTerminateKHR {
-  Id rayquery;
+  Id ray_query;
 };
 struct OpRayQueryGenerateIntersectionKHR {
-  Id rayquery;
-  Id hitt;
+  Id ray_query;
+  Id hit_t;
 };
 struct OpRayQueryConfirmIntersectionKHR {
-  Id rayquery;
+  Id ray_query;
 };
 struct OpRayQueryProceedKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
 };
 struct OpRayQueryGetIntersectionTypeKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
-struct OpGroupIAddNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
-struct OpGroupFAddNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
-struct OpGroupFMinNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
-struct OpGroupUMinNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
-struct OpGroupSMinNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
-struct OpGroupFMaxNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
-struct OpGroupUMaxNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
-struct OpGroupSMaxNonUniformAMD {
-  Id id_result_type;
-  Id id_result;
-  Id execution;
-  spv::GroupOperation operation;
-  Id x;
-};
 struct OpFragmentMaskFetchAMD {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
   Id coordinate;
 };
 struct OpFragmentFetchAMD {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id image;
   Id coordinate;
   Id fragment_index;
 };
 struct OpReadClockKHR {
-  Id id_result_type;
-  Id id_result;
-  Id scope;
-};
-struct OpImageSampleFootprintNV {
-  Id id_result_type;
-  Id id_result;
-  Id sampled_image;
-  Id coordinate;
-  Id granularity;
-  Id coarse;
-  std::optional<spv::ImageOperandsMask> image_operands;
-};
-struct OpGroupNonUniformPartitionNV {
-  Id id_result_type;
-  Id id_result;
-  Id value;
+  Id result_type;
+  Id result_id;
+  Id execution;
 };
 struct OpWritePackedPrimitiveIndices4x8NV {
   Id index_offset;
   Id packed_indices;
 };
 struct OpReportIntersectionNV {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id hit;
-  Id hitkind;
-};
-struct OpReportIntersectionKHR {
-  Id id_result_type;
-  Id id_result;
-  Id hit;
-  Id hitkind;
+  Id hit_kind;
 };
 struct OpIgnoreIntersectionNV {
 };
@@ -2298,78 +2373,47 @@ struct OpTraceNV {
   Id ray_tmin;
   Id ray_direction;
   Id ray_tmax;
-  Id payloadid;
-};
-struct OpTraceMotionNV {
-  Id accel;
-  Id ray_flags;
-  Id cull_mask;
-  Id sbt_offset;
-  Id sbt_stride;
-  Id miss_index;
-  Id ray_origin;
-  Id ray_tmin;
-  Id ray_direction;
-  Id ray_tmax;
-  Id time;
-  Id payloadid;
-};
-struct OpTraceRayMotionNV {
-  Id accel;
-  Id ray_flags;
-  Id cull_mask;
-  Id sbt_offset;
-  Id sbt_stride;
-  Id miss_index;
-  Id ray_origin;
-  Id ray_tmin;
-  Id ray_direction;
-  Id ray_tmax;
-  Id time;
-  Id payload;
+  Id payload_id;
 };
 struct OpTypeAccelerationStructureNV {
-  Id id_result;
-};
-struct OpTypeAccelerationStructureKHR {
-  Id id_result;
+  Id result_id;
 };
 struct OpExecuteCallableNV {
   Id sbt_index;
-  Id callable_dataid;
+  Id callable_data_id;
 };
 struct OpTypeCooperativeMatrixNV {
-  Id id_result;
+  Id result_id;
   Id component_type;
   Id execution;
   Id rows;
   Id columns;
 };
 struct OpCooperativeMatrixLoadNV {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id pointer;
   Id stride;
   Id column_major;
-  std::optional<spv::MemoryAccessMask> memory_access;
+  std::optional<MemoryOperands> memory_operands;
 };
 struct OpCooperativeMatrixStoreNV {
   Id pointer;
   Id object;
   Id stride;
   Id column_major;
-  std::optional<spv::MemoryAccessMask> memory_access;
+  std::optional<MemoryOperands> memory_operands;
 };
 struct OpCooperativeMatrixMulAddNV {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id a;
   Id b;
   Id c;
 };
 struct OpCooperativeMatrixLengthNV {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id type;
 };
 struct OpBeginInvocationInterlockEXT {
@@ -2379,333 +2423,196 @@ struct OpEndInvocationInterlockEXT {
 struct OpDemoteToHelperInvocationEXT {
 };
 struct OpIsHelperInvocationEXT {
-  Id id_result_type;
-  Id id_result;
-};
-struct OpSubgroupShuffleINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id data;
-  Id invocationid;
-};
-struct OpSubgroupShuffleDownINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id current;
-  Id next;
-  Id delta;
-};
-struct OpSubgroupShuffleUpINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id previous;
-  Id current;
-  Id delta;
-};
-struct OpSubgroupShuffleXorINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id data;
-  Id value;
-};
-struct OpSubgroupBlockReadINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id ptr;
-};
-struct OpSubgroupBlockWriteINTEL {
-  Id ptr;
-  Id data;
-};
-struct OpSubgroupImageBlockReadINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id image;
-  Id coordinate;
-};
-struct OpSubgroupImageBlockWriteINTEL {
-  Id image;
-  Id coordinate;
-  Id data;
-};
-struct OpSubgroupImageMediaBlockReadINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id image;
-  Id coordinate;
-  Id width;
-  Id height;
-};
-struct OpSubgroupImageMediaBlockWriteINTEL {
-  Id image;
-  Id coordinate;
-  Id width;
-  Id height;
-  Id data;
+  Id result_type;
+  Id result_id;
 };
 struct OpUCountLeadingZerosINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand;
 };
 struct OpUCountTrailingZerosINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand;
 };
 struct OpAbsISubINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpAbsUSubINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpIAddSatINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUAddSatINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpIAverageINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUAverageINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpIAverageRoundedINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUAverageRoundedINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpISubSatINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUSubSatINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpIMul32x16INTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
 struct OpUMul32x16INTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id operand_1;
   Id operand_2;
 };
-struct OpAtomicFMinEXT {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAtomicFMaxEXT {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpAssumeTrueKHR {
-  Id condition;
-};
-struct OpExpectKHR {
-  Id id_result_type;
-  Id id_result;
-  Id value;
-  Id expectedvalue;
-};
-struct OpDecorateString {
-  Id target;
-  spv::Decoration decoration;
-};
-struct OpDecorateStringGOOGLE {
-  Id target;
-  spv::Decoration decoration;
-};
-struct OpMemberDecorateString {
-  Id struct_type;
-  uint32_t member;
-  spv::Decoration decoration;
-};
-struct OpMemberDecorateStringGOOGLE {
-  Id struct_type;
-  uint32_t member;
-  spv::Decoration decoration;
-};
 struct OpLoopControlINTEL {
-  std::vector<uint32_t> loop_control_parameters;
-};
-struct OpReadPipeBlockingINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id packet_size;
-  Id packet_alignment;
-};
-struct OpWritePipeBlockingINTEL {
-  Id id_result_type;
-  Id id_result;
-  Id packet_size;
-  Id packet_alignment;
+  std::vector<Literal> loop_control_parameters;
 };
 struct OpFPGARegINTEL {
-  Id id_result_type;
-  Id id_result;
+  Id result_type;
+  Id result_id;
   Id result;
   Id input;
 };
 struct OpRayQueryGetRayTMinKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
 };
 struct OpRayQueryGetRayFlagsKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
 };
 struct OpRayQueryGetIntersectionTKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionInstanceCustomIndexKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionInstanceIdKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionInstanceShaderBindingTableRecordOffsetKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionGeometryIndexKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionPrimitiveIndexKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionBarycentricsKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionFrontFaceKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionCandidateAABBOpaqueKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
 };
 struct OpRayQueryGetIntersectionObjectRayDirectionKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionObjectRayOriginKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetWorldRayDirectionKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
 };
 struct OpRayQueryGetWorldRayOriginKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
 };
 struct OpRayQueryGetIntersectionObjectToWorldKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
 };
 struct OpRayQueryGetIntersectionWorldToObjectKHR {
-  Id id_result_type;
-  Id id_result;
-  Id rayquery;
+  Id result_type;
+  Id result_id;
+  Id ray_query;
   Id intersection;
-};
-struct OpAtomicFAddEXT {
-  Id id_result_type;
-  Id id_result;
-  Id pointer;
-  Id memory;
-  Id semantics;
-  Id value;
-};
-struct OpTypeBufferSurfaceINTEL {
-  Id id_result;
-  spv::AccessQualifier accessqualifier;
-};
-struct OpTypeStructContinuedINTEL {
-  std::vector<Id> member_types;
-};
-struct OpConstantCompositeContinuedINTEL {
-  std::vector<Id> constituents;
-};
-struct OpSpecConstantCompositeContinuedINTEL {
-  std::vector<Id> constituents;
 };
 // ------ operand struct definition ends ------
 } // namespace tinyspv
