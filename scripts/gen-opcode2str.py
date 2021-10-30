@@ -20,7 +20,7 @@ with open("./src/tinyspv/opcode2str.cpp", "w") as f:
         "const char* opcode2str(int opcode) {",
         "  switch (opcode) {",
     ]
-    src += [f"  case spv::Op::Op{x}: return \"{x}\";" for x in op_names]
+    src += [f"  case Op::Op{x}: return \"{x}\";" for x in op_names]
     src += [
         "  default: return nullptr;",
         "}",
