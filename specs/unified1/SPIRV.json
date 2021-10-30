@@ -2,7 +2,7 @@
     "Generator": {
         "Name": "PENGUINLIONG/tinyspv",
         "ScriptName": "gen-spec-json.py",
-        "GitCommitHash": "c43e82bfb70d813a08d7d10bb8a7a702a0798101"
+        "GitCommitHash": "fef0b9ba5328d998146026a4d247c7533aad0e72"
     },
     "Enumerations": [
         {
@@ -7133,8 +7133,9 @@
                             "Type": "Decoration"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "See Decoration."
+                            "Type": "Literal",
+                            "Description": "See Decoration.",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7157,8 +7158,9 @@
                             "Type": "Decoration"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "See Decoration."
+                            "Type": "Literal",
+                            "Description": "See Decoration.",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7185,8 +7187,9 @@
                             "Description": "Decoration Group"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Targets"
+                            "Type": "<id>",
+                            "Description": "Targets",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7202,8 +7205,14 @@
                             "Description": "Decoration Group"
                         },
                         {
-                            "Type": "<id>, literal, <id>, literal, \u2026",
-                            "Description": "Targets"
+                            "Type": "<id>",
+                            "Description": "Targets",
+                            "Listed": true
+                        },
+                        {
+                            "Type": "literal",
+                            "Description": "Targets",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7223,8 +7232,9 @@
                             "Type": "Decoration"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "See Decoration."
+                            "Type": "<id>",
+                            "Description": "See Decoration.",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7345,8 +7355,9 @@
                             "Description": "Instruction"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Operand 1, Operand 2, \u2026"
+                            "Type": "<id>",
+                            "Description": "Operand",
+                            "Listed": true
                         }
                     ]
                 }
@@ -7388,8 +7399,9 @@
                             "Description": "Name"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Interface"
+                            "Type": "<id>",
+                            "Description": "Interface",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7409,8 +7421,9 @@
                             "Description": "Mode"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "See Execution Mode"
+                            "Type": "Literal",
+                            "Description": "See Execution Mode",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7443,8 +7456,9 @@
                             "Description": "Mode"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "See Execution Mode"
+                            "Type": "<id>",
+                            "Description": "See Execution Mode",
+                            "Listed": true
                         }
                     ]
                 }
@@ -7666,8 +7680,9 @@
                             "Type": "Result <id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Member 0 type, member 1 type, \u2026"
+                            "Type": "<id>",
+                            "Description": "Member type",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7723,8 +7738,9 @@
                             "Description": "Return Type"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Parameter 0 Type, Parameter 1 Type, \u2026"
+                            "Type": "<id>",
+                            "Description": "Parameter Type",
+                            "Listed": true
                         }
                     ]
                 },
@@ -7921,8 +7937,9 @@
                             "Type": "Result <id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Constituents"
+                            "Type": "<id>",
+                            "Description": "Constituents",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8034,8 +8051,9 @@
                             "Type": "Result <id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Constituents"
+                            "Type": "<id>",
+                            "Description": "Constituents",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8058,8 +8076,9 @@
                             "Description": "Opcode"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Operands"
+                            "Type": "<id>",
+                            "Description": "Operands",
+                            "Listed": true
                         }
                     ]
                 }
@@ -8240,8 +8259,9 @@
                             "Description": "Base"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Indexes"
+                            "Type": "<id>",
+                            "Description": "Indexes",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8264,8 +8284,9 @@
                             "Description": "Base"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Indexes"
+                            "Type": "<id>",
+                            "Description": "Indexes",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8298,8 +8319,9 @@
                             "Description": "Element"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Indexes"
+                            "Type": "<id>",
+                            "Description": "Indexes",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8377,8 +8399,9 @@
                             "Description": "Element"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Indexes"
+                            "Type": "<id>",
+                            "Description": "Indexes",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8526,8 +8549,9 @@
                             "Description": "Function"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Argument 0, Argument 1, \u2026"
+                            "Type": "<id>",
+                            "Description": "Argument",
+                            "Listed": true
                         }
                     ]
                 }
@@ -8589,8 +8613,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8623,8 +8647,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8662,8 +8686,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8703,8 +8727,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8738,8 +8762,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8775,8 +8799,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8814,8 +8838,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8855,8 +8879,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8887,8 +8911,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8926,8 +8950,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8965,8 +8989,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -8997,8 +9021,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9026,8 +9050,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9246,8 +9270,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9283,8 +9307,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9322,8 +9346,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9363,8 +9387,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9399,8 +9423,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9437,8 +9461,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9477,8 +9501,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9519,8 +9543,8 @@
                             "Type": "<id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9554,8 +9578,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9593,8 +9617,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9632,8 +9656,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9689,8 +9713,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 },
@@ -9733,8 +9757,8 @@
                             "Optional": true
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Optional": true
+                            "Type": "<id>",
+                            "Listed": true
                         }
                     ]
                 }
@@ -10155,8 +10179,9 @@
                             "Description": "Vector 2"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "Components"
+                            "Type": "Literal",
+                            "Description": "Components",
+                            "Listed": true
                         }
                     ]
                 },
@@ -10175,8 +10200,9 @@
                             "Type": "Result <id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Constituents"
+                            "Type": "<id>",
+                            "Description": "Constituents",
+                            "Listed": true
                         }
                     ]
                 },
@@ -10199,8 +10225,9 @@
                             "Description": "Composite"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "Indexes"
+                            "Type": "Literal",
+                            "Description": "Indexes",
+                            "Listed": true
                         }
                     ]
                 },
@@ -10227,8 +10254,9 @@
                             "Description": "Composite"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "Indexes"
+                            "Type": "Literal",
+                            "Description": "Indexes",
+                            "Listed": true
                         }
                     ]
                 },
@@ -12315,8 +12343,9 @@
                             "Type": "Result <id>"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Variable, Parent, \u2026"
+                            "Type": "<id>",
+                            "Description": "Variable",
+                            "Listed": true
                         }
                     ]
                 },
@@ -12339,8 +12368,9 @@
                             "Type": "Loop Control"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "Loop Control Parameters"
+                            "Type": "Literal",
+                            "Description": "Loop Control Parameters",
+                            "Listed": true
                         }
                     ]
                 },
@@ -12402,8 +12432,9 @@
                             "Description": "False Label"
                         },
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "Branch weights"
+                            "Type": "Literal",
+                            "Description": "Branch weights",
+                            "Listed": true
                         }
                     ]
                 },
@@ -12423,8 +12454,14 @@
                             "Description": "Default"
                         },
                         {
-                            "Type": "literal, label <id>, literal, label <id>, \u2026",
-                            "Description": "Target"
+                            "Type": "literal",
+                            "Description": "Target",
+                            "Listed": true
+                        },
+                        {
+                            "Type": "label <id>",
+                            "Description": "Target",
+                            "Listed": true
                         }
                     ]
                 },
@@ -14403,8 +14440,9 @@
                             "Description": "Param Align"
                         },
                         {
-                            "Type": "<id>, <id>, \u2026",
-                            "Description": "Local Size"
+                            "Type": "<id>",
+                            "Description": "Local Size",
+                            "Listed": true
                         }
                     ]
                 },
@@ -17686,8 +17724,9 @@
                     "Opcode": 5887,
                     "Operands": [
                         {
-                            "Type": "Literal, Literal, \u2026",
-                            "Description": "Loop Control Parameters"
+                            "Type": "Literal",
+                            "Description": "Loop Control Parameters",
+                            "Listed": true
                         }
                     ]
                 },

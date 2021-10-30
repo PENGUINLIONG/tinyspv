@@ -7,6 +7,7 @@ import json
 from collections import defaultdict
 import re
 import os
+from typing import List
 
 with open("specs/unified1/SPIRV.html") as f:
     spec = f.read()
@@ -138,8 +139,84 @@ def decompose_item_meta(meta) -> dict:
             out["EnablingCapabilities"] = split_and_strip(',', line)
     return out
 
-def decompose_operand(operand) -> dict:
-    out = {}
+def decompose_operand_list(operand_ty, operand_desc) -> dict:
+    # Extract the repeating units in type specifications. This is the
+    # referential operand count.
+    segs = split_and_strip(',', operand_ty)
+    raw_segs = segs
+    assert segs[-1] == '\u2026', "a operand listing must end with \\u2026"
+    assert (len(segs) - 1) % 2 == 0, "a operand listing should have a length of multiple of two"
+    segs = segs[:(len(segs) - 1) // 2]
+    if operand_desc == None:
+        # There is no description for the operand list.
+        out = []
+        for seg in segs:
+            out += [{
+                "Type": seg,
+                "Listed": True,
+            }]
+        return out
+
+    out = []
+    # Now extract the descriptions. There are various ways a listed operand
+    # being described. We will deal with each case respectively.
+    desc_segs = split_and_strip(',', operand_desc)
+    if desc_segs[-1] == '\u2026':
+        desc_segs = desc_segs[:-1]
+    if len(desc_segs) > 1:
+        if any(c.isdigit() for c in desc_segs[0]):
+            # The description enumerates the operand list by an ordinate number,
+            # like `Operand 1, Operand 2, \u2026` in `OpExtInst`.
+            order = next(c for c in desc_segs[0] if c.isdigit())
+            next_order = str(int(order) + 1)
+            if desc_segs[0].replace(order, next_order).lower() == desc_segs[1].lower():
+                desc = desc_segs[0].replace(f" {order}", "")
+                assert desc_segs[0] != desc, "ordinate number ellimination seems failed"
+                for seg in segs:
+                    out += [{
+                        "Type": segs[0],
+                        "Description": desc,
+                        "Listed": True,
+                    }]
+                return out
+        if len(desc_segs) == len(raw_segs) - 1:
+            # Each of the description matches with the type specification in the
+            # same segment position, like `Variable, Parent, \u2026` in `OpPhi`.
+            for ty, desc in zip(segs, desc_segs):
+                out += [{
+                    "Type": ty,
+                    "Description": desc,
+                    "Listed": True
+                }]
+            return out
+    if len(desc_segs) == 1 and operand_desc[-1] != '\u2026':
+        desc = desc_segs[0]
+        if desc.startswith("See "):
+            # Special cases for variadic instructions, like `See Decoration.` in
+            # `OpDecoration`. Simply ignore the descripiton because it's a
+            # phrase rather than a noun.
+            for seg in segs:
+                out += [{
+                    "Type": seg,
+                    "Description": desc,
+                    "Listed": True,
+                }]
+            return out
+        else:
+            # In this case the description describe the sequence as a whole,
+            # like `Indexes` in `OpAccessChain`. Also special case like
+            # `literal, label <id>, literal, label <id>, \u2026` in `OpSwitch`.
+            for seg in segs:
+                out += [{
+                    "Type": seg,
+                    "Description": desc,
+                    "Listed": True,
+                }]
+        return out
+
+    raise RuntimeError("unrecognized operand list pattern")
+
+def decompose_operand(operand) -> List[dict]:
     lines = split_and_strip('\n', operand)
 
     optional = False
@@ -158,12 +235,18 @@ def decompose_operand(operand) -> dict:
     lines = lines2[:-1]
 
     assert len(lines) <= 2, f"unexpected operand description row {lines}"
-    out["Type"] = lines[0].strip()
-    if len(lines) == 2:
-        out["Description"] = lines[1].strip()
-    if optional:
-        out["Optional"] = optional
-    return out
+    if ',' in lines[0]:
+        desc = lines[1] if len(lines) == 2 else None
+        listed_operands = decompose_operand_list(lines[0], desc)
+        return listed_operands
+    else:
+        out = {}
+        out["Type"] = lines[0].strip()
+        if len(lines) == 2:
+            out["Description"] = lines[1].strip()
+        if optional:
+            out["Optional"] = optional
+        return [out]
 
 def table2enum(table: TableParser, subsec):
     out = []
@@ -189,7 +272,7 @@ def table2enum(table: TableParser, subsec):
                 # Ignore trailing empty extra operands.
                 if len(operand) > 0:
                     operand = decompose_operand(operand)
-                    extra += [operand]
+                    extra += operand
             elem = decompose_item_desc(row[1])
             if len(extra) > 0:
                 elem["ExtraOperands"] = extra
@@ -266,7 +349,7 @@ def table2instr(table: TableParser, subsubsec):
     out_operands = []
     for operand in second_row[2:]:
         operand = decompose_operand(operand)
-        out_operands += [operand]
+        out_operands += operand
 
     elem["MinWordCount"] = int(min_word_count)
     if variable_word_count:
