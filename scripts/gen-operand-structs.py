@@ -16,6 +16,7 @@ out_src += [
     f"//   {GENERATOR}",
     "#pragma once",
     "#include <vector>",
+    "#include <string>",
     "#include <optional>",
     "#include \"spirv/unified1/spirv.hpp\"",
     "namespace tinyspv {",
@@ -34,11 +35,16 @@ class NameCounter:
 ENUMERATIONS = set()
 for enum in SPEC["Enumerations"]:
     ENUMERATIONS.add(''.join(enum["Name"].split(' ')))
-def operand_ty2cpp_ty(ty):
+def operand_ty2cpp_ty(ty, literal_as_u32):
     if ty.endswith("<id>"):
         return "Id"
     elif ty == "Literal":
-        return "Literal"
+        if literal_as_u32:
+            return "uint32_t"
+        else:
+            return "Literal"
+    elif ty == "@STRING_LITERAL":
+        return "std::string"
     elif ''.join(ty.split(' ')) in ENUMERATIONS:
         return ''.join(ty.split(' '))
     else:
@@ -68,17 +74,25 @@ def normalize_field_name(txt) -> str:
         elif c == ' ' and out[-1] != '_':
             out += '_'
     return out
-def operand2code(name_counter, operand):
+def operand2code(name_counter, operand, literal_as_u32):
     ty = operand["Type"]
     # If the name is not specified, name it with operand type. Unnamed operands
     # are usually results and result types.
     name = operand["Description"] if "Description" in operand else ty
     out = normalize_field_name(name)
     name = name_counter.get_counted_name(out)
+    if ty == "Literal" and ("name" in name or "string" in name):
+        # If the variable names follow some special patterns we elevate them to
+        # specialized string type.
+        ty = "@STRING_LITERAL"
     is_optional = operand["Optional"] if "Optional" in operand else False
     is_listed = operand["Listed"]  if "Listed" in operand else False
 
-    ty = operand_quantifier2ty(is_optional, is_listed).format(operand_ty2cpp_ty(ty))
+    # Force disable literal type inference when the operand has a variable size.
+    if is_optional or is_listed:
+        literal_as_u32 = False
+
+    ty = operand_quantifier2ty(is_optional, is_listed).format(operand_ty2cpp_ty(ty, literal_as_u32))
     code = f"  {ty} {name};"
     return code
 
@@ -91,11 +105,36 @@ for instr_cls in SPEC["InstructionClasses"]:
         operands = instr["Operands"] if "Operands" in instr else []
         capabilities = list(instr["EnablingCapabilities"] if "EnablingCapabilities" in instr else [])
 
+        # First word encoding opcode and instruction size is subtracted off.
+        min_size = instr["MinWordCount"] - 1
+        is_variable_size = instr["VariableWordCount"] if "VariableWordCount" in instr else False
+        min_operand_count = len([x for x in operands if "Optional" not in x and "Listed" not in x])
+
         code = [f"struct {opname} {{"]
         operand_codes = []
-        for operand in operands:
+        for i, operand in enumerate(operands):
+            if i + 1 >= min_operand_count:
+                if min_operand_count == len(operands) and min_size == min_operand_count:
+                    # No optional or listed operand but the size is variable; it's a
+                    # string literal at the end of the instruction.
+                    literal_as_u32 = False
+                else:
+                    # Optional/listed operand exists, we have no idea what the
+                    # last non-o/l-qualified operand is, but it's preferred we
+                    # guess that it's a 32-bit word. It's unusual we use a lot
+                    # of string literals in SPIR-V except for `OpEntryPoint`.
+                    # Also note that the operand type might be elevated to
+                    # `std::string` if it has a special name.
+                    literal_as_u32 = True
+            else:
+                # The first N operands within `min_operand_count` can be safely
+                # inferred.
+                literal_as_u32 = True
+            if not is_variable_size and min_size == min_operand_count:
+                # Fixed-size instruction always have 32-bit literals only.
+                literal_as_u32 = True
             try:
-                code += [operand2code(name_counter, operand)]
+                code += [operand2code(name_counter, operand, literal_as_u32)]
             except NotImplementedError as e:
                 print(f"ignored unsupported instruction because {e}")
                 continue

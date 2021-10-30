@@ -25,7 +25,7 @@ struct OpSourceContinued {
 };
 struct OpSource {
   SourceLanguage source_language;
-  Literal version;
+  uint32_t version;
   std::optional<Id> file;
   std::optional<Literal> source;
 };
@@ -34,21 +34,21 @@ struct OpSourceExtension {
 };
 struct OpName {
   Id target;
-  Literal name;
+  std::string name;
 };
 struct OpMemberName {
   Id type;
-  Literal member;
-  Literal name;
+  uint32_t member;
+  std::string name;
 };
 struct OpString {
   Id result_id;
-  Literal string;
+  std::string string;
 };
 struct OpLine {
   Id file;
-  Literal line;
-  Literal column;
+  uint32_t line;
+  uint32_t column;
 };
 struct OpNoLine {
 };
@@ -62,7 +62,7 @@ struct OpDecorate {
 };
 struct OpMemberDecorate {
   Id structure_type;
-  Literal member;
+  uint32_t member;
   Decoration decoration;
   std::vector<Literal> see_decoration;
 };
@@ -86,28 +86,28 @@ struct OpDecorateId {
 struct OpDecorateString {
   Id target;
   Decoration decoration;
-  Literal see_decoration;
+  uint32_t see_decoration;
   std::vector<Literal> see_decoration2;
 };
 struct OpMemberDecorateString {
   Id struct_type;
-  Literal member;
+  uint32_t member;
   Decoration decoration;
-  Literal see_decoration;
+  uint32_t see_decoration;
   std::vector<Literal> see_decoration2;
 };
 struct OpExtension {
-  Literal name;
+  std::string name;
 };
 struct OpExtInstImport {
   Id result_id;
-  Literal name;
+  std::string name;
 };
 struct OpExtInst {
   Id result_type;
   Id result_id;
   Id set;
-  Literal instruction;
+  uint32_t instruction;
   std::vector<Id> operand;
 };
 struct OpMemoryModel {
@@ -117,7 +117,7 @@ struct OpMemoryModel {
 struct OpEntryPoint {
   ExecutionModel execution_model;
   Id entry_point;
-  Literal name;
+  std::string name;
   std::vector<Id> interface;
 };
 struct OpExecutionMode {
@@ -141,31 +141,31 @@ struct OpTypeBool {
 };
 struct OpTypeInt {
   Id result_id;
-  Literal width;
-  Literal signedness;
+  uint32_t width;
+  uint32_t signedness;
 };
 struct OpTypeFloat {
   Id result_id;
-  Literal width;
+  uint32_t width;
 };
 struct OpTypeVector {
   Id result_id;
   Id component_type;
-  Literal component_count;
+  uint32_t component_count;
 };
 struct OpTypeMatrix {
   Id result_id;
   Id column_type;
-  Literal column_count;
+  uint32_t column_count;
 };
 struct OpTypeImage {
   Id result_id;
   Id sampled_type;
   Dim dim;
-  Literal depth;
-  Literal arrayed;
-  Literal ms;
-  Literal sampled;
+  uint32_t depth;
+  uint32_t arrayed;
+  uint32_t ms;
+  uint32_t sampled;
   ImageFormat image_format;
   std::optional<AccessQualifier> access_qualifier;
 };
@@ -191,7 +191,7 @@ struct OpTypeStruct {
 };
 struct OpTypeOpaque {
   Id result_id;
-  Literal the_name_of_the_opaque_type;
+  std::string the_name_of_the_opaque_type;
 };
 struct OpTypePointer {
   Id result_id;
@@ -251,7 +251,7 @@ struct OpConstantSampler {
   Id result_type;
   Id result_id;
   SamplerAddressingMode sampler_addressing_mode;
-  Literal param;
+  uint32_t param;
   SamplerFilterMode sampler_filter_mode;
 };
 struct OpConstantNull {
@@ -279,7 +279,7 @@ struct OpSpecConstantComposite {
 struct OpSpecConstantOp {
   Id result_type;
   Id result_id;
-  Literal opcode;
+  uint32_t opcode;
   std::vector<Id> operands;
 };
 struct OpVariable {
@@ -342,7 +342,7 @@ struct OpArrayLength {
   Id result_type;
   Id result_id;
   Id structure;
-  Literal array_member;
+  uint32_t array_member;
 };
 struct OpGenericPtrMemSemantics {
   Id result_type;
@@ -1351,11 +1351,11 @@ struct OpUnreachable {
 };
 struct OpLifetimeStart {
   Id pointer;
-  Literal size;
+  uint32_t size;
 };
 struct OpLifetimeStop {
   Id pointer;
-  Literal size;
+  uint32_t size;
 };
 struct OpTerminateInvocation {
 };
@@ -2000,9 +2000,9 @@ struct OpGroupCommitWritePipe {
 struct OpConstantPipeStorage {
   Id result_type;
   Id result_id;
-  Literal packet_size;
-  Literal packet_alignment;
-  Literal capacity;
+  uint32_t packet_size;
+  uint32_t packet_alignment;
+  uint32_t capacity;
 };
 struct OpCreatePipeFromPipeStorage {
   Id result_type;
