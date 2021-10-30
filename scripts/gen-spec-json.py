@@ -228,11 +228,16 @@ def table2enum(table: TableParser, subsec):
         for row in table.rows:
             offset = len(row) - ncol_def
             assert offset <= 1
-            elem = dict(zip(table.col_defs, row[offset:]))
-            if offset == 1:
+            if len(row) == 1:
                 # Special case of 'Magic Number'.
+                elem = { "Value": row[0] }
+                out += [elem]
+            elif len(row) == 2:
+                elem = decompose_item_desc(row[1])
                 elem["Value"] = row[0]
-            out += [elem]
+                out += [elem]
+            else:
+                raise RuntimeError("unexpected row pattern")
     else:
         raise RuntimeError("unsupported column pattern")
     return out

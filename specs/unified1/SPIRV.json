@@ -2,32 +2,32 @@
     "Enumerations": {
         "Magic Number": [
             {
-                "Magic Number": "0x07230203"
+                "Value": "0x07230203"
             }
         ],
         "Source Language": [
             {
-                "Source Language": "Unknown",
+                "Name": "Unknown",
                 "Value": "0"
             },
             {
-                "Source Language": "ESSL",
+                "Name": "ESSL",
                 "Value": "1"
             },
             {
-                "Source Language": "GLSL",
+                "Name": "GLSL",
                 "Value": "2"
             },
             {
-                "Source Language": "OpenCL_C",
+                "Name": "OpenCL_C",
                 "Value": "3"
             },
             {
-                "Source Language": "OpenCL_CPP",
+                "Name": "OpenCL_CPP",
                 "Value": "4"
             },
             {
-                "Source Language": "HLSL",
+                "Name": "HLSL",
                 "Value": "5"
             }
         ],
@@ -2161,19 +2161,23 @@
         ],
         "FP Rounding Mode": [
             {
-                "FP Rounding Mode": "RTE\nRound to nearest even.",
+                "Name": "RTE",
+                "Description": "Round to nearest even.",
                 "Value": "0"
             },
             {
-                "FP Rounding Mode": "RTZ\nRound towards zero.",
+                "Name": "RTZ",
+                "Description": "Round towards zero.",
                 "Value": "1"
             },
             {
-                "FP Rounding Mode": "RTP\nRound towards positive infinity.",
+                "Name": "RTP",
+                "Description": "Round towards positive infinity.",
                 "Value": "2"
             },
             {
-                "FP Rounding Mode": "RTN\nRound towards negative infinity.",
+                "Name": "RTN",
+                "Description": "Round towards negative infinity.",
                 "Value": "3"
             }
         ],
@@ -4464,15 +4468,17 @@
         ],
         "Selection Control": [
             {
-                "Selection Control": "None",
+                "Name": "None",
                 "Value": "0x0"
             },
             {
-                "Selection Control": "Flatten\nStrong request, to the extent possible, to remove the control flow for this selection.",
+                "Name": "Flatten",
+                "Description": "Strong request, to the extent possible, to remove the control flow for this selection.",
                 "Value": "0x1"
             },
             {
-                "Selection Control": "DontFlatten\nStrong request, to the extent possible, to keep this selection as control flow.",
+                "Name": "DontFlatten",
+                "Description": "Strong request, to the extent possible, to keep this selection as control flow.",
                 "Value": "0x2"
             }
         ],
@@ -4613,23 +4619,27 @@
         ],
         "Function Control": [
             {
-                "Function Control": "None",
+                "Name": "None",
                 "Value": "0x0"
             },
             {
-                "Function Control": "Inline\nStrong request, to the extent possible, to inline the function.",
+                "Name": "Inline",
+                "Description": "Strong request, to the extent possible, to inline the function.",
                 "Value": "0x1"
             },
             {
-                "Function Control": "DontInline\nStrong request, to the extent possible, to not inline the function.",
+                "Name": "DontInline",
+                "Description": "Strong request, to the extent possible, to not inline the function.",
                 "Value": "0x2"
             },
             {
-                "Function Control": "Pure\nCompiler can assume this function has no side effect, but might read global memory or read through dereferenced function parameters. Always computes the same result when called with the same argument values and the same global state.",
+                "Name": "Pure",
+                "Description": "Compiler can assume this function has no side effect, but might read global memory or read through dereferenced function parameters. Always computes the same result when called with the same argument values and the same global state.",
                 "Value": "0x4"
             },
             {
-                "Function Control": "Const\nCompiler assumes this function has no side effects, and does not access global memory or dereference function parameters. Always computes the same result for the same argument values.",
+                "Name": "Const",
+                "Description": "Compiler assumes this function has no side effects, and does not access global memory or dereference function parameters. Always computes the same result for the same argument values.",
                 "Value": "0x8"
             }
         ],
