@@ -139,6 +139,13 @@ def decompose_item_meta(meta) -> dict:
             out["EnablingCapabilities"] = split_and_strip(',', line)
     return out
 
+def title_keep_upper(txt) -> str:
+    if len(txt) == 0 or txt[0].isupper():
+        return txt
+    out = ""
+    for i, c in enumerate(txt):
+        out += c.upper() if i == 0 else c
+    return out
 def decompose_operand_list(operand_ty, operand_desc) -> dict:
     # Extract the repeating units in type specifications. This is the
     # referential operand count.
@@ -152,7 +159,7 @@ def decompose_operand_list(operand_ty, operand_desc) -> dict:
         out = []
         for seg in segs:
             out += [{
-                "Type": seg,
+                "Type": title_keep_upper(seg),
                 "Listed": True,
             }]
         return out
@@ -174,7 +181,7 @@ def decompose_operand_list(operand_ty, operand_desc) -> dict:
                 assert desc_segs[0] != desc, "ordinate number ellimination seems failed"
                 for seg in segs:
                     out += [{
-                        "Type": segs[0],
+                        "Type": title_keep_upper(segs[0]),
                         "Description": desc,
                         "Listed": True,
                     }]
@@ -184,7 +191,7 @@ def decompose_operand_list(operand_ty, operand_desc) -> dict:
             # same segment position, like `Variable, Parent, \u2026` in `OpPhi`.
             for ty, desc in zip(segs, desc_segs):
                 out += [{
-                    "Type": ty,
+                    "Type": title_keep_upper(ty),
                     "Description": desc,
                     "Listed": True
                 }]
@@ -197,7 +204,7 @@ def decompose_operand_list(operand_ty, operand_desc) -> dict:
             # phrase rather than a noun.
             for seg in segs:
                 out += [{
-                    "Type": seg,
+                    "Type": title_keep_upper(seg),
                     "Description": desc,
                     "Listed": True,
                 }]
@@ -208,7 +215,7 @@ def decompose_operand_list(operand_ty, operand_desc) -> dict:
             # `literal, label <id>, literal, label <id>, \u2026` in `OpSwitch`.
             for seg in segs:
                 out += [{
-                    "Type": seg,
+                    "Type": title_keep_upper(seg),
                     "Description": desc,
                     "Listed": True,
                 }]

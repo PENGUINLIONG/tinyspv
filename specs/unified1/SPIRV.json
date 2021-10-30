@@ -2,7 +2,7 @@
     "Generator": {
         "Name": "PENGUINLIONG/tinyspv",
         "ScriptName": "gen-spec-json.py",
-        "GitCommitHash": "fef0b9ba5328d998146026a4d247c7533aad0e72"
+        "GitCommitHash": "e5ad4d5537421acc1b1e66d451db0d6f018a83ca"
     },
     "Enumerations": [
         {
@@ -7210,7 +7210,7 @@
                             "Listed": true
                         },
                         {
-                            "Type": "literal",
+                            "Type": "Literal",
                             "Description": "Targets",
                             "Listed": true
                         }
@@ -12454,12 +12454,12 @@
                             "Description": "Default"
                         },
                         {
-                            "Type": "literal",
+                            "Type": "Literal",
                             "Description": "Target",
                             "Listed": true
                         },
                         {
-                            "Type": "label <id>",
+                            "Type": "Label <id>",
                             "Description": "Target",
                             "Listed": true
                         }
