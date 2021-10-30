@@ -13,14 +13,17 @@ with open("include/tinyspv/spirv/unified1/SPIRV.hpp", 'w') as f:
     ]
     f.write('\n'.join(src))
 
-    for instr_cls, instrs in SPEC["Instructions"].items():
-        f.write(f"  // {instr_cls}.\n")
-        for instr in instrs:
+    # Generate instruction opcodes.
+    for instr_cls in SPEC["InstructionClasses"]:
+        instr_cls_name = instr_cls["Name"] 
+        f.write(f"  // {instr_cls_name}.\n")
+        for instr in instr_cls["Instructions"]:
             name = instr["Name"]
             opcode = instr["Opcode"]
             f.write(f"  {name} = {opcode},\n")
-            for alias in instr["Aliases"]:
-                f.write(f"  {alias} = {opcode}, // Alias of {name}.\n")
+            if "Aliases" in instr:
+                for alias in instr["Aliases"]:
+                    f.write(f"  {alias} = {opcode}, // Alias of {name}.\n")
 
     src = [
         "}; // enum Opcode",
