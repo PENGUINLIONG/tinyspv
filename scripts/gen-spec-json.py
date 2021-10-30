@@ -224,12 +224,13 @@ def decompose_operand_list(operand_ty, operand_desc) -> dict:
     raise RuntimeError("unrecognized operand list pattern")
 
 def decompose_operand(operand) -> List[dict]:
-    lines = split_and_strip('\n', operand)
-
     optional = False
-    if lines[0].startswith("Optional"):
+    # Not using `startwith` because of `OpDecorateString`.
+    if "Optional" in operand:
         optional = True
-        del lines[0]
+        operand = operand.replace("Optional", "")
+
+    lines = split_and_strip('\n', operand)
 
     # Concatenate multi-line operand list description. See `OpSwitch`.
     lines2 = [""]
@@ -239,7 +240,7 @@ def decompose_operand(operand) -> List[dict]:
         if not seg.endswith(','):
             lines2 += [""]
     assert lines2[-1] == ""
-    lines = lines2[:-1]
+    lines = [x.strip() for x in lines2[:-1]]
 
     assert len(lines) <= 2, f"unexpected operand description row {lines}"
     if ',' in lines[0]:
@@ -248,10 +249,17 @@ def decompose_operand(operand) -> List[dict]:
         return listed_operands
     else:
         out = {}
-        out["Type"] = lines[0].strip()
+        is_listed = False
+        if lines[0] == "Literals":
+            out["Type"] = "Literal"
+            is_listed = True
+        else:
+            out["Type"] = lines[0]
         if len(lines) == 2:
-            out["Description"] = lines[1].strip()
-        if optional:
+            out["Description"] = lines[1]
+        if is_listed:
+            out["Listed"] = True
+        elif optional:
             out["Optional"] = optional
         return [out]
 
