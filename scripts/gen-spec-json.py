@@ -108,9 +108,9 @@ def decompose_item_desc(desc) -> dict:
     desc_lines = []
     for line in lines[1:]:
         if line.startswith("See extension "):
-            out["See Extensions"] = [line[len("See extension "):].strip()]
+            out["SeeExtensions"] = [line[len("See extension "):].strip()]
         elif line.startswith("See extensions "):
-            out["See Extensions"] = [x.strip() for x in line[len("See extensions "):].split(",")]
+            out["SeeExtensions"] = [x.strip() for x in line[len("See extensions "):].split(",")]
         else:
             # There might be other descriptions but these are safe to ignore.
             desc_lines += [line]
@@ -127,15 +127,15 @@ def decompose_item_meta(meta) -> dict:
         if line == "Reserved.":
             out["Reserved"] = True
         elif line.startswith("Missing before version ") and line.endswith("."):
-            out["Missing Before"] = line[len("Missing before version "):-1]
+            out["MissingBefore"] = line[len("Missing before version "):-1]
         elif line.startswith("Missing after version ") and line.endswith("."):
-            out["Missing After"] = line[len("Missing after version "):-1]
+            out["MissingAfter"] = line[len("Missing after version "):-1]
         elif line.startswith("Also see extension: "):
-            out["See Extensions"] = [line[len("Also see extension: "):].strip()]
+            out["SeeExtensions"] = [line[len("Also see extension: "):].strip()]
         elif line.startswith("Also see extensions: "):
-            out["See Extensions"] = split_and_strip(',', line[len("Also see extensions: "):])
+            out["SeeExtensions"] = split_and_strip(',', line[len("Also see extensions: "):])
         else:
-            out["Enabling Capabilities"] = split_and_strip(',', line)
+            out["EnablingCapabilities"] = split_and_strip(',', line)
     return out
 
 def decompose_operand(operand) -> dict:
@@ -192,7 +192,7 @@ def table2enum(table: TableParser, subsec):
                     extra += [operand]
             elem = decompose_item_desc(row[1])
             if len(extra) > 0:
-                elem["Extra Operands"] = extra
+                elem["ExtraOperands"] = extra
             meta = decompose_item_meta(row[-1])
             elem.update(meta)
             elem["Value"] = row[0]
@@ -268,9 +268,9 @@ def table2instr(table: TableParser, subsubsec):
         operand = decompose_operand(operand)
         out_operands += [operand]
 
-    elem["Min Word Count"] = int(min_word_count)
+    elem["MinWordCount"] = int(min_word_count)
     if variable_word_count:
-        elem["Variable Word Count"] = variable_word_count
+        elem["VariableWordCount"] = variable_word_count
     elem["Opcode"] = int(opcode)
     if len(out_operands) > 0:
         elem["Operands"] = out_operands
