@@ -90,6 +90,34 @@ def split_and_strip(sep, s):
     """
     return [y for y in (x.strip() for x in s.split(sep)) if len(y) > 0]
 
+def decompose_item_desc(desc) -> dict:
+    out = {}
+    lines = split_and_strip('\n', desc)
+
+    m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", lines[0])
+    assert m, f"invalid op name pattern '{lines[0]}'"
+
+    name = m[1]
+    out["Name"] = name
+
+    aliases = split_and_strip(',', m[2]) if m[2] != None else None
+    if aliases:
+        out["Aliases"] = aliases
+
+    desc_lines = []
+    for line in lines[1:]:
+        if line.startswith("See extension "):
+            out["See Extensions"] = [line[len("See extension "):].strip()]
+        elif line.startswith("See extensions "):
+            out["See Extensions"] = [x.strip() for x in line[len("See extensions "):].split(",")]
+        else:
+            # There might be other descriptions but these are safe to ignore.
+            desc_lines += [line]
+    if len(desc_lines) > 0:
+        out["Description"] = '\n'.join(desc_lines)
+
+    return out
+
 def decompose_item_meta(meta) -> dict:
     lines = split_and_strip('\n', meta)
     out = {}
@@ -132,22 +160,10 @@ def table2enum(table: TableParser, subsec):
             # Remove trailing empty extra operands.
             while len(extra) > 0 and len(extra[-1]) == 0:
                 del extra[-1]
-            meta = decompose_item_meta(row[-1])
-
-            elem = {}
-            m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
-            assert m, f"invalid op name pattern {name}"
-            name = m[1]
-            aliases = None if m[2] == None else m[2].split(",")
-            elem["Name"] = name
-            if aliases:
-                elem["Aliases"] = aliases
-            if desc:
-                desc = desc.strip()
-            if desc:
-                elem["Description"] = desc
+            elem = decompose_item_desc(row[1])
             if len(extra) > 0:
                 elem["Extra Operands"] = extra
+            meta = decompose_item_meta(row[-1])
             elem.update(meta)
             elem["Value"] = row[0]
             out += [elem]
@@ -168,24 +184,13 @@ def table2enum(table: TableParser, subsec):
         # General cases for other literal number specifications.
         for row in table.rows:
             assert len(row) == ncol_def + 1
-            name, desc = tuple((row[1] + "\n").split("\n", maxsplit=1))
             assert table.col_defs[1] == "Enabling Capabilities" or \
                 table.col_defs[1] == "Implicitly Declares", \
                 "unsupported capability column"
+            elem = decompose_item_desc(row[1])
             meta = decompose_item_meta(row[2])
             if table.col_defs[1] == "Implicitly Declares":
                 meta = override_caps_en2imply(meta)
-            elem = {}
-            m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
-            assert m, f"invalid op name pattern {name}"
-            name = m[1]
-            aliases = None if m[2] == None else m[2].split(",")
-            elem["Name"] = name
-            if aliases:
-                elem["Aliases"] = aliases
-            desc = desc.strip()
-            if desc:
-                elem["Description"] = desc
             elem.update(meta)
             elem["Value"] = row[0]
             out += [elem]
@@ -202,35 +207,17 @@ def table2enum(table: TableParser, subsec):
         raise RuntimeError("unsupported column pattern")
     return out
 
-def decompose_instr_desc(desc):
-    segs = desc.split('\n')
-    out_desc = []
-    out_exts = []
-    for seg in segs:
-        if seg.startswith("See extension "):
-            out_exts = [x.strip() for x in seg[len("See extension "):].split(",")]
-        elif seg.startswith("See extensions "):
-            out_exts = [x.strip() for x in seg[len("See extensions "):].split(",")]
-        else:
-            # There might be other descriptions but these are safe to ignore.
-            out_desc += [seg]
-    out_desc = '\n'.join(out_desc)
-    return (out_desc, out_exts)
-
 def table2instr(table: TableParser, subsubsec):
     assert len(table.rows) == 2, \
         "instruction specification must have two rows"
 
     first_row = table.rows[0]
-    name, desc = tuple(x.strip() for x in first_row[0].split("\n", maxsplit=1))
-    cap = first_row[1] if len(first_row) > 1 else ""
-    if cap.startswith("Capability:"):
-        cap = cap[len("Capability:"):]
-    cap = cap.strip()
-    meta = decompose_item_meta(cap)
-    desc, exts = decompose_instr_desc(desc)
-    if len(exts) > 0:
-        meta["See Extensions"] = exts
+    elem = decompose_item_desc(first_row[0])
+    meta_txt = first_row[1] if len(first_row) > 1 else ""
+    if meta_txt.startswith("Capability:"):
+        meta_txt = meta_txt[len("Capability:"):]
+    meta = decompose_item_meta(meta_txt)
+    elem.update(meta)
 
     second_row = table.rows[1]
     word_count = second_row[0]
@@ -263,28 +250,15 @@ def table2instr(table: TableParser, subsubsec):
         assert len(segs) <= 2, f"unexpected operand description row {segs}"
         ty = segs[0]
         desc2 = segs[1] if len(segs) == 2 else None
-        elem = { "Type": ty.strip() }
+        elem2 = { "Type": ty.strip() }
         if desc2:
             desc2 = desc2.strip()
         if desc2:
-            elem["Description"] = desc2
+            elem2["Description"] = desc2
         if optional:
-            elem["Optional"] = optional
-        out_operands += [elem]
+            elem2["Optional"] = optional
+        out_operands += [elem2]
 
-    elem = {}
-    m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
-    assert m, f"invalid op name pattern {name}"
-    name = m[1]
-    aliases = None if m[2] == None else m[2].split(",")
-    elem["Name"] = name
-    if aliases:
-        elem["Aliases"] = aliases
-    if desc:
-        desc = desc.strip()
-    if desc:
-        elem["Description"] = desc
-    elem.update(meta)
     elem["Min Word Count"] = int(min_word_count)
     if variable_word_count:
         elem["Variable Word Count"] = variable_word_count
