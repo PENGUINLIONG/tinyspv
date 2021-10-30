@@ -83,35 +83,31 @@ class TableParser:
         elif tag == "td" and self.should_update_rows:
             self.rows[-1] += [self.gather_text.strip()]
 
-def decompose_enabling_capabilities(cap):
-    segs = [x.strip() for x in cap.split('\n')]
-    out_caps = None
-    out_reserved = False
-    out_miss_before = None
-    out_miss_after = None
-    out_exts = None
+def split_and_strip(sep, s):
+    """
+    Split input `s` by separator `sep`, strip each output segment with empty
+    segment dropped.
+    """
+    return [y for y in (x.strip() for x in s.split(sep)) if len(y) > 0]
 
-    if len(segs) > 0:
-        out_caps = [x.strip() for x in segs[0].split(',')]
-    # Remove trailing empty extra operands.
-    while len(out_caps) > 0 and len(out_caps[-1]) == 0:
-        del out_caps[-1]
-    for seg in segs[1:]:
-        if seg == "":
-            pass
-        elif seg == "Reserved.":
-            out_reserved = True
-        elif seg.startswith("Missing before version ") and seg.endswith("."):
-            out_miss_before = seg[len("Missing before version "):-1]
-        elif seg.startswith("Missing after version ") and seg.endswith("."):
-            out_miss_after = seg[len("Missing after version "):-1]
-        elif seg.startswith("Also see extension: "):
-            out_exts = [x.strip() for x in seg[len("Also see extension: "):].split(',')]
-        elif seg.startswith("Also see extensions: "):
-            out_exts = [x.strip() for x in seg[len("Also see extensions: "):].split(',')]
+def decompose_item_meta(meta) -> dict:
+    lines = split_and_strip('\n', meta)
+    out = {}
+
+    for line in lines:
+        if line == "Reserved.":
+            out["Reserved"] = True
+        elif line.startswith("Missing before version ") and line.endswith("."):
+            out["Missing Before"] = line[len("Missing before version "):-1]
+        elif line.startswith("Missing after version ") and line.endswith("."):
+            out["Missing After"] = line[len("Missing after version "):-1]
+        elif line.startswith("Also see extension: "):
+            out["See Extensions"] = [line[len("Also see extension: "):].strip()]
+        elif line.startswith("Also see extensions: "):
+            out["See Extensions"] = split_and_strip(',', line[len("Also see extensions: "):])
         else:
-            raise RuntimeError(f"unknown capability pattern: {seg}")
-    return (out_caps, out_reserved, out_miss_before, out_miss_after, out_exts)
+            out["Enabling Capabilities"] = split_and_strip(',', line)
+    return out
 
 def table2enum(table: TableParser, subsec):
     out = []
@@ -136,7 +132,7 @@ def table2enum(table: TableParser, subsec):
             # Remove trailing empty extra operands.
             while len(extra) > 0 and len(extra[-1]) == 0:
                 del extra[-1]
-            caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[-1])
+            meta = decompose_item_meta(row[-1])
 
             elem = {}
             m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
@@ -152,19 +148,23 @@ def table2enum(table: TableParser, subsec):
                 elem["Description"] = desc
             if len(extra) > 0:
                 elem["Extra Operands"] = extra
-            if caps:
-                elem["Enabling Capabilities"] = caps
-            if reserved:
-                elem["Reserved"] = reserved
-            if miss_before:
-                elem["Missing Before"] = miss_before
-            if miss_after:
-                elem["Missing After"] = miss_after
-            if exts:
-                elem["See Extensions"] = exts
+            elem.update(meta)
             elem["Value"] = row[0]
             out += [elem]
     elif ncol_def >= 2:
+        def override_caps_en2imply(meta):
+            """
+            Override enabling capabilities to implicitly declares. This is used
+            for the `Capability` enum.
+            """
+            out = {}
+            for k, v in meta.items():
+                if k == "Enabling Capabilities":
+                    out["Implicitly Declares"] = v
+                else:
+                    out[k] = v
+            return out
+
         # General cases for other literal number specifications.
         for row in table.rows:
             assert len(row) == ncol_def + 1
@@ -172,7 +172,9 @@ def table2enum(table: TableParser, subsec):
             assert table.col_defs[1] == "Enabling Capabilities" or \
                 table.col_defs[1] == "Implicitly Declares", \
                 "unsupported capability column"
-            caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[2])
+            meta = decompose_item_meta(row[2])
+            if table.col_defs[1] == "Implicitly Declares":
+                meta = override_caps_en2imply(meta)
             elem = {}
             m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
             assert m, f"invalid op name pattern {name}"
@@ -184,16 +186,7 @@ def table2enum(table: TableParser, subsec):
             desc = desc.strip()
             if desc:
                 elem["Description"] = desc
-            if caps:
-                elem[table.col_defs[1]] = caps
-            if reserved:
-                elem["Reserved"] = reserved
-            if miss_before:
-                elem["Missing Before"] = miss_before
-            if miss_after:
-                elem["Missing After"] = miss_after
-            if exts:
-                elem["See Extensions"] = exts
+            elem.update(meta)
             elem["Value"] = row[0]
             out += [elem]
     elif ncol_def >= 1:
@@ -234,8 +227,10 @@ def table2instr(table: TableParser, subsubsec):
     if cap.startswith("Capability:"):
         cap = cap[len("Capability:"):]
     cap = cap.strip()
-    caps, reserved, miss_before, miss_after, _ = decompose_enabling_capabilities(cap)
+    meta = decompose_item_meta(cap)
     desc, exts = decompose_instr_desc(desc)
+    if len(exts) > 0:
+        meta["See Extensions"] = exts
 
     second_row = table.rows[1]
     word_count = second_row[0]
@@ -289,16 +284,7 @@ def table2instr(table: TableParser, subsubsec):
         desc = desc.strip()
     if desc:
         elem["Description"] = desc
-    if caps:
-        elem["Enabling Capabilities"] = caps
-    if reserved:
-        elem["Reserved"] = reserved
-    if miss_before:
-        elem["Missing Before"] = miss_before
-    if miss_after:
-        elem["Missing After"] = miss_after
-    if exts:
-        elem["See Extensions"] = exts
+    elem.update(meta)
     elem["Min Word Count"] = int(min_word_count)
     if variable_word_count:
         elem["Variable Word Count"] = variable_word_count

@@ -636,9 +636,7 @@
                     "<id>\ny size",
                     "<id>\nz size"
                 ],
-                "Enabling Capabilities": [
-                    "Missing before version 1.2."
-                ],
+                "Missing Before": "1.2",
                 "Value": "38"
             },
             {
@@ -2024,17 +2022,13 @@
             {
                 "Name": "SignExtend",
                 "Description": "The texel value is converted to the target value via sign extension. Only valid if the texel type is a scalar or vector of integer type.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "0x1000"
             },
             {
                 "Name": "ZeroExtend",
                 "Description": "The texel value is converted to the target value via zero extension. Only valid if the texel type is a scalar or vector of integer type.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "0x2000"
             }
         ],
@@ -2644,9 +2638,7 @@
             {
                 "Name": "NoSignedWrap",
                 "Description": "Apply to an instruction to indicate that it does not cause signed integer wrapping to occur, in the form of overflow or underflow.\n\nIt must decorate only the following instructions:\n- OpIAdd\n- OpISub\n- OpIMul\n- OpShiftLeftLogical\n- OpSNegate\n- OpExtInst for instruction numbers specified in the extended instruction-set   specifications as accepting this decoration.\n\nIf an instruction decorated with NoSignedWrap does overflow or underflow, behavior is undefined.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "See Extensions": [
                     "SPV_KHR_no_integer_wrap_decoration"
                 ],
@@ -2655,9 +2647,7 @@
             {
                 "Name": "NoUnsignedWrap",
                 "Description": "Apply to an instruction to indicate that it does not cause unsigned integer wrapping to occur, in the form of overflow or underflow.\n\nIt must decorate only the following instructions:\n- OpIAdd\n- OpISub\n- OpIMul\n- OpShiftLeftLogical\n- OpExtInst for instruction numbers specified in the extended instruction-set   specifications as accepting this decoration.\n\nIf an instruction decorated with NoUnsignedWrap does overflow or underflow, behavior is undefined.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "See Extensions": [
                     "SPV_KHR_no_integer_wrap_decoration"
                 ],
@@ -2665,9 +2655,7 @@
             },
             {
                 "Name": "ExplicitInterpAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -2846,9 +2834,7 @@
                 "Extra Operands": [
                     "<id>\nCounter Buffer"
                 ],
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "5634"
             },
             {
@@ -2856,9 +2842,7 @@
                 "Extra Operands": [
                     "<id>\nCounter Buffer"
                 ],
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_GOOGLE_hlsl_functionality1"
                 ],
@@ -2870,9 +2854,7 @@
                 "Extra Operands": [
                     "Literal\nSemantic"
                 ],
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "5635"
             },
             {
@@ -2880,9 +2862,7 @@
                 "Extra Operands": [
                     "Literal\nSemantic"
                 ],
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_GOOGLE_hlsl_functionality1"
                 ],
@@ -2893,9 +2873,7 @@
                 "Extra Operands": [
                     "Literal\nUser Type"
                 ],
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_GOOGLE_user_type"
                 ],
@@ -3583,9 +3561,7 @@
             },
             {
                 "Name": "BaryCoordNoPerspAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -3593,9 +3569,7 @@
             },
             {
                 "Name": "BaryCoordNoPerspCentroidAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -3603,9 +3577,7 @@
             },
             {
                 "Name": "BaryCoordNoPerspSampleAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -3613,9 +3585,7 @@
             },
             {
                 "Name": "BaryCoordSmoothAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -3623,9 +3593,7 @@
             },
             {
                 "Name": "BaryCoordSmoothCentroidAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -3633,9 +3601,7 @@
             },
             {
                 "Name": "BaryCoordSmoothSampleAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -3643,9 +3609,7 @@
             },
             {
                 "Name": "BaryCoordPullModelAMD",
-                "Enabling Capabilities": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_AMD_shader_explicit_vertex_parameter"
                 ],
@@ -4333,57 +4297,43 @@
             {
                 "Name": "DependencyInfinite",
                 "Description": "Guarantees that there are no dependencies between loop iterations.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.1."
-                ],
+                "Missing Before": "1.1",
                 "Value": "0x4"
             },
             {
                 "Name": "DependencyLength",
                 "Description": "Guarantees that there are no dependencies between a number of loop iterations. The dependency length is specified in a subsequent unsigned 32-bit integer literal operand.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.1."
-                ],
+                "Missing Before": "1.1",
                 "Value": "0x8"
             },
             {
                 "Name": "MinIterations",
                 "Description": "Unchecked assertion that the loop executes at least a given number of iterations. The iteration count is specified in a subsequent unsigned 32-bit integer literal operand.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "0x10"
             },
             {
                 "Name": "MaxIterations",
                 "Description": "Unchecked assertion that the loop executes at most a given number of iterations. The iteration count is specified in a subsequent unsigned 32-bit integer literal operand.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "0x20"
             },
             {
                 "Name": "IterationMultiple",
                 "Description": "Unchecked assertion that the loop executes a multiple of a given number of iterations. The number is specified in a subsequent unsigned 32-bit integer literal operand.  It must be greater than 0.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "0x40"
             },
             {
                 "Name": "PeelCount",
                 "Description": "Request that the loop be peeled by a given number of loop iterations. The peel count is specified in a subsequent unsigned 32-bit integer literal operand. \nThis must not be used with the DontUnroll bit.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "0x80"
             },
             {
                 "Name": "PartialCount",
                 "Description": "Request that the loop be partially unrolled by a given number of loop iterations. The unroll count is specified in a subsequent unsigned 32-bit integer literal operand. \nThis must not be used with the DontUnroll bit.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Value": "0x100"
             },
             {
@@ -4988,8 +4938,8 @@
             {
                 "Name": "Groups",
                 "Description": "Uses common group instructions.",
-                "Implicitly Declares": [
-                    "Also see extension: SPV_AMD_shader_ballot"
+                "See Extensions": [
+                    "SPV_AMD_shader_ballot"
                 ],
                 "Value": "18"
             },
@@ -5314,9 +5264,7 @@
             },
             {
                 "Name": "GroupNonUniform",
-                "Implicitly Declares": [
-                    "Missing before version 1.3."
-                ],
+                "Missing Before": "1.3",
                 "Value": "61"
             },
             {
@@ -5377,16 +5325,12 @@
             },
             {
                 "Name": "ShaderLayer",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "Value": "69"
             },
             {
                 "Name": "ShaderViewportIndex",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "Value": "70"
             },
             {
@@ -5402,9 +5346,7 @@
             },
             {
                 "Name": "SubgroupBallotKHR",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_KHR_shader_ballot"
                 ],
@@ -5423,9 +5365,7 @@
             },
             {
                 "Name": "SubgroupVoteKHR",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_KHR_subgroup_vote"
                 ],
@@ -5434,9 +5374,7 @@
             {
                 "Name": "StorageBuffer16BitAccess",
                 "Description": "Uses 16-bit OpTypeFloat and OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the StorageBuffer storage class, the PhysicalStorageBuffer storage class, or the Uniform storage class with the BufferBlock decoration.",
-                "Implicitly Declares": [
-                    "Missing before version 1.3."
-                ],
+                "Missing Before": "1.3",
                 "See Extensions": [
                     "SPV_KHR_16bit_storage"
                 ],
@@ -5444,9 +5382,7 @@
             },
             {
                 "Name": "StorageUniformBufferBlock16",
-                "Implicitly Declares": [
-                    "Missing before version 1.3."
-                ],
+                "Missing Before": "1.3",
                 "See Extensions": [
                     "SPV_KHR_16bit_storage"
                 ],
@@ -5480,9 +5416,7 @@
             {
                 "Name": "StoragePushConstant16",
                 "Description": "Uses 16-bit OpTypeFloat and OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the PushConstant storage class.",
-                "Implicitly Declares": [
-                    "Missing before version 1.3."
-                ],
+                "Missing Before": "1.3",
                 "See Extensions": [
                     "SPV_KHR_16bit_storage"
                 ],
@@ -5491,9 +5425,7 @@
             {
                 "Name": "StorageInputOutput16",
                 "Description": "Uses 16-bit OpTypeFloat and OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the Output storage class.",
-                "Implicitly Declares": [
-                    "Missing before version 1.3."
-                ],
+                "Missing Before": "1.3",
                 "See Extensions": [
                     "SPV_KHR_16bit_storage"
                 ],
@@ -5501,9 +5433,7 @@
             },
             {
                 "Name": "DeviceGroup",
-                "Implicitly Declares": [
-                    "Missing before version 1.3."
-                ],
+                "Missing Before": "1.3",
                 "See Extensions": [
                     "SPV_KHR_device_group"
                 ],
@@ -5546,9 +5476,7 @@
             },
             {
                 "Name": "AtomicStorageOps",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_KHR_shader_atomic_counter_ops"
                 ],
@@ -5556,9 +5484,7 @@
             },
             {
                 "Name": "SampleMaskPostDepthCoverage",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_KHR_post_depth_coverage"
                 ],
@@ -5567,9 +5493,7 @@
             {
                 "Name": "StorageBuffer8BitAccess",
                 "Description": "Uses 8-bit OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the StorageBuffer storage class or the PhysicalStorageBuffer storage class.",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "See Extensions": [
                     "SPV_KHR_8bit_storage"
                 ],
@@ -5590,9 +5514,7 @@
             {
                 "Name": "StoragePushConstant8",
                 "Description": "Uses 8-bit OpTypeInt instructions for creating scalar, vector, and composite types that become members of a block residing in the PushConstant storage class.",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "See Extensions": [
                     "SPV_KHR_8bit_storage"
                 ],
@@ -5601,9 +5523,7 @@
             {
                 "Name": "DenormPreserve",
                 "Description": "Uses the DenormPreserve execution mode.",
-                "Implicitly Declares": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "See Extensions": [
                     "SPV_KHR_float_controls"
                 ],
@@ -5612,9 +5532,7 @@
             {
                 "Name": "DenormFlushToZero",
                 "Description": "Uses the DenormFlushToZero execution mode.",
-                "Implicitly Declares": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "See Extensions": [
                     "SPV_KHR_float_controls"
                 ],
@@ -5623,9 +5541,7 @@
             {
                 "Name": "SignedZeroInfNanPreserve",
                 "Description": "Uses the SignedZeroInfNanPreserve execution mode.",
-                "Implicitly Declares": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "See Extensions": [
                     "SPV_KHR_float_controls"
                 ],
@@ -5634,9 +5550,7 @@
             {
                 "Name": "RoundingModeRTE",
                 "Description": "Uses the RoundingModeRTE execution mode.",
-                "Implicitly Declares": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "See Extensions": [
                     "SPV_KHR_float_controls"
                 ],
@@ -5645,9 +5559,7 @@
             {
                 "Name": "RoundingModeRTZ",
                 "Description": "Uses the RoundingModeRTZ execution mode.",
-                "Implicitly Declares": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "See Extensions": [
                     "SPV_KHR_float_controls"
                 ],
@@ -5877,9 +5789,7 @@
             },
             {
                 "Name": "ImageFootprintNV",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_NV_shader_image_footprint"
                 ],
@@ -5887,9 +5797,7 @@
             },
             {
                 "Name": "FragmentBarycentricNV",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_NV_fragment_shader_barycentric"
                 ],
@@ -5897,9 +5805,7 @@
             },
             {
                 "Name": "ComputeDerivativeGroupQuadsNV",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_NV_compute_shader_derivatives"
                 ],
@@ -5931,9 +5837,7 @@
             },
             {
                 "Name": "GroupNonUniformPartitionedNV",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_NV_shader_subgroup_partitioned"
                 ],
@@ -6199,16 +6103,12 @@
             {
                 "Name": "VulkanMemoryModel",
                 "Description": "Uses the Vulkan memory model. This capability must be declared if and only if the Vulkan memory model is declared.",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "Value": "5345"
             },
             {
                 "Name": "VulkanMemoryModelKHR",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "See Extensions": [
                     "SPV_KHR_vulkan_memory_model"
                 ],
@@ -6217,16 +6117,12 @@
             {
                 "Name": "VulkanMemoryModelDeviceScope",
                 "Description": "Uses Device scope with any instruction when the Vulkan memory model is declared.",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "Value": "5346"
             },
             {
                 "Name": "VulkanMemoryModelDeviceScopeKHR",
-                "Implicitly Declares": [
-                    "Missing before version 1.5."
-                ],
+                "Missing Before": "1.5",
                 "See Extensions": [
                     "SPV_KHR_vulkan_memory_model"
                 ],
@@ -6258,9 +6154,7 @@
             },
             {
                 "Name": "ComputeDerivativeGroupLinearNV",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_NV_compute_shader_derivatives"
                 ],
@@ -6345,9 +6239,7 @@
             },
             {
                 "Name": "SubgroupShuffleINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_subgroups"
                 ],
@@ -6355,9 +6247,7 @@
             },
             {
                 "Name": "SubgroupBufferBlockIOINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_subgroups"
                 ],
@@ -6365,9 +6255,7 @@
             },
             {
                 "Name": "SubgroupImageBlockIOINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_subgroups"
                 ],
@@ -6375,9 +6263,7 @@
             },
             {
                 "Name": "SubgroupImageMediaBlockIOINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_media_block_io"
                 ],
@@ -6396,9 +6282,7 @@
             },
             {
                 "Name": "FunctionPointersINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_function_pointers"
                 ],
@@ -6406,9 +6290,7 @@
             },
             {
                 "Name": "IndirectReferencesINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_function_pointers"
                 ],
@@ -6416,9 +6298,7 @@
             },
             {
                 "Name": "SubgroupAvcMotionEstimationINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_device_side_avc_motion_estimation"
                 ],
@@ -6426,9 +6306,7 @@
             },
             {
                 "Name": "SubgroupAvcMotionEstimationIntraINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_device_side_avc_motion_estimation"
                 ],
@@ -6436,9 +6314,7 @@
             },
             {
                 "Name": "SubgroupAvcMotionEstimationChromaINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_device_side_avc_motion_estimation"
                 ],
@@ -6446,9 +6322,7 @@
             },
             {
                 "Name": "FPGAMemoryAttributesINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_fpga_memory_attributes"
                 ],
@@ -6456,9 +6330,7 @@
             },
             {
                 "Name": "UnstructuredLoopControlsINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_unstructured_loop_controls"
                 ],
@@ -6466,9 +6338,7 @@
             },
             {
                 "Name": "FPGALoopControlsINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_fpga_loop_controls"
                 ],
@@ -6476,9 +6346,7 @@
             },
             {
                 "Name": "KernelAttributesINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_kernel_attributes"
                 ],
@@ -6486,9 +6354,7 @@
             },
             {
                 "Name": "FPGAKernelAttributesINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_kernel_attributes"
                 ],
@@ -6496,9 +6362,7 @@
             },
             {
                 "Name": "BlockingPipesINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_blocking_pipes"
                 ],
@@ -6506,9 +6370,7 @@
             },
             {
                 "Name": "FPGARegINTEL",
-                "Implicitly Declares": [
-                    "Reserved."
-                ],
+                "Reserved": true,
                 "See Extensions": [
                     "SPV_INTEL_fpga_reg"
                 ],
@@ -6915,9 +6777,7 @@
             {
                 "Name": "OpModuleProcessed",
                 "Description": "Document a process that was applied to a module. This has no semantic impact and can safely be removed from a module.\n\nProcess is a string describing a process and/or tool (processor) that did the processing. Its form is dependent on the processor.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.1."
-                ],
+                "Missing Before": "1.1",
                 "Min Word Count": 2,
                 "Variable Word Count": true,
                 "Opcode": 330,
@@ -7022,9 +6882,7 @@
             {
                 "Name": "OpDecorateId",
                 "Description": "Add a Decoration to another <id>, using <id>s as Extra Operands.\n\nTarget is the <id> to decorate.  It can potentially be any <id> that is a forward reference. A set of decorations can be grouped together by having multiple decoration instructions targeting the same OpDecorationGroup instruction.\n\nThis instruction is only valid if the Decoration operand is a decoration that takes Extra Operands that are <id> operands. All such <id> Extra Operands must be constant instructions or OpVariable instructions.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.2."
-                ],
+                "Missing Before": "1.2",
                 "Min Word Count": 3,
                 "Variable Word Count": true,
                 "Opcode": 332,
@@ -7048,9 +6906,7 @@
                     "OpDecorateStringGOOGLE"
                 ],
                 "Description": "Add a string Decoration to another <id>.\n\nTarget is the <id> to decorate.  It can potentially be any <id> that is a forward reference,  except it must not be the <id> of an OpDecorationGroup.\n\nDecoration is a decoration that takes at least one Literal operand, and has only Literal string operands.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Min Word Count": 4,
                 "Variable Word Count": true,
                 "Opcode": 5632,
@@ -7078,9 +6934,7 @@
                     "OpMemberDecorateStringGOOGLE"
                 ],
                 "Description": "Add a string Decoration to a member of a structure type.\n\nStructure Type is the <id> of an OpTypeStruct.\n\nMember is the number of the member to decorate in the type. Member is an unsigned 32-bit integer.  The first member is member 0, the next is member 1, \u2026\n\nDecoration is a decoration that takes at least one Literal operand, and has only Literal string operands.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Min Word Count": 5,
                 "Variable Word Count": true,
                 "Opcode": 5633,
@@ -7241,9 +7095,7 @@
             {
                 "Name": "OpExecutionModeId",
                 "Description": "Declare an execution mode for an entry point, using <id>s as Extra Operands.\n\nEntry Point must be the Entry Point <id> operand of an OpEntryPoint instruction.\n\nMode is the execution mode. See Execution Mode.\n\nThis instruction is only valid if the Mode operand is an execution mode that takes Extra Operands that are <id> operands. All such <id> Extra Operands must be constant instructions.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.2."
-                ],
+                "Missing Before": "1.2",
                 "Min Word Count": 3,
                 "Variable Word Count": true,
                 "Opcode": 331,
@@ -8190,9 +8042,7 @@
             {
                 "Name": "OpPtrEqual",
                 "Description": "Result is true if Operand 1 and Operand 2 have the same value. Result is false if Operand 1 and Operand 2 have different values.\n\n Result Type must be a Boolean type scalar. \n\n The types of Operand 1 and Operand 2 must be OpTypePointer of the same type.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Min Word Count": 5,
                 "Opcode": 401,
                 "Operands": [
@@ -8216,9 +8066,7 @@
             {
                 "Name": "OpPtrNotEqual",
                 "Description": "Result is true if Operand 1 and Operand 2 have different values. Result is false if Operand 1 and Operand 2 have the same value.\n\n Result Type must be a Boolean type scalar. \n\n The types of Operand 1 and Operand 2 must be OpTypePointer of the same type.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Min Word Count": 5,
                 "Opcode": 402,
                 "Operands": [
@@ -10073,9 +9921,7 @@
             {
                 "Name": "OpCopyLogical",
                 "Description": "Make a logical copy of Operand. There are no pointer dereferences involved.\n\nResult Type must not equal the type of Operand (see OpCopyObject), but Result Type must logically match the Operand type.\n\n Logically match is recursively defined by these three rules:\n1. They must be either both be OpTypeArray or both be OpTypeStruct\n2. If they are OpTypeArray:\n   - they must have the same Length operand, and\n   - their Element Type operands must be either the same or must logically match.\n3. If they are OpTypeStruct:\n   - they must have the same number of Member type, and\n   - Member N type for the same N in the two types must be either the same or must logically match.",
-                "Enabling Capabilities": [
-                    "Missing before version 1.4."
-                ],
+                "Missing Before": "1.4",
                 "Min Word Count": 4,
                 "Opcode": 400,
                 "Operands": [
