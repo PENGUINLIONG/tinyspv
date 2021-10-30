@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 import json
 from collections import defaultdict
 import re
-from typing import Optional
+import os
 
 with open("specs/unified1/SPIRV.html") as f:
     spec = f.read()
@@ -361,8 +361,25 @@ class SpirvSpecParser(HTMLParser):
 
 SpirvSpecParser().feed(spec)
 
+def get_git_head():
+    if os.path.exists(".git/HEAD"):
+        with open(".git/HEAD") as f:
+            line = f.readline()
+            if line.startswith("ref: "):
+                ref = line[len("ref: "):].strip()
+                if os.path.exists(f".git/{ref}"):
+                    with open(f".git/{ref}") as f:
+                        return f.readline().strip()
+            else:
+                ref = line
+
 INSTRUCTIONS = [{ "Name": k, "Instructions": v } for k, v in INSTRUCTIONS.items()]
 out_json = {
+    "Generator": {
+        "Name": "PENGUINLIONG/tinyspv",
+        "ScriptName": __file__.replace('\\', '/').split('/')[-1],
+        "GitCommitHash": get_git_head(),
+    },
     "Enumerations": ENUMERATIONS,
     "InstructionClasses": INSTRUCTIONS,
 }

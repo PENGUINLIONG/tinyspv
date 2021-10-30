@@ -1,4 +1,9 @@
 {
+    "Generator": {
+        "Name": "PENGUINLIONG/tinyspv",
+        "ScriptName": "gen-spec-json.py",
+        "GitCommitHash": "c43e82bfb70d813a08d7d10bb8a7a702a0798101"
+    },
     "Enumerations": [
         {
             "Name": "Magic Number",
