@@ -85,11 +85,11 @@ class TableParser:
 
 def decompose_enabling_capabilities(cap):
     segs = [x.strip() for x in cap.split('\n')]
-    out_caps = []
+    out_caps = None
     out_reserved = False
-    out_miss_before = ""
-    out_miss_after = ""
-    out_exts = []
+    out_miss_before = None
+    out_miss_after = None
+    out_exts = None
 
     if len(segs) > 0:
         out_caps = [x.strip() for x in segs[0].split(',')]
@@ -137,17 +137,24 @@ def table2enum(table: TableParser, subsec):
             while len(extra) > 0 and len(extra[-1]) == 0:
                 del extra[-1]
             caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[-1])
-            elem = {
-                "Name": name.strip(),
-                "Description": desc.strip(),
-                table.col_defs[1]: extra,
-                table.col_defs[2]: caps,
-                "Reserved": reserved,
-                "Missing Before": miss_before,
-                "Missing After": miss_after,
-                "See Extensions": exts,
-                "Value": row[0],
-            }
+            elem = { "Name": name.strip() }
+            if desc:
+                desc = desc.strip()
+            if desc:
+                elem["Description"] = desc
+            if len(extra) > 0:
+                elem["Extra Operands"] = extra
+            if caps:
+                elem["Enabling Capabilities"] = caps
+            if reserved:
+                elem["Reserved"] = reserved
+            if miss_before:
+                elem["Missing Before"] = miss_before
+            if miss_after:
+                elem["Missing After"] = miss_after
+            if exts:
+                elem["See Extensions"] = exts
+            elem["Value"] = row[0]
             out += [elem]
     elif ncol_def >= 2:
         # General cases for other literal number specifications.
@@ -158,16 +165,21 @@ def table2enum(table: TableParser, subsec):
                 table.col_defs[1] == "Implicitly Declares", \
                 "unsupported capability column"
             caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[2])
-            elem = {
-                "Name": name.strip(),
-                "Description": desc.strip(),
-                table.col_defs[1]: caps,
-                "Reserved": reserved,
-                "Missing Before": miss_before,
-                "Missing After": miss_after,
-                "See Extensions": exts,
-                "Value": row[0]
-            }
+            elem = { "Name": name.strip() }
+            desc = desc.strip()
+            if desc:
+                elem["Description"] = desc
+            if caps:
+                elem[table.col_defs[1]] = caps
+            if reserved:
+                elem["Reserved"] = reserved
+            if miss_before:
+                elem["Missing Before"] = miss_before
+            if miss_after:
+                elem["Missing After"] = miss_after
+            if exts:
+                elem["See Extensions"] = exts
+            elem["Value"] = row[0]
             out += [elem]
     elif ncol_def >= 1:
         for row in table.rows:
@@ -240,22 +252,39 @@ def table2instr(table: TableParser, subsubsec):
 
         assert len(segs) <= 2, f"unexpected operand description row {segs}"
         ty = segs[0]
-        desc2 = segs[1] if len(segs) == 2 else ""
-        out_operands += [{ "Type": ty.strip(), "Description": desc2.strip(), "Optional": optional }]
+        desc2 = segs[1] if len(segs) == 2 else None
+        elem = { "Type": ty.strip() }
+        if desc2:
+            desc2 = desc2.strip()
+        if desc2:
+            elem["Description"] = desc2
+        if optional:
+            elem["Optional"] = optional
+        out_operands += [elem]
 
-    return {
-        "Name": name,
-        "Description": desc,
-        "Enabling Capabilities": caps,
-        "Reserved": reserved,
-        "Missing Before": miss_before,
-        "Missing After": miss_after,
-        "See Extensions": exts,
-        "Min Word Count": int(min_word_count),
-        "Variable Word Count": variable_word_count,
-        "Opcode": int(opcode),
-        "Operands": out_operands,
-    }
+    elem = { "Name": name }
+    if desc:
+        desc = desc.strip()
+    if desc:
+        elem["Description"] = desc
+    if caps:
+        elem["Enabling Capabilities"] = caps
+    if reserved:
+        elem["Reserved"] = reserved
+    if miss_before:
+        elem["Missing Before"] = miss_before
+    if miss_after:
+        elem["Missing After"] = miss_after
+    if exts:
+        elem["See Extensions"] = exts
+    elem["Min Word Count"] = int(min_word_count)
+    if variable_word_count:
+        elem["Variable Word Count"] = variable_word_count
+    elem["Opcode"] = int(opcode)
+    if len(out_operands) > 0:
+        elem["Operands"] = out_operands
+
+    return elem
 
 
 ENUMERATIONS = {}
