@@ -310,7 +310,10 @@
                 "Name": "Invocations",
                 "Description": "Number of invocations is an unsigned 32-bit integer number of times to invoke the geometry stage for each input primitive received. The default is to run once for each input primitive. It is invalid to specify a value greater than the target-dependent maximum. Only valid with the Geometry Execution Model.",
                 "Extra Operands": [
-                    "Literal\nNumber of invocations"
+                    {
+                        "Type": "Literal",
+                        "Description": "Number of invocations"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Geometry"
@@ -441,9 +444,18 @@
                 "Name": "LocalSize",
                 "Description": "Indicates the work-group size in the x, y, and z dimensions. x size, y size, and z size are unsigned 32-bit integers. Only valid with the GLCompute or Kernel Execution Models.",
                 "Extra Operands": [
-                    "Literal\nx size",
-                    "Literal\ny size",
-                    "Literal\nz size"
+                    {
+                        "Type": "Literal",
+                        "Description": "x size"
+                    },
+                    {
+                        "Type": "Literal",
+                        "Description": "y size"
+                    },
+                    {
+                        "Type": "Literal",
+                        "Description": "z size"
+                    }
                 ],
                 "Value": "17"
             },
@@ -451,9 +463,18 @@
                 "Name": "LocalSizeHint",
                 "Description": "A hint to the compiler, which indicates the most likely to be used work-group size in the x, y, and z dimensions. x size, y size, and z size are unsigned 32-bit integers. Only valid with the Kernel Execution Model.",
                 "Extra Operands": [
-                    "Literal\nx size",
-                    "Literal\ny size",
-                    "Literal\nz size"
+                    {
+                        "Type": "Literal",
+                        "Description": "x size"
+                    },
+                    {
+                        "Type": "Literal",
+                        "Description": "y size"
+                    },
+                    {
+                        "Type": "Literal",
+                        "Description": "z size"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Kernel"
@@ -521,7 +542,10 @@
                 "Name": "OutputVertices",
                 "Description": "Vertex Count is an unsigned 32-bit integer. For a geometry stage, it is the maximum number of vertices the shader will ever emit in a single invocation. For a tessellation-control stage, it is the number of vertices in the output patch produced by the tessellation control shader, which also specifies the number of times the tessellation control shader is invoked. Only valid with the Geometry or one of the tessellation Execution Models.",
                 "Extra Operands": [
-                    "Literal\nVertex count"
+                    {
+                        "Type": "Literal",
+                        "Description": "Vertex count"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Geometry",
@@ -559,7 +583,10 @@
                 "Name": "VecTypeHint",
                 "Description": "A hint to the compiler, which indicates that most operations used in the entry point are explicitly vectorized using a particular vector type. The 16 high-order bits of the Vector Type operand specify the number of components of the vector. The 16 low-order bits of the Vector Type operand specify the data type of the vector.\nThese are the legal data type values:\n0 represents an 8-bit integer value.\n1 represents a 16-bit integer value.\n2 represents a 32-bit integer value.\n3 represents a 64-bit integer value.\n4 represents a 16-bit float value.\n5 represents a 32-bit float value.\n6 represents a 64-bit float value.\nOnly valid with the Kernel Execution Model.",
                 "Extra Operands": [
-                    "Literal\nVector type"
+                    {
+                        "Type": "Literal",
+                        "Description": "Vector type"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Kernel"
@@ -596,7 +623,10 @@
                 "Name": "SubgroupSize",
                 "Description": "Indicates that this entry point requires the specified Subgroup Size. Subgroup Size is an unsigned 32-bit integer.",
                 "Extra Operands": [
-                    "Literal\nSubgroup Size"
+                    {
+                        "Type": "Literal",
+                        "Description": "Subgroup Size"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "SubgroupDispatch"
@@ -608,7 +638,10 @@
                 "Name": "SubgroupsPerWorkgroup",
                 "Description": "Indicates that this entry point requires the specified number of Subgroups Per Workgroup. Subgroups Per Workgroup is an unsigned 32-bit integer.",
                 "Extra Operands": [
-                    "Literal\nSubgroups Per Workgroup"
+                    {
+                        "Type": "Literal",
+                        "Description": "Subgroups Per Workgroup"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "SubgroupDispatch"
@@ -620,7 +653,10 @@
                 "Name": "SubgroupsPerWorkgroupId",
                 "Description": "Same as the  SubgroupsPerWorkgroup mode, but using an <id> operand instead of a literal. The operand is consumed as unsigned and  must be an integer type scalar.",
                 "Extra Operands": [
-                    "<id>\nSubgroups Per Workgroup"
+                    {
+                        "Type": "<id>",
+                        "Description": "Subgroups Per Workgroup"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "SubgroupDispatch"
@@ -632,9 +668,18 @@
                 "Name": "LocalSizeId",
                 "Description": "Same as the LocalSize Mode, but using <id> operands instead of literals. The operands are consumed as unsigned and each  must be an integer type scalar.",
                 "Extra Operands": [
-                    "<id>\nx size",
-                    "<id>\ny size",
-                    "<id>\nz size"
+                    {
+                        "Type": "<id>",
+                        "Description": "x size"
+                    },
+                    {
+                        "Type": "<id>",
+                        "Description": "y size"
+                    },
+                    {
+                        "Type": "<id>",
+                        "Description": "z size"
+                    }
                 ],
                 "Missing Before": "1.2",
                 "Value": "38"
@@ -643,7 +688,10 @@
                 "Name": "LocalSizeHintId",
                 "Description": "Same as the LocalSizeHint Mode, but using <id> operands instead of literals. The operands are consumed as unsigned and each  must be an integer type scalar.",
                 "Extra Operands": [
-                    "<id>\nLocal Size Hint"
+                    {
+                        "Type": "<id>",
+                        "Description": "Local Size Hint"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Kernel"
@@ -666,7 +714,10 @@
                 "Name": "DenormPreserve",
                 "Description": "Any denormalized value input into a shader or potentially generated by any instruction in a shader is preserved. Denormalized values obtained via unpacking an integer into a vector of values with smaller bit width and interpreting those values as floating-point numbers is preserved.\nOnly affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
                 "Extra Operands": [
-                    "Literal\nTarget Width"
+                    {
+                        "Type": "Literal",
+                        "Description": "Target Width"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "DenormPreserve"
@@ -681,7 +732,10 @@
                 "Name": "DenormFlushToZero",
                 "Description": "Any denormalized value input into a shader or potentially generated by any instruction in a shader is flushed to zero. Denormalized values obtained via unpacking an integer into a vector of values with smaller bit width and interpreting those values as floating-point numbers is flushed to zero.\nOnly affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
                 "Extra Operands": [
-                    "Literal\nTarget Width"
+                    {
+                        "Type": "Literal",
+                        "Description": "Target Width"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "DenormFlushToZero"
@@ -696,7 +750,10 @@
                 "Name": "SignedZeroInfNanPreserve",
                 "Description": "The implementation does not perform optimizations on floating-point instructions that do not preserve sign of a zero, or assume that operands and results are not NaNs or infinities. Bit patterns for NaNs might not be preserved.\nOnly affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
                 "Extra Operands": [
-                    "Literal\nTarget Width"
+                    {
+                        "Type": "Literal",
+                        "Description": "Target Width"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "SignedZeroInfNanPreserve"
@@ -711,7 +768,10 @@
                 "Name": "RoundingModeRTE",
                 "Description": "The default rounding mode for floating-point arithmetic and conversions instructions is round to nearest even. If an instruction is decorated with FPRoundingMode or defines a rounding mode in its description, that rounding mode is applied and RoundingModeRTE is ignored.\nOnly affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
                 "Extra Operands": [
-                    "Literal\nTarget Width"
+                    {
+                        "Type": "Literal",
+                        "Description": "Target Width"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "RoundingModeRTE"
@@ -726,7 +786,10 @@
                 "Name": "RoundingModeRTZ",
                 "Description": "The default rounding mode for floating-point arithmetic and conversions instructions is round toward zero. If an instruction is decorated with FPRoundingMode or defines a rounding mode in its description, that rounding mode is applied and RoundingModeRTZ is ignored.\nOnly affects instructions operating on a floating-point type whose component width is Target Width. Target Width is an unsigned 32-bit integer.",
                 "Extra Operands": [
-                    "Literal\nTarget Width"
+                    {
+                        "Type": "Literal",
+                        "Description": "Target Width"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "RoundingModeRTZ"
@@ -762,7 +825,10 @@
             {
                 "Name": "OutputPrimitivesNV",
                 "Extra Operands": [
-                    "Literal\nPrimitive count"
+                    {
+                        "Type": "Literal",
+                        "Description": "Primitive count"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "MeshShadingNV"
@@ -875,9 +941,18 @@
             {
                 "Name": "MaxWorkgroupSizeINTEL",
                 "Extra Operands": [
-                    "Literal\nmax_x_size",
-                    "Literal\nmax_y_size",
-                    "Literal\nmax_z_size"
+                    {
+                        "Type": "Literal",
+                        "Description": "max_x_size"
+                    },
+                    {
+                        "Type": "Literal",
+                        "Description": "max_y_size"
+                    },
+                    {
+                        "Type": "Literal",
+                        "Description": "max_z_size"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "KernelAttributesINTEL"
@@ -891,7 +966,10 @@
             {
                 "Name": "MaxWorkDimINTEL",
                 "Extra Operands": [
-                    "Literal\nmax_dimensions"
+                    {
+                        "Type": "Literal",
+                        "Description": "max_dimensions"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "KernelAttributesINTEL"
@@ -916,7 +994,10 @@
             {
                 "Name": "NumSIMDWorkitemsINTEL",
                 "Extra Operands": [
-                    "Literal\nvector_width"
+                    {
+                        "Type": "Literal",
+                        "Description": "vector_width"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAKernelAttributesINTEL"
@@ -2219,7 +2300,10 @@
                 "Name": "SpecId",
                 "Description": "Apply only to a scalar specialization constant. Specialization Constant ID is an unsigned 32-bit integer forming the external linkage for setting a specialized value. See specialization.",
                 "Extra Operands": [
-                    "Literal\nSpecialization Constant ID"
+                    {
+                        "Type": "Literal",
+                        "Description": "Specialization Constant ID"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader",
@@ -2264,7 +2348,10 @@
                 "Name": "ArrayStride",
                 "Description": "Apply to an array type to specify the stride, in bytes, of the array\u2019s elements. Can also apply to a pointer type to an array element.  Array Stride is an unsigned 32-bit integer specifying the stride of the array that the element resides in. Must not be applied to any other type.",
                 "Extra Operands": [
-                    "Literal\nArray Stride"
+                    {
+                        "Type": "Literal",
+                        "Description": "Array Stride"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2275,7 +2362,10 @@
                 "Name": "MatrixStride",
                 "Description": "Applies only to a member of a structure type.  Only valid on a matrix or array whose most basic element is a matrix. Matrix Stride is an unsigned 32-bit integer specifying the stride of the rows in a RowMajor-decorated matrix or columns in a ColMajor-decorated matrix.",
                 "Extra Operands": [
-                    "Literal\nMatrix Stride"
+                    {
+                        "Type": "Literal",
+                        "Description": "Matrix Stride"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Matrix"
@@ -2310,7 +2400,9 @@
                 "Name": "BuiltIn",
                 "Description": "Indicates which built-in variable an object represents.  See BuiltIn for more information.",
                 "Extra Operands": [
-                    "BuiltIn"
+                    {
+                        "Type": "BuiltIn"
+                    }
                 ],
                 "Value": "11"
             },
@@ -2412,7 +2504,10 @@
                 "Name": "UniformId",
                 "Description": "Apply only to an object. Asserts that, for each dynamic instance of the instruction that computes the result, all active invocations in the Execution scope compute the same result value. Execution must not be Invocation.",
                 "Extra Operands": [
-                    "Scope <id>\nExecution"
+                    {
+                        "Type": "Scope <id>",
+                        "Description": "Execution"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2432,7 +2527,10 @@
                 "Name": "Stream",
                 "Description": "Must only be used on a memory object declaration or a member of a structure type.  Stream Number is an unsigned 32-bit integer indicating the stream number to put an output on. Only valid for the Output Storage Class and the Geometry Execution Model.",
                 "Extra Operands": [
-                    "Literal\nStream Number"
+                    {
+                        "Type": "Literal",
+                        "Description": "Stream Number"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "GeometryStreams"
@@ -2443,7 +2541,10 @@
                 "Name": "Location",
                 "Description": "Apply only to a variable or a structure-type member. Location is an unsigned 32-bit integer that forms the main linkage for Storage Class Input and Output variables:\n- between the client API and vertex-stage inputs,\n- between consecutive programmable stages, or\n- between fragment-stage outputs and the client API.\nIt can also tag variables or structure-type members in the UniformConstant Storage Class for linkage with the client API.\nOnly valid for the Input, Output, and UniformConstant Storage Classes.",
                 "Extra Operands": [
-                    "Literal\nLocation"
+                    {
+                        "Type": "Literal",
+                        "Description": "Location"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2454,7 +2555,10 @@
                 "Name": "Component",
                 "Description": "Must only be used on a memory object declaration or a member of a structure type.  Component is an unsigned 32-bit integer indicating which component within a Location is taken by the decorated entity. Only valid for the Input and Output Storage Classes.",
                 "Extra Operands": [
-                    "Literal\nComponent"
+                    {
+                        "Type": "Literal",
+                        "Description": "Component"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2465,7 +2569,10 @@
                 "Name": "Index",
                 "Description": "Apply only to a variable. Index is an unsigned 32-bit integer identifying a blend equation input index, used as specified by the client API. Only valid for the Output Storage Class and the Fragment Execution Model.",
                 "Extra Operands": [
-                    "Literal\nIndex"
+                    {
+                        "Type": "Literal",
+                        "Description": "Index"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2476,7 +2583,10 @@
                 "Name": "Binding",
                 "Description": "Apply only to a variable.Binding Point is an unsigned 32-bit integer forming part of the linkage between the client API and SPIR-V memory buffers, images, etc. See the client API specification for more detail.",
                 "Extra Operands": [
-                    "Literal\nBinding Point"
+                    {
+                        "Type": "Literal",
+                        "Description": "Binding Point"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2487,7 +2597,10 @@
                 "Name": "DescriptorSet",
                 "Description": "Apply only to a variable.Descriptor Set is an unsigned 32-bit integer forming part of the linkage between the client API and SPIR-V memory buffers, images, etc. See the client API specification for more detail.",
                 "Extra Operands": [
-                    "Literal\nDescriptor Set"
+                    {
+                        "Type": "Literal",
+                        "Description": "Descriptor Set"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2498,7 +2611,10 @@
                 "Name": "Offset",
                 "Description": "Apply only to a structure-type member. Byte Offset is an unsigned 32-bit integer.  It dictates the byte offset of the member relative to the beginning of the structure. It can be used, for example, by both uniform and transform-feedback buffers. It must not cause any overlap of the structure\u2019s members, or overflow of a transform-feedback buffer\u2019s XfbStride.",
                 "Extra Operands": [
-                    "Literal\nByte Offset"
+                    {
+                        "Type": "Literal",
+                        "Description": "Byte Offset"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Shader"
@@ -2509,7 +2625,10 @@
                 "Name": "XfbBuffer",
                 "Description": "Must only be used on a memory object declaration or a member of a structure type.  XFB Buffer is an unsigned 32-bit integer indicating which transform-feedback buffer an output is written to. Only valid for the Output Storage Classes of vertex processing Execution Models.",
                 "Extra Operands": [
-                    "Literal\nXFB Buffer Number"
+                    {
+                        "Type": "Literal",
+                        "Description": "XFB Buffer Number"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "TransformFeedback"
@@ -2520,7 +2639,10 @@
                 "Name": "XfbStride",
                 "Description": "Apply to anything XfbBuffer is applied to. XFB Stride is an unsigned 32-bit integer specifying the stride, in bytes, of transform-feedback buffer vertices. If the transform-feedback buffer is capturing any double-precision components, the stride must be a multiple of 8, otherwise it must be a multiple of 4.",
                 "Extra Operands": [
-                    "Literal\nXFB Stride"
+                    {
+                        "Type": "Literal",
+                        "Description": "XFB Stride"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "TransformFeedback"
@@ -2531,7 +2653,10 @@
                 "Name": "FuncParamAttr",
                 "Description": "Indicates a function return value or parameter attribute.",
                 "Extra Operands": [
-                    "Function Parameter Attribute\nFunction Parameter Attribute"
+                    {
+                        "Type": "Function Parameter Attribute",
+                        "Description": "Function Parameter Attribute"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Kernel"
@@ -2542,7 +2667,10 @@
                 "Name": "FPRoundingMode",
                 "Description": "Indicates a floating-point rounding mode.",
                 "Extra Operands": [
-                    "FP Rounding Mode\nFloating-Point Rounding Mode"
+                    {
+                        "Type": "FP Rounding Mode",
+                        "Description": "Floating-Point Rounding Mode"
+                    }
                 ],
                 "Value": "39"
             },
@@ -2550,7 +2678,10 @@
                 "Name": "FPFastMathMode",
                 "Description": "Indicates a floating-point fast math flag.",
                 "Extra Operands": [
-                    "FP Fast Math Mode\nFast-Math Mode"
+                    {
+                        "Type": "FP Fast Math Mode",
+                        "Description": "Fast-Math Mode"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Kernel"
@@ -2561,8 +2692,14 @@
                 "Name": "LinkageAttributes",
                 "Description": "Associate linkage attributes to values. Name is a string specifying what name the Linkage Type applies to. Only valid on OpFunction or global (module scope) OpVariable. See linkage.",
                 "Extra Operands": [
-                    "Literal\nName",
-                    "Linkage Type\nLinkage Type"
+                    {
+                        "Type": "Literal",
+                        "Description": "Name"
+                    },
+                    {
+                        "Type": "Linkage Type",
+                        "Description": "Linkage Type"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Linkage"
@@ -2581,7 +2718,10 @@
                 "Name": "InputAttachmentIndex",
                 "Description": "Apply only to a variable. Attachment Index is an unsigned 32-bit integer providing an input-target index (as specified by the client API). Only valid in the Fragment Execution Model and for variables of type OpTypeImage  with a Dim operand of SubpassData.",
                 "Extra Operands": [
-                    "Literal\nAttachment Index"
+                    {
+                        "Type": "Literal",
+                        "Description": "Attachment Index"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "InputAttachment"
@@ -2592,7 +2732,10 @@
                 "Name": "Alignment",
                 "Description": "Apply only to a pointer. Alignment is an unsigned 32-bit integer declaring a known minimum alignment the pointer has.",
                 "Extra Operands": [
-                    "Literal\nAlignment"
+                    {
+                        "Type": "Literal",
+                        "Description": "Alignment"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Kernel"
@@ -2603,7 +2746,10 @@
                 "Name": "MaxByteOffset",
                 "Description": "Apply only to a pointer.Max Byte Offset is an unsigned 32-bit integer declaring a known maximum byte offset this pointer will be incremented by from the point of the decoration. This is a guaranteed upper bound when applied to OpFunctionParameter.",
                 "Extra Operands": [
-                    "Literal\nMax Byte Offset"
+                    {
+                        "Type": "Literal",
+                        "Description": "Max Byte Offset"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Addresses"
@@ -2615,7 +2761,10 @@
                 "Name": "AlignmentId",
                 "Description": "Same as the Alignment decoration, but using an <id> operand instead of a literal. The operand is consumed as unsigned and  must be an integer type scalar.",
                 "Extra Operands": [
-                    "<id>\nAlignment"
+                    {
+                        "Type": "<id>",
+                        "Description": "Alignment"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Kernel"
@@ -2627,7 +2776,10 @@
                 "Name": "MaxByteOffsetId",
                 "Description": "Same as the MaxByteOffset decoration, but using an <id> operand instead of a literal. The operand is consumed as unsigned and  must be an integer type scalar.",
                 "Extra Operands": [
-                    "<id>\nMax Byte Offset"
+                    {
+                        "Type": "<id>",
+                        "Description": "Max Byte Offset"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "Addresses"
@@ -2694,7 +2846,10 @@
             {
                 "Name": "SecondaryViewportRelativeNV",
                 "Extra Operands": [
-                    "Literal\nOffset"
+                    {
+                        "Type": "Literal",
+                        "Description": "Offset"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "ShaderStereoViewNV"
@@ -2832,7 +2987,10 @@
                 "Name": "CounterBuffer",
                 "Description": "The <id> of a counter buffer associated with the decorated buffer. It must decorate only a variable in the Uniform storage class. Counter Buffer must be a variable in the Uniform storage class.",
                 "Extra Operands": [
-                    "<id>\nCounter Buffer"
+                    {
+                        "Type": "<id>",
+                        "Description": "Counter Buffer"
+                    }
                 ],
                 "Missing Before": "1.4",
                 "Value": "5634"
@@ -2840,7 +2998,10 @@
             {
                 "Name": "HlslCounterBufferGOOGLE",
                 "Extra Operands": [
-                    "<id>\nCounter Buffer"
+                    {
+                        "Type": "<id>",
+                        "Description": "Counter Buffer"
+                    }
                 ],
                 "Reserved": true,
                 "See Extensions": [
@@ -2852,7 +3013,10 @@
                 "Name": "UserSemantic",
                 "Description": "Semantic is a string describing a user-defined semantic intent of what it decorates. User-defined semantics are case insensitive. It must decorate only a variable or a member of a structure type. If decorating a variable, it must be in the Input or Output storage classes.",
                 "Extra Operands": [
-                    "Literal\nSemantic"
+                    {
+                        "Type": "Literal",
+                        "Description": "Semantic"
+                    }
                 ],
                 "Missing Before": "1.4",
                 "Value": "5635"
@@ -2860,7 +3024,10 @@
             {
                 "Name": "HlslSemanticGOOGLE",
                 "Extra Operands": [
-                    "Literal\nSemantic"
+                    {
+                        "Type": "Literal",
+                        "Description": "Semantic"
+                    }
                 ],
                 "Reserved": true,
                 "See Extensions": [
@@ -2871,7 +3038,10 @@
             {
                 "Name": "UserTypeGOOGLE",
                 "Extra Operands": [
-                    "Literal\nUser Type"
+                    {
+                        "Type": "Literal",
+                        "Description": "User Type"
+                    }
                 ],
                 "Reserved": true,
                 "See Extensions": [
@@ -2893,7 +3063,10 @@
             {
                 "Name": "MemoryINTEL",
                 "Extra Operands": [
-                    "Literal\nMemory Type"
+                    {
+                        "Type": "Literal",
+                        "Description": "Memory Type"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"
@@ -2907,7 +3080,10 @@
             {
                 "Name": "NumbanksINTEL",
                 "Extra Operands": [
-                    "Literal\nBanks"
+                    {
+                        "Type": "Literal",
+                        "Description": "Banks"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"
@@ -2921,7 +3097,10 @@
             {
                 "Name": "BankwidthINTEL",
                 "Extra Operands": [
-                    "Literal\nBank Width"
+                    {
+                        "Type": "Literal",
+                        "Description": "Bank Width"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"
@@ -2935,7 +3114,10 @@
             {
                 "Name": "MaxPrivateCopiesINTEL",
                 "Extra Operands": [
-                    "Literal\nMaximum Copies"
+                    {
+                        "Type": "Literal",
+                        "Description": "Maximum Copies"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"
@@ -2971,7 +3153,10 @@
             {
                 "Name": "MaxReplicatesINTEL",
                 "Extra Operands": [
-                    "Literal\nMaximum Replicates"
+                    {
+                        "Type": "Literal",
+                        "Description": "Maximum Replicates"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"
@@ -2996,8 +3181,14 @@
             {
                 "Name": "MergeINTEL",
                 "Extra Operands": [
-                    "Literal\nMerge Key",
-                    "Literal\nMerge Type"
+                    {
+                        "Type": "Literal",
+                        "Description": "Merge Key"
+                    },
+                    {
+                        "Type": "Literal",
+                        "Description": "Merge Type"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"
@@ -3011,7 +3202,10 @@
             {
                 "Name": "BankBitsINTEL",
                 "Extra Operands": [
-                    "Literal\nBank Bits"
+                    {
+                        "Type": "Literal",
+                        "Description": "Bank Bits"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"
@@ -3025,7 +3219,10 @@
             {
                 "Name": "ForcePow2DepthINTEL",
                 "Extra Operands": [
-                    "Literal\nForce Key"
+                    {
+                        "Type": "Literal",
+                        "Description": "Force Key"
+                    }
                 ],
                 "Enabling Capabilities": [
                     "FPGAMemoryAttributesINTEL"

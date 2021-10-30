@@ -6,6 +6,7 @@ from html.parser import HTMLParser
 import json
 from collections import defaultdict
 import re
+from typing import Optional
 
 with open("specs/unified1/SPIRV.html") as f:
     spec = f.read()
@@ -137,6 +138,33 @@ def decompose_item_meta(meta) -> dict:
             out["Enabling Capabilities"] = split_and_strip(',', line)
     return out
 
+def decompose_operand(operand) -> dict:
+    out = {}
+    lines = split_and_strip('\n', operand)
+
+    optional = False
+    if lines[0].startswith("Optional"):
+        optional = True
+        del lines[0]
+
+    # Concatenate multi-line operand list description. See `OpSwitch`.
+    lines2 = [""]
+    for seg in lines:
+        lines2[-1] += seg
+        lines2[-1] += " "
+        if not seg.endswith(','):
+            lines2 += [""]
+    assert lines2[-1] == ""
+    lines = lines2[:-1]
+
+    assert len(lines) <= 2, f"unexpected operand description row {lines}"
+    out["Type"] = lines[0].strip()
+    if len(lines) == 2:
+        out["Description"] = lines[1].strip()
+    if optional:
+        out["Optional"] = optional
+    return out
+
 def table2enum(table: TableParser, subsec):
     out = []
     ncol_def = len(table.col_defs)
@@ -155,11 +183,13 @@ def table2enum(table: TableParser, subsec):
             "column 3 must be the enabling capabilities"
         for row in table.rows:
             assert len(row) >= ncol_def
-            name, desc = tuple((row[1] + "\n").split("\n", maxsplit=1))
-            extra = row[2:-1]
-            # Remove trailing empty extra operands.
-            while len(extra) > 0 and len(extra[-1]) == 0:
-                del extra[-1]
+            extra = []
+            for operand in row[2:-1]:
+                operand = operand.strip()
+                # Ignore trailing empty extra operands.
+                if len(operand) > 0:
+                    operand = decompose_operand(operand)
+                    extra += [operand]
             elem = decompose_item_desc(row[1])
             if len(extra) > 0:
                 elem["Extra Operands"] = extra
@@ -230,34 +260,8 @@ def table2instr(table: TableParser, subsubsec):
     opcode = second_row[1]
     out_operands = []
     for operand in second_row[2:]:
-        segs = [x.strip() for x in operand.split("\n")]
-        if segs[0].startswith("Optional"):
-            optional = True
-            del segs[0]
-        else:
-            optional = False
-
-        # Concatenate multi-line operand list description. See `OpSwitch`.
-        segs2 = [""]
-        for seg in segs:
-            segs2[-1] += seg
-            segs2[-1] += " "
-            if not seg.endswith(','):
-                segs2 += [""]
-        assert segs2[-1] == ""
-        segs = segs2[:-1]
-
-        assert len(segs) <= 2, f"unexpected operand description row {segs}"
-        ty = segs[0]
-        desc2 = segs[1] if len(segs) == 2 else None
-        elem2 = { "Type": ty.strip() }
-        if desc2:
-            desc2 = desc2.strip()
-        if desc2:
-            elem2["Description"] = desc2
-        if optional:
-            elem2["Optional"] = optional
-        out_operands += [elem2]
+        operand = decompose_operand(operand)
+        out_operands += [operand]
 
     elem["Min Word Count"] = int(min_word_count)
     if variable_word_count:
