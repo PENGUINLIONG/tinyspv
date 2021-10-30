@@ -4488,7 +4488,10 @@
         ],
         "Memory Semantics <id>": [
             {
-                "Name": "None (Relaxed)",
+                "Name": "None",
+                "Aliases": [
+                    "Relaxed"
+                ],
                 "Value": "0x0"
             },
             {
@@ -7040,7 +7043,10 @@
                 ]
             },
             {
-                "Name": "OpDecorateString (OpDecorateStringGOOGLE)",
+                "Name": "OpDecorateString",
+                "Aliases": [
+                    "OpDecorateStringGOOGLE"
+                ],
                 "Description": "Add a string Decoration to another <id>.\n\nTarget is the <id> to decorate.  It can potentially be any <id> that is a forward reference,  except it must not be the <id> of an OpDecorationGroup.\n\nDecoration is a decoration that takes at least one Literal operand, and has only Literal string operands.",
                 "Enabling Capabilities": [
                     "Missing before version 1.4."
@@ -7067,7 +7073,10 @@
                 ]
             },
             {
-                "Name": "OpMemberDecorateString (OpMemberDecorateStringGOOGLE)",
+                "Name": "OpMemberDecorateString",
+                "Aliases": [
+                    "OpMemberDecorateStringGOOGLE"
+                ],
                 "Description": "Add a string Decoration to a member of a structure type.\n\nStructure Type is the <id> of an OpTypeStruct.\n\nMember is the number of the member to decorate in the type. Member is an unsigned 32-bit integer.  The first member is member 0, the next is member 1, \u2026\n\nDecoration is a decoration that takes at least one Literal operand, and has only Literal string operands.",
                 "Enabling Capabilities": [
                     "Missing before version 1.4."
@@ -16702,7 +16711,10 @@
                 ]
             },
             {
-                "Name": "OpReportIntersectionNV (OpReportIntersectionKHR)",
+                "Name": "OpReportIntersectionNV",
+                "Aliases": [
+                    "OpReportIntersectionKHR"
+                ],
                 "Description": "TBD",
                 "Enabling Capabilities": [
                     "RayTracingNV",
@@ -16806,7 +16818,10 @@
                 ]
             },
             {
-                "Name": "OpTypeAccelerationStructureNV (OpTypeAccelerationStructureKHR)",
+                "Name": "OpTypeAccelerationStructureNV",
+                "Aliases": [
+                    "OpTypeAccelerationStructureKHR"
+                ],
                 "Description": "TBD",
                 "Enabling Capabilities": [
                     "RayTracingNV",

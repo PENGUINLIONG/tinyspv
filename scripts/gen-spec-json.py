@@ -137,7 +137,15 @@ def table2enum(table: TableParser, subsec):
             while len(extra) > 0 and len(extra[-1]) == 0:
                 del extra[-1]
             caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[-1])
-            elem = { "Name": name.strip() }
+
+            elem = {}
+            m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
+            assert m, f"invalid op name pattern {name}"
+            name = m[1]
+            aliases = None if m[2] == None else m[2].split(",")
+            elem["Name"] = name
+            if aliases:
+                elem["Aliases"] = aliases
             if desc:
                 desc = desc.strip()
             if desc:
@@ -165,7 +173,14 @@ def table2enum(table: TableParser, subsec):
                 table.col_defs[1] == "Implicitly Declares", \
                 "unsupported capability column"
             caps, reserved, miss_before, miss_after, exts = decompose_enabling_capabilities(row[2])
-            elem = { "Name": name.strip() }
+            elem = {}
+            m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
+            assert m, f"invalid op name pattern {name}"
+            name = m[1]
+            aliases = None if m[2] == None else m[2].split(",")
+            elem["Name"] = name
+            if aliases:
+                elem["Aliases"] = aliases
             desc = desc.strip()
             if desc:
                 elem["Description"] = desc
@@ -262,7 +277,14 @@ def table2instr(table: TableParser, subsubsec):
             elem["Optional"] = optional
         out_operands += [elem]
 
-    elem = { "Name": name }
+    elem = {}
+    m = re.match(r"(\w+) *(?:\(((?:\w+,? *)+)\))?", name)
+    assert m, f"invalid op name pattern {name}"
+    name = m[1]
+    aliases = None if m[2] == None else m[2].split(",")
+    elem["Name"] = name
+    if aliases:
+        elem["Aliases"] = aliases
     if desc:
         desc = desc.strip()
     if desc:
@@ -283,9 +305,7 @@ def table2instr(table: TableParser, subsubsec):
     elem["Opcode"] = int(opcode)
     if len(out_operands) > 0:
         elem["Operands"] = out_operands
-
     return elem
-
 
 ENUMERATIONS = {}
 INSTRUCTIONS = defaultdict(list)
