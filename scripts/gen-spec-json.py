@@ -276,7 +276,7 @@ def table2instr(table: TableParser, subsubsec):
         elem["Operands"] = out_operands
     return elem
 
-ENUMERATIONS = {}
+ENUMERATIONS = []
 INSTRUCTIONS = defaultdict(list)
 class SpirvSpecParser(HTMLParser):
     def __init__(self):
@@ -351,14 +351,20 @@ class SpirvSpecParser(HTMLParser):
                     # We only keep the last table.
                     if self.enum_parser != None:
                         key = last_subsec.split(' ', maxsplit=1)[1]
-                        ENUMERATIONS[key] = table2enum(self.enum_parser, last_subsec)
+                        enum = table2enum(self.enum_parser, last_subsec)
+                        elem = {
+                            "Name": key,
+                            "Cases": enum,
+                        }
+                        ENUMERATIONS += [elem]
                         self.enum_parser = None
 
 SpirvSpecParser().feed(spec)
 
+INSTRUCTIONS = [{ "Name": k, "Instructions": v } for k, v in INSTRUCTIONS.items()]
 out_json = {
     "Enumerations": ENUMERATIONS,
-    "Instructions": INSTRUCTIONS,
+    "InstructionClasses": INSTRUCTIONS,
 }
 
 with open("specs/unified1/SPIRV.json", "w") as f:
