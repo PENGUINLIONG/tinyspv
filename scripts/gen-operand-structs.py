@@ -20,6 +20,7 @@ out_src += [
     "#include <optional>",
     "#include \"tinyspv/spirv/unified1/spirv.hpp\"",
     "namespace tinyspv {",
+    "namespace instrs {",
     "typedef uint32_t Id;",
     "typedef std::vector<uint32_t> Literal;",
 ]
@@ -139,11 +140,16 @@ for instr_cls in SPEC["InstructionClasses"]:
                 print(f"ignored unsupported instruction because {e}")
                 continue
         code += ["};"]
+        if "Aliases" in instr:
+            for alias in instr["Aliases"]:
+                code += [f"typedef {opname} {alias};"]
+
         code = "\n".join(code)
         out_src += [code]
 
 out_src += [
     "// ------ operand struct definition ends ------",
+    "} // namespace instrs",
     "} // namespace tinyspv",
     "",
 ]

@@ -7,6 +7,7 @@
 #include <optional>
 #include "tinyspv/spirv/unified1/spirv.hpp"
 namespace tinyspv {
+namespace instrs {
 typedef uint32_t Id;
 typedef std::vector<uint32_t> Literal;
 // ------ operand struct definition begins ------
@@ -90,6 +91,7 @@ struct OpDecorateString {
   uint32_t see_decoration;
   std::vector<Literal> see_decoration2;
 };
+typedef OpDecorateString OpDecorateStringGOOGLE;
 struct OpMemberDecorateString {
   Id struct_type;
   uint32_t member;
@@ -97,6 +99,7 @@ struct OpMemberDecorateString {
   uint32_t see_decoration;
   std::vector<Literal> see_decoration2;
 };
+typedef OpMemberDecorateString OpMemberDecorateStringGOOGLE;
 struct OpExtension {
   std::string name;
 };
@@ -2359,6 +2362,7 @@ struct OpReportIntersectionNV {
   Id hit;
   Id hit_kind;
 };
+typedef OpReportIntersectionNV OpReportIntersectionKHR;
 struct OpIgnoreIntersectionNV {
 };
 struct OpTerminateRayNV {
@@ -2379,6 +2383,7 @@ struct OpTraceNV {
 struct OpTypeAccelerationStructureNV {
   Id result_id;
 };
+typedef OpTypeAccelerationStructureNV OpTypeAccelerationStructureKHR;
 struct OpExecuteCallableNV {
   Id sbt_index;
   Id callable_data_id;
@@ -2616,4 +2621,5 @@ struct OpRayQueryGetIntersectionWorldToObjectKHR {
   Id intersection;
 };
 // ------ operand struct definition ends ------
+} // namespace instrs
 } // namespace tinyspv
