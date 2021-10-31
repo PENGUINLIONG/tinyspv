@@ -5,6 +5,7 @@
 #include "tinyspv/spv-writer.hpp"
 #include "tinyspv/spirv/unified1/opcode2str.hpp"
 #include "tinyspv/spirv/unified1/operand-structs.hpp"
+#include "tinyspv/spirv/unified1/operand-struct-readers.hpp"
 
 using namespace tinyspv;
 

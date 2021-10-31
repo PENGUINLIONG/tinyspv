@@ -40,6 +40,10 @@ struct OperandIterator {
   inline bool operator!=(const OperandIterator& rhs) const {
     return pos != rhs.pos;
   }
+
+  inline bool is_valid() {
+    return begin() != end();
+  }
 };
 
 struct Instruction {
