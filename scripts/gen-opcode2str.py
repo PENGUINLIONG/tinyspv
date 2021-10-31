@@ -32,7 +32,7 @@ with open("./src/tinyspv/opcode2str.cpp", "w") as f:
     ]
     f.write('\n'.join(src))
 
-with open("./include/tinyspv/opcode2str.hpp", "w") as f:
+with open("./include/tinyspv/spirv/unified1/opcode2str.hpp", "w") as f:
     src = HEADERS + [
         "#pragma once",
         "#include \"spirv/unified1/spirv.hpp\"",

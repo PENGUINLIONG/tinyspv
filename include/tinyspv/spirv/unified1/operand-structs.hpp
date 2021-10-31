@@ -3,6 +3,7 @@
 //   PENGUINLIONG/tinyspv @ db18ea116bd8c195ee18714eb9dffab473dfa7da
 #pragma once
 #include <vector>
+#include <string>
 #include <optional>
 #include "spirv/unified1/spirv.hpp"
 namespace tinyspv {

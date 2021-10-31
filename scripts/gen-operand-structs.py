@@ -148,5 +148,5 @@ out_src += [
     "",
 ]
 
-with open("include/tinyspv/operand-structs.hpp", "w") as f:
+with open("include/tinyspv/spirv/unified1/operand-structs.hpp", "w") as f:
     f.write('\n'.join(out_src))
