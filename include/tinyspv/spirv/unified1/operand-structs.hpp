@@ -10,6 +10,7 @@ namespace tinyspv {
 namespace instrs {
 typedef uint32_t Id;
 typedef std::vector<uint32_t> Literal;
+typedef std::vector<uint32_t> LiteralList;
 // ------ operand struct definition begins ------
 struct OpNop {
 };
@@ -60,13 +61,13 @@ struct OpModuleProcessed {
 struct OpDecorate {
   Id target;
   Decoration decoration;
-  std::vector<Literal> see_decoration;
+  LiteralList see_decoration;
 };
 struct OpMemberDecorate {
   Id structure_type;
   uint32_t member;
   Decoration decoration;
-  std::vector<Literal> see_decoration;
+  LiteralList see_decoration;
 };
 struct OpDecorationGroup {
   Id result_id;
@@ -78,7 +79,7 @@ struct OpGroupDecorate {
 struct OpGroupMemberDecorate {
   Id decoration_group;
   std::vector<Id> targets;
-  std::vector<Literal> targets2;
+  LiteralList targets2;
 };
 struct OpDecorateId {
   Id target;
@@ -89,7 +90,7 @@ struct OpDecorateString {
   Id target;
   Decoration decoration;
   uint32_t see_decoration;
-  std::vector<Literal> see_decoration2;
+  LiteralList see_decoration2;
 };
 typedef OpDecorateString OpDecorateStringGOOGLE;
 struct OpMemberDecorateString {
@@ -97,7 +98,7 @@ struct OpMemberDecorateString {
   uint32_t member;
   Decoration decoration;
   uint32_t see_decoration;
-  std::vector<Literal> see_decoration2;
+  LiteralList see_decoration2;
 };
 typedef OpMemberDecorateString OpMemberDecorateStringGOOGLE;
 struct OpExtension {
@@ -127,7 +128,7 @@ struct OpEntryPoint {
 struct OpExecutionMode {
   Id entry_point;
   ExecutionMode mode;
-  std::vector<Literal> see_execution_mode;
+  LiteralList see_execution_mode;
 };
 struct OpCapability {
   Capability capability;
@@ -777,7 +778,7 @@ struct OpVectorShuffle {
   Id result_id;
   Id vector_1;
   Id vector_2;
-  std::vector<Literal> components;
+  LiteralList components;
 };
 struct OpCompositeConstruct {
   Id result_type;
@@ -788,14 +789,14 @@ struct OpCompositeExtract {
   Id result_type;
   Id result_id;
   Id composite;
-  std::vector<Literal> indexes;
+  LiteralList indexes;
 };
 struct OpCompositeInsert {
   Id result_type;
   Id result_id;
   Id object;
   Id composite;
-  std::vector<Literal> indexes;
+  LiteralList indexes;
 };
 struct OpCopyObject {
   Id result_type;
@@ -1320,7 +1321,7 @@ struct OpLoopMerge {
   Id merge_block;
   Id continue_target;
   LoopControl loop_control;
-  std::vector<Literal> loop_control_parameters;
+  LiteralList loop_control_parameters;
 };
 struct OpSelectionMerge {
   Id merge_block;
@@ -1336,12 +1337,12 @@ struct OpBranchConditional {
   Id condition;
   Id true_label;
   Id false_label;
-  std::vector<Literal> branch_weights;
+  LiteralList branch_weights;
 };
 struct OpSwitch {
   Id selector;
   Id default;
-  std::vector<Literal> target;
+  LiteralList target;
   std::vector<Id> target2;
 };
 struct OpKill {
@@ -2515,7 +2516,7 @@ struct OpUMul32x16INTEL {
   Id operand_2;
 };
 struct OpLoopControlINTEL {
-  std::vector<Literal> loop_control_parameters;
+  LiteralList loop_control_parameters;
 };
 struct OpFPGARegINTEL {
   Id result_type;

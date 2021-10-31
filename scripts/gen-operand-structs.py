@@ -23,6 +23,7 @@ out_src += [
     "namespace instrs {",
     "typedef uint32_t Id;",
     "typedef std::vector<uint32_t> Literal;",
+    "typedef std::vector<uint32_t> LiteralList;",
 ]
 
 class NameCounter:
@@ -55,13 +56,16 @@ out_src += [
     "// ------ operand struct definition begins ------",
 ]
 
-def operand_quantifier2ty(is_optional, is_listed):
+def operand_quantifier2ty(is_optional, is_listed, cpp_ty):
     if is_listed:
-        return "std::vector<{}>"
+        if cpp_ty == "Literal":
+            return "LiteralList"
+        else:
+            return f"std::vector<{cpp_ty}>"
     elif is_optional:
-        return "std::optional<{}>"
+        return f"std::optional<{cpp_ty}>"
     else:
-        return "{}"
+        return cpp_ty
 
 def normalize_field_name(txt) -> str:
     out = ""
@@ -93,7 +97,8 @@ def operand2code(name_counter, operand, literal_as_u32):
     if is_optional or is_listed:
         literal_as_u32 = False
 
-    ty = operand_quantifier2ty(is_optional, is_listed).format(operand_ty2cpp_ty(ty, literal_as_u32))
+    cpp_ty = operand_ty2cpp_ty(ty, literal_as_u32)
+    ty = operand_quantifier2ty(is_optional, is_listed, cpp_ty)
     code = f"  {ty} {name};"
     return code
 
