@@ -3,8 +3,8 @@
 #include <string>
 #include "tinyspv/spv-reader.hpp"
 #include "tinyspv/spv-writer.hpp"
-#include "tinyspv/opcode2str.hpp"
-#include "tinyspv/operand-structs.hpp"
+#include "tinyspv/spirv/unified1/opcode2str.hpp"
+#include "tinyspv/spirv/unified1/operand-structs.hpp"
 
 using namespace tinyspv;
 

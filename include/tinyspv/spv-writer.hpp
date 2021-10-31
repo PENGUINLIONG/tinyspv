@@ -38,7 +38,7 @@ struct SpirvWriter {
     uint32_t bound,
     uint32_t reserved
   ) {
-    buf.emplace_back(spv::MagicNumber);
+    buf.emplace_back(tinyspv::MagicNumber);
     buf.emplace_back(version);
     buf.emplace_back(generator_magic);
     buf.emplace_back(bound);

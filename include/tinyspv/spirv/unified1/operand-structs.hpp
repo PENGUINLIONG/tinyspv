@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <optional>
-#include "spirv/unified1/spirv.hpp"
+#include "tinyspv/spirv/unified1/spirv.hpp"
 namespace tinyspv {
 typedef uint32_t Id;
 typedef std::vector<uint32_t> Literal;

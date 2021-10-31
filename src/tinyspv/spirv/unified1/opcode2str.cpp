@@ -1,7 +1,7 @@
 // THIS IS A GENERATED SOURCE. MODIFICATION WILL BE OVERWRITTEN.
 // USING JSON FROM:
 //   PENGUINLIONG/tinyspv @ c43e82bfb70d813a08d7d10bb8a7a702a0798101
-#include "tinyspv/opcode2str.hpp"
+#include "tinyspv/spirv/unified1/opcode2str.hpp"
 namespace tinyspv {
 const char* opcode2str(int opcode) {
   switch (opcode) {

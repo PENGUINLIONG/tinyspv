@@ -15,9 +15,9 @@ with open("./include/tinyspv/spirv/unified1/spirv.hpp") as f:
         if m:
             op_names += [m[1]]
 
-with open("./src/tinyspv/opcode2str.cpp", "w") as f:
+with open("./src/tinyspv/spirv/unified1/opcode2str.cpp", "w") as f:
     src = HEADERS + [
-        "#include \"tinyspv/opcode2str.hpp\"",
+        "#include \"tinyspv/spirv/unified1/opcode2str.hpp\"",
         "namespace tinyspv {",
         "const char* opcode2str(int opcode) {",
         "  switch (opcode) {",
@@ -35,7 +35,7 @@ with open("./src/tinyspv/opcode2str.cpp", "w") as f:
 with open("./include/tinyspv/spirv/unified1/opcode2str.hpp", "w") as f:
     src = HEADERS + [
         "#pragma once",
-        "#include \"spirv/unified1/spirv.hpp\"",
+        "#include \"tinyspv/spirv/unified1/spirv.hpp\"",
         "namespace tinyspv {",
         "extern const char* opcode2str(int opcode);",
         "} // namespace tinyspv",
