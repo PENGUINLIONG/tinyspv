@@ -232,9 +232,9 @@ struct StructType : public Type {
   std::vector<std::shared_ptr<Type>> member_tys;
   StructType(std::vector<std::shared_ptr<Type>>&& member_tys) :
     member_tys(std::forward<std::vector<std::shared_ptr<Type>>>(member_tys)),
-    Type(CODE, make_struct_name(member_tys)) {}
+    Type(CODE, make_struct_ty_name(member_tys)) {}
 
-  std::string make_struct_name(
+  std::string make_struct_ty_name(
     const std::vector<std::shared_ptr<Type>>& member_tys
   ) {
     std::stringstream ss;
@@ -264,6 +264,38 @@ struct PointerType : public Type {
     ty(ty),
     Type(CODE, std::string("*") + enum2str(storage_class) + " " + ty->name) {}
 };
+struct FunctionType : public Type {
+  static const Code CODE = FUNCTION;
+  std::shared_ptr<Type> return_ty;
+  std::vector<std::shared_ptr<Type>> param_tys;
+  FunctionType(
+    const std::shared_ptr<Type>& return_ty,
+    const std::vector<std::shared_ptr<Type>>& param_tys
+  ) :
+    return_ty(return_ty),
+    param_tys(param_tys),
+    Type(CODE, make_function_ty_name(return_ty, param_tys)) {}
+
+  std::string make_function_ty_name(
+    const std::shared_ptr<Type>& return_ty,
+    const std::vector<std::shared_ptr<Type>>& param_tys
+  ) {
+    std::stringstream ss;
+    ss << return_ty->name << "(";
+    bool first_iter = true;
+    for (const auto& param_ty : param_tys) {
+      if (first_iter) {
+        first_iter = false;
+      } else {
+        ss << ",";
+      }
+      ss << param_ty;
+    }
+    ss << ")";
+    return ss.str();
+  }
+};
+
 
 
 
@@ -296,6 +328,7 @@ struct TypeRegistry {
       case Type::RUNTIME_ARRAY: unreg_ty<RuntimeArrayType>(ty).reset(); break;
       case Type::STRUCT: unreg_ty<StructType>(ty).reset(); break;
       case Type::POINTER: unreg_ty<PointerType>(ty).reset(); break;
+      case Type::FUNCTION: unreg_ty<FunctionType>(ty).reset(); break;
       default: std::abort();
       }
     }
@@ -416,6 +449,14 @@ struct TypeRegistry {
       auto op = deserialize_instr<instrs::OpTypePointer>(instr);
       reg(op.result_id, PointerType(op.storage_class, get(op.type)));
       break;
+    }
+    case OpTypeFunction: {
+      auto op = deserialize_instr<instrs::OpTypeFunction>(instr);
+      std::vector<std::shared_ptr<Type>> param_tys;
+      for (const auto& param_ty : op.parameter_type) {
+        param_tys.emplace_back(get(param_ty));
+      }
+      reg(op.result_id, FunctionType(get(op.return_type), param_tys));
     }
     default:
       return false;
