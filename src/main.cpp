@@ -39,7 +39,6 @@ struct Type {
     ARRAY,
     RUNTIME_ARRAY,
     STRUCT,
-    OPAQUE,
     POINTER,
     FUNCTION,
   };
@@ -66,7 +65,6 @@ struct Type {
   bool is_array() const { return code == ARRAY; }
   bool is_runtime_array() const { return code == RUNTIME_ARRAY; }
   bool is_struct() const { return code == STRUCT; }
-  bool is_opaque() const { return code == OPAQUE; }
   bool is_pointer() const { return code == POINTER; }
   bool is_function() const { return code == FUNCTION; }
 
@@ -163,7 +161,7 @@ struct ImageType : public Type {
   {
     assert(sampled_ty->is_void() || sampled_ty->is_integer() || sampled_ty->is_float());
     if (dim == DimSubpassData) {
-      assert(sampled == SampledOption::RUNTIME_SAMPLED);
+      assert(sampled == SampledOption::STORAGE || image_format == ImageFormatUnknown);
     }
   }
   std::string make_img_ty_name(
@@ -243,15 +241,28 @@ struct StructType : public Type {
     ss << "{";
     bool first_iter = true;
     for (const auto& member_ty : member_tys) {
-      ss << member_ty->name;
-      if (first_iter) {
+      if (!first_iter) {
         ss << ",";
+      } else {
         first_iter = false;
       }
+      ss << member_ty->name;
     }
     ss << "}";
     return ss.str();
   }
+};
+struct PointerType : public Type {
+  static const Code CODE = POINTER;
+  StorageClass storage_class;
+  std::shared_ptr<Type> ty;
+  PointerType(
+    StorageClass storage_class,
+    const std::shared_ptr<Type>& ty
+  ) :
+    storage_class(storage_class),
+    ty(ty),
+    Type(CODE, std::string("*") + enum2str(storage_class) + " " + ty->name) {}
 };
 
 
@@ -284,6 +295,7 @@ struct TypeRegistry {
       case Type::ARRAY: unreg_ty<ArrayType>(ty).reset(); break;
       case Type::RUNTIME_ARRAY: unreg_ty<RuntimeArrayType>(ty).reset(); break;
       case Type::STRUCT: unreg_ty<StructType>(ty).reset(); break;
+      case Type::POINTER: unreg_ty<PointerType>(ty).reset(); break;
       default: std::abort();
       }
     }
@@ -380,14 +392,29 @@ struct TypeRegistry {
       reg(op.result_id, SampledImageType(get(op.image_type)));
       break;
     }
+    case OpTypeArray: {
+      auto op = deserialize_instr<instrs::OpTypeArray>(instr);
+      reg(op.result_id, ArrayType(get(op.element_type), op.length));
+      break;
+    }
+    case OpTypeRuntimeArray: {
+      auto op = deserialize_instr<instrs::OpTypeRuntimeArray>(instr);
+      reg(op.result_id, RuntimeArrayType(get(op.element_type)));
+      break;
+    }
     case OpTypeStruct: {
       auto op = deserialize_instr<instrs::OpTypeStruct>(instr);
       std::vector<std::shared_ptr<Type>> members;
-      members.resize(op.member_type.size());
+      members.reserve(op.member_type.size());
       for (const auto& member_type : op.member_type) {
         members.emplace_back(get(member_type));
       }
       reg(op.result_id, StructType(std::move(members)));
+      break;
+    }
+    case OpTypePointer: {
+      auto op = deserialize_instr<instrs::OpTypePointer>(instr);
+      reg(op.result_id, PointerType(op.storage_class, get(op.type)));
       break;
     }
     default:
@@ -401,7 +428,7 @@ struct TypeRegistry {
     ss << "TypeRegistry {" << std::endl;
     for (const auto& pair : ty_by_result_id) {
       uint32_t result_id = pair.first;
-      ss << " " << result_id << ": "<< ty_pool[pair.second]->name << std::endl;
+      ss << " " << result_id << ": " << ty_pool[pair.second]->name << std::endl;
     }
     ss << "}";
     return ss.str();
