@@ -2,7 +2,6 @@ import json
 import re
 from collections import defaultdict
 
-out_src = []
 GENERATOR = "Unknown"
 with open("specs/unified1/SPIRV.json") as f:
     SPEC = json.load(f)
@@ -10,7 +9,7 @@ with open("specs/unified1/SPIRV.json") as f:
         gen = SPEC["Generator"]
         GENERATOR = f"{gen['Name']} @ {gen['GitCommitHash']}"
 
-out_src += [
+HEADER = [
     "// THIS IS A GENERATED SOURCE. MODIFICATION WILL BE OVERWRITTEN.",
     "// USING JSON FROM:",
     f"//   {GENERATOR}",
@@ -18,12 +17,18 @@ out_src += [
     "#include <vector>",
     "#include <string>",
     "#include <optional>",
-    "#include \"tinyspv/spirv/unified1/spirv.hpp\"",
+    "#include \"tinyspv/spirv/unified1/SPIRV.hpp\"",
     "namespace tinyspv {",
     "namespace instrs {",
     "typedef uint32_t Id;",
     "typedef std::vector<uint32_t> Literal;",
     "typedef std::vector<uint32_t> LiteralList;",
+]
+
+FOOTER = [
+    "} // namespace instrs",
+    "} // namespace tinyspv",
+    "",
 ]
 
 class NameCounter:
@@ -51,10 +56,6 @@ def operand_ty2cpp_ty(ty, literal_as_u32):
         return ''.join(ty.split(' '))
     else:
         raise RuntimeError(f"unexpected operand type '{ty}'")
-
-out_src += [
-    "// ------ operand struct definition begins ------",
-]
 
 def operand_quantifier2ty(is_optional, is_listed, cpp_ty):
     if is_listed:
@@ -104,6 +105,11 @@ def operand2code(name_counter, operand, literal_as_u32):
 
 for instr_cls in SPEC["InstructionClasses"]:
     instr_cls_name = instr_cls["Name"]
+    assert instr_cls_name.endswith(" Instructions")
+    instr_cls_name = instr_cls_name[:-len(" Instructions")].replace(' ', '-').lower()
+    print(instr_cls_name)
+
+    out_src = []
     for instr in instr_cls["Instructions"]:
         name_counter = NameCounter()
         opname = instr["Name"]
@@ -152,12 +158,5 @@ for instr_cls in SPEC["InstructionClasses"]:
         code = "\n".join(code)
         out_src += [code]
 
-out_src += [
-    "// ------ operand struct definition ends ------",
-    "} // namespace instrs",
-    "} // namespace tinyspv",
-    "",
-]
-
-with open("include/tinyspv/spirv/unified1/operand-structs.hpp", "w") as f:
-    f.write('\n'.join(out_src))
+    with open(f"include/tinyspv/spirv/unified1/instrs/SPIRV.{instr_cls_name}.hpp", "w") as f:
+        f.write('\n'.join(HEADER + out_src + FOOTER))
