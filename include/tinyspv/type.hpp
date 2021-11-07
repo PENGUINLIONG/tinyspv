@@ -1,5 +1,6 @@
-// # Type Registry.
+// # Type Registry
 // @PENGUINLIONG
+#pragma once
 #include <string>
 #include <memory>
 #include <map>
@@ -24,7 +25,6 @@ struct Type {
     SAMPLER,
     SAMPLED_IMAGE,
     ARRAY,
-    RUNTIME_ARRAY,
     STRUCT,
     POINTER,
     FUNCTION,
@@ -35,6 +35,7 @@ struct Type {
 
   inline Type(Code code, std::string&& name) :
     code(code), name(name) {}
+  virtual ~Type();
 
   inline bool same_as(const Type& other) const {
     return name == other.name;
@@ -50,7 +51,6 @@ struct Type {
   inline bool is_sampler() const { return code == SAMPLER; }
   inline bool is_sampled_image() const { return code == SAMPLED_IMAGE; }
   inline bool is_array() const { return code == ARRAY; }
-  inline bool is_runtime_array() const { return code == RUNTIME_ARRAY; }
   inline bool is_struct() const { return code == STRUCT; }
   inline bool is_pointer() const { return code == POINTER; }
   inline bool is_function() const { return code == FUNCTION; }
@@ -89,8 +89,10 @@ struct VectorType : public Type {
     scalar_ty(scalar_ty),
     nlane(nlane),
     Type(CODE, scalar_ty->name + "vec" + std::to_string(nlane)) {
-    assert(scalar_ty->is_boolean() || scalar_ty->is_integer() || scalar_ty->is_float());
+    assert(scalar_ty->is_boolean() || scalar_ty->is_integer() ||
+      scalar_ty->is_float());
   }
+  virtual ~VectorType() override final;
 };
 struct MatrixType : public Type {
   static constexpr Code CODE = MATRIX;
@@ -102,6 +104,7 @@ struct MatrixType : public Type {
     Type(CODE, vector_ty->name + "mat" + std::to_string(ncolumn)) {
     assert(vector_ty->is_vector());
   }
+  virtual ~MatrixType() override final;
 };
 struct ImageType : public Type {
   static constexpr Code CODE = IMAGE;
@@ -141,13 +144,17 @@ struct ImageType : public Type {
     sampled(sampled),
     image_format(image_format),
     access_qualifier(access_qualifier),
-    Type(CODE, make_img_ty_name(
-      sampled_ty, dim, depth, arrayed, ms, sampled, image_format, access_qualifier)) {
-    assert(sampled_ty->is_void() || sampled_ty->is_integer() || sampled_ty->is_float());
+    Type(CODE, make_img_ty_name(sampled_ty, dim, depth, arrayed, ms, sampled,
+      image_format, access_qualifier))
+  {
+    assert(sampled_ty->is_void() || sampled_ty->is_integer() ||
+      sampled_ty->is_float());
     if (dim == DimSubpassData) {
-      assert(sampled == SampledOption::STORAGE || image_format == ImageFormatUnknown);
+      assert(sampled == SampledOption::STORAGE ||
+        image_format == ImageFormatUnknown);
     }
   }
+  virtual ~ImageType() override final;
   inline std::string make_img_ty_name(
     const std::shared_ptr<Type>& sampled_ty,
     Dim dim,
@@ -193,23 +200,22 @@ struct SampledImageType : public Type {
   inline SampledImageType(const std::shared_ptr<Type>& image_ty) :
     image_ty(image_ty),
     Type(CODE, "sampled" + image_ty->name) {}
+  virtual ~SampledImageType() override final;
 };
 struct ArrayType : public Type {
+  enum {
+    UNSIZED = 0,
+  };
   static constexpr Code CODE = ARRAY;
   std::shared_ptr<Type> elem_ty;
+  // Length of array or `UNSIZED` if the array's size is known only at runtime.
   uint32_t length;
   inline ArrayType(const std::shared_ptr<Type>& elem_ty, uint32_t length) :
     elem_ty(elem_ty),
     length(length),
-    Type(CODE, elem_ty->name + "[" + std::to_string(length) + "]") {}
-};
-struct RuntimeArrayType : public Type {
-  static constexpr Code CODE = RUNTIME_ARRAY;
-  std::shared_ptr<Type> elem_ty;
-  uint32_t length;
-  inline RuntimeArrayType(const std::shared_ptr<Type>& elem_ty) :
-    elem_ty(elem_ty),
-    Type(CODE, elem_ty->name + "[]") {}
+    Type(CODE, elem_ty->name + "[" +
+      (length == 0 ? std::string() : std::to_string(length)) + "]") {}
+  virtual ~ArrayType() override final;
 };
 struct StructType : public Type {
   static constexpr Code CODE = STRUCT;
@@ -217,6 +223,7 @@ struct StructType : public Type {
   inline StructType(std::vector<std::shared_ptr<Type>>&& member_tys) :
     member_tys(std::forward<std::vector<std::shared_ptr<Type>>>(member_tys)),
     Type(CODE, make_struct_ty_name(member_tys)) {}
+  virtual ~StructType() override final;
 
   inline std::string make_struct_ty_name(
     const std::vector<std::shared_ptr<Type>>& member_tys
@@ -247,6 +254,7 @@ struct PointerType : public Type {
     storage_class(storage_class),
     ty(ty),
     Type(CODE, std::string("*") + enum2str(storage_class) + " " + ty->name) {}
+  virtual ~PointerType() override final;
 };
 struct FunctionType : public Type {
   static constexpr Code CODE = FUNCTION;
@@ -278,23 +286,18 @@ struct FunctionType : public Type {
     ss << ")";
     return ss.str();
   }
+  virtual ~FunctionType() override final;
 };
 
-
-
-
-struct TypeRegistry {
-  std::vector<std::shared_ptr<Type>> ty_pool;
-
-  TypeRegistry();
-  ~TypeRegistry();
+struct TypePool {
+  std::vector<std::shared_ptr<Type>> pool;
 
   template<typename TType,
     typename _ = std::enable_if_t<std::is_base_of_v<Type, TType>>>
-  std::shared_ptr<TType> unreg(std::shared_ptr<Type>& ty) {
+    std::shared_ptr<TType> unreg(std::shared_ptr<Type>& ty) {
     assert(ty->code == TType::CODE);
     assert(ty.use_count() == 1);
-    assert(std::find(ty_pool.begin(), ty_pool.end(), ty) != ty_pool.end());
+    assert(std::find(pool.begin(), pool.end(), ty) != pool.end());
     std::shared_ptr<TType> out = std::static_pointer_cast<TType>(ty);
     ty.reset();
     return out;
@@ -302,38 +305,16 @@ struct TypeRegistry {
 
   template<typename TType,
     typename _ = std::enable_if_t<std::is_base_of_v<Type, TType>>>
-  const std::shared_ptr<Type>& reg(TType&& ty) {
-    auto it = std::find_if(ty_pool.begin(), ty_pool.end(),
+    const std::shared_ptr<Type>& reg(TType&& ty) {
+    auto it = std::find_if(pool.begin(), pool.end(),
       [&](const auto& x) { return x->name == ty.name; });
-    if (it != ty_pool.end()) {
+    if (it != pool.end()) {
       return *it;
     } else {
-      return ty_pool.emplace_back(
-          std::static_pointer_cast<Type>(std::make_shared<TType>(ty)));
+      return pool.emplace_back(
+        std::static_pointer_cast<Type>(std::make_shared<TType>(ty)));
     }
   }
-
-};
-
-struct TypeSectionDeserializer {
-  TypeRegistry ty_reg;
-  std::map<instrs::Id, std::shared_ptr<Type>> ty_by_result_id;
-
-  inline const std::shared_ptr<Type>& get(uint32_t result_id) {
-    return ty_by_result_id[result_id];
-  }
-  inline const Type& operator[](uint32_t result_id) {
-    return *get(result_id);
-  }
-
-  template<typename TType,
-    typename _ = std::enable_if_t<std::is_base_of_v<Type, TType>>>
-  inline void reg(instrs::Id result_id, TType&& ty) {
-    ty_by_result_id[result_id] = ty_reg.reg(std::forward<TType>(ty));
-  }
-
-  bool deserialize(const Instruction& instr);
-  std::string dbg() const;
 };
 
 } // namespace tinyspv

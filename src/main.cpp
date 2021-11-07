@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "tinyspv/ty-reg.hpp"
+#include "tinyspv/deserializer.hpp"
 
 using namespace tinyspv;
 
@@ -18,8 +18,6 @@ std::vector<uint32_t> load_spv(const std::string& path) {
 }
 
 
-
-
 void main(int argc, const char** argv) {
   if (argc <= 1) {
     std::cout << "path not specified" << std::endl;
@@ -33,12 +31,11 @@ void main(int argc, const char** argv) {
     return;
   }
 
-  TypeSectionDeserializer ty_deserializer;
+  Deserializer deserializer;
   for (Instruction instr : spv_reader.instructions()) {
     std::cout << tinyspv::enum2str((Op)instr.opcode()) << std::endl;
 
-    if (ty_deserializer.deserialize(instr)) {
-      std::cout << ty_deserializer.dbg() << std::endl;
-    }
+    deserializer.deserialize_ty(instr) || deserializer.deserialize_val(instr);
   }
+  std::cout << deserializer.dbg() << std::endl;
 }
