@@ -42,12 +42,25 @@ with open("./include/tinyspv/spirv/unified1/SPIRV.hpp") as f:
 with open("./include/tinyspv/spirv/unified1/enum2str.hpp", "w") as f:
     f.writelines('\n'.join(HEADERS))
     f.writelines([
-        "\n#include <cstdlib>\n",
+        "\n#pragma once\n",
+        "#include <cstdlib>\n",
         "#include \"tinyspv/spirv/unified1/SPIRV.hpp\"\n",
         "namespace tinyspv {\n",
-        "template<typename TEnum> const char* enum2str(TEnum);\n",
+        "template<typename TEnum> const char* enum2str(TEnum) { std::abort(); }\n",
     ])
+    for name, cases in ENUM_CASES.items():
+        if len(cases) > 0:
+            f.write(f"template<> const char* enum2str<{name}>({name} v);\n")
+        else:
+            f.write(f"// Ignored `{name}` because it has no enumeration case.\n")
+    f.write("} // namespace tinyspv\n")
 
+with open("./src/tinyspv/spirv/unified1/enum2str.cpp", "w") as f:
+    f.writelines('\n'.join(HEADERS))
+    f.writelines([
+        "\n#include \"tinyspv/spirv/unified1/enum2str.hpp\"\n",
+        "namespace tinyspv {\n",
+    ])
     for name, cases in ENUM_CASES.items():
         if len(cases) > 0:
             f.writelines([

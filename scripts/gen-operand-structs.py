@@ -103,13 +103,11 @@ def operand2code(name_counter, operand, literal_as_u32):
     code = f"  {ty} {name};"
     return code
 
+out_src = []
 for instr_cls in SPEC["InstructionClasses"]:
     instr_cls_name = instr_cls["Name"]
-    assert instr_cls_name.endswith(" Instructions")
-    instr_cls_name = instr_cls_name[:-len(" Instructions")].replace(' ', '-').lower()
-    print(instr_cls_name)
 
-    out_src = []
+    out_src += [f"// {instr_cls_name}"]
     for instr in instr_cls["Instructions"]:
         name_counter = NameCounter()
         opname = instr["Name"]
@@ -158,5 +156,5 @@ for instr_cls in SPEC["InstructionClasses"]:
         code = "\n".join(code)
         out_src += [code]
 
-    with open(f"include/tinyspv/spirv/unified1/instrs/SPIRV.{instr_cls_name}.hpp", "w") as f:
-        f.write('\n'.join(HEADER + out_src + FOOTER))
+with open(f"include/tinyspv/spirv/unified1/SPIRV.instrs.hpp", "w") as f:
+    f.write('\n'.join(HEADER + out_src + FOOTER))
