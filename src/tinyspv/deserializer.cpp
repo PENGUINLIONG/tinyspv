@@ -35,7 +35,7 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
   case OpTypeVector:
   {
     auto op = deserialize_instr<instrs::OpTypeVector>(instr);
-    const std::shared_ptr<Type>& component_ty = get(op.component_type);
+    const std::shared_ptr<Type>& component_ty = get_ty(op.component_type);
     if (component_ty->is_bool_ty()) {
       const BooleanType& bool_ty = component_ty->as_bool_ty();
       assert(bool_ty.nlane == 1);
@@ -57,7 +57,7 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
   case OpTypeMatrix:
   {
     auto op = deserialize_instr<instrs::OpTypeMatrix>(instr);
-    const auto& column_ty = get(op.column_type);
+    const auto& column_ty = get_ty(op.column_type);
     assert(column_ty->is_prim_ty());
     auto prim_ty = std::static_pointer_cast<PrimType>(column_ty);
     reg_ty(op.result_id, MatrixType(prim_ty, op.column_count));
@@ -66,7 +66,7 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
   case OpTypeImage:
   {
     auto op = deserialize_instr<instrs::OpTypeImage>(instr);
-    reg_ty(op.result_id, ImageType(get(op.sampled_type), op.dim,
+    reg_ty(op.result_id, ImageType(get_ty(op.sampled_type), op.dim,
       (ImageType::DepthOption)op.depth, op.arrayed, op.ms,
       (ImageType::SampledOption)op.sampled, op.image_format,
       op.access_qualifier));
@@ -81,19 +81,19 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
   case OpTypeSampledImage:
   {
     auto op = deserialize_instr<instrs::OpTypeSampledImage>(instr);
-    reg_ty(op.result_id, SampledImageType(get(op.image_type)));
+    reg_ty(op.result_id, SampledImageType(get_ty(op.image_type)));
     break;
   }
   case OpTypeArray:
   {
     auto op = deserialize_instr<instrs::OpTypeArray>(instr);
-    reg_ty(op.result_id, ArrayType(get(op.element_type), op.length));
+    reg_ty(op.result_id, ArrayType(get_ty(op.element_type), op.length));
     break;
   }
   case OpTypeRuntimeArray:
   {
     auto op = deserialize_instr<instrs::OpTypeRuntimeArray>(instr);
-    reg_ty(op.result_id, ArrayType(get(op.element_type), ArrayType::UNSIZED));
+    reg_ty(op.result_id, ArrayType(get_ty(op.element_type), ArrayType::UNSIZED));
     break;
   }
   case OpTypeStruct:
@@ -102,7 +102,7 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
     std::vector<std::shared_ptr<Type>> members;
     members.reserve(op.member_type.size());
     for (const auto& member_type : op.member_type) {
-      members.emplace_back(get(member_type));
+      members.emplace_back(get_ty(member_type));
     }
     reg_ty(op.result_id, StructType(std::move(members)));
     break;
@@ -110,7 +110,7 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
   case OpTypePointer:
   {
     auto op = deserialize_instr<instrs::OpTypePointer>(instr);
-    reg_ty(op.result_id, PointerType(op.storage_class, get(op.type)));
+    reg_ty(op.result_id, PointerType(op.storage_class, get_ty(op.type)));
     break;
   }
   case OpTypeFunction:
@@ -118,9 +118,9 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
     auto op = deserialize_instr<instrs::OpTypeFunction>(instr);
     std::vector<std::shared_ptr<Type>> param_tys;
     for (const auto& param_ty : op.parameter_type) {
-      param_tys.emplace_back(get(param_ty));
+      param_tys.emplace_back(get_ty(param_ty));
     }
-    reg_ty(op.result_id, FunctionType(get(op.return_type), param_tys));
+    reg_ty(op.result_id, FunctionType(get_ty(op.return_type), param_tys));
     break;
   }
   default:
@@ -180,7 +180,7 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
     std::vector<std::shared_ptr<Expr>> constituents;
     constituents.reserve(op.constituents.size());
     for (auto constituent : op.constituents) {
-      const auto& val = val_by_result_id[constituent];
+      const auto& val = expr_by_result_id[constituent];
       assert(val != nullptr);
       constituents.emplace_back(val);
     }
@@ -245,9 +245,21 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
       }
       break;
     }
-    default: std::abort;
+    default: std::abort; break;
     }
     reg_val(op.result_id, Composite(ty, std::move(constituents)));
+    break;
+  }
+  case OpVariable:
+  {
+    auto op = deserialize_instr<instrs::OpVariable>(instr);
+    reg_val(op.result_id, Variable(op.storage_class, get_ty(op.result_type)));
+    break;
+  }
+  case OpLoad:
+  {
+    auto op = deserialize_instr<instrs::OpLoad>(instr);
+    reg_val(op.result_id, Load(get_expr(op.pointer), get_ty(op.result_type)));
     break;
   }
   default: return false;
@@ -257,12 +269,14 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
 
 std::string Deserializer::dbg() const {
   std::stringstream ss;
-  ss << "TypeRegistry {" << std::endl;
-  for (const auto& pair : ty_by_result_id) {
-    uint32_t result_id = pair.first;
-    ss << " " << result_id << ": " << pair.second->name << std::endl;
+  {
+    ss << "TypeRegistry {" << std::endl;
+    for (const auto& pair : ty_by_result_id) {
+      uint32_t result_id = pair.first;
+      ss << " " << result_id << ": " << pair.second->name << std::endl;
+    }
+    ss << "}";
   }
-  ss << "}";
   return ss.str();
 }
 

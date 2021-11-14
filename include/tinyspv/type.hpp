@@ -206,6 +206,7 @@ struct ImageType : public Type {
     Type(CODE, make_img_ty_name(sampled_ty, dim, depth, arrayed, ms, sampled,
       image_format, access_qualifier))
   {
+    assert(sampled_ty != nullptr);
     assert(sampled_ty->is<VoidType>() || sampled_ty->is<IntegerType>() ||
       sampled_ty->is<FloatType>());
     if (dim == DimSubpassData) {

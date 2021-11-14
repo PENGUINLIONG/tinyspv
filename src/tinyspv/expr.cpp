@@ -65,5 +65,9 @@ L_DEF_BINARY_OP_EXPR_DTOR(Ge);
 
 #undef L_DEF_BINARY_OP_EXPR_DTOR
 
+Load::~Load() {
+  ptr.reset();
+  Expr::~Expr();
+}
 
 } // namespace tinyspv

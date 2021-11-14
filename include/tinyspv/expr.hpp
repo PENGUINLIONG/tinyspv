@@ -49,6 +49,8 @@ struct Expr {
     GT,
     LE,
     GE,
+    // Memory access.
+    LOAD,
   };
 
   const Code code;
@@ -61,7 +63,13 @@ struct Expr {
 };
 struct Variable : public Expr {
   static constexpr Code CODE = VARIABLE;
-  inline Variable(const std::shared_ptr<Type>& ty) : Expr(CODE, ty) {}
+  StorageClass storage_cls;
+  inline Variable(StorageClass storage_cls, const std::shared_ptr<Type>& ty) :
+    storage_cls(storage_cls), Expr(CODE, ty)
+  {
+    assert(storage_cls != StorageClassGeneric);
+    assert(ty->is_ptr_ty());
+  }
   virtual ~Variable() override final;
 };
 struct Constant : public Expr {
@@ -303,6 +311,18 @@ L_DEF_BINARY_CMP_OP(LE, Le);
 L_DEF_BINARY_CMP_OP(GE, Ge);
 
 #undef L_DEF_BINARY_CMP_OP
+
+struct Load : public Expr {
+  static constexpr Code CODE = LOAD;
+  std::shared_ptr<Expr> ptr;
+  inline Load(
+    const std::shared_ptr<Expr>& ptr,
+    const std::shared_ptr<Type>& dst_ty
+  ) : ptr(ptr), Expr(CODE, dst_ty) {
+    assert(ptr->ty->is_ptr_ty());
+  }
+  virtual ~Load() override final;
+};
 
 
 } // namespace tinyspv
