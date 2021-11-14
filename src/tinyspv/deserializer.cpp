@@ -17,31 +17,50 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
   case OpTypeBool:
   {
     auto op = deserialize_instr<instrs::OpTypeBool>(instr);
-    reg_ty(op.result_id, BooleanType());
+    reg_ty(op.result_id, BooleanType(1));
     break;
   }
   case OpTypeInt:
   {
     auto op = deserialize_instr<instrs::OpTypeInt>(instr);
-    reg_ty(op.result_id, IntegerType(op.width, op.signedness));
+    reg_ty(op.result_id, IntegerType(op.width, 1, op.signedness));
     break;
   }
   case OpTypeFloat:
   {
     auto op = deserialize_instr<instrs::OpTypeFloat>(instr);
-    reg_ty(op.result_id, FloatType(op.width));
+    reg_ty(op.result_id, FloatType(op.width, 1));
     break;
   }
   case OpTypeVector:
   {
     auto op = deserialize_instr<instrs::OpTypeVector>(instr);
-    reg_ty(op.result_id, VectorType(get(op.component_type), op.component_count));
+    const std::shared_ptr<Type>& component_ty = get(op.component_type);
+    if (component_ty->is_bool_ty()) {
+      const BooleanType& bool_ty = component_ty->as_bool_ty();
+      assert(bool_ty.nlane == 1);
+      reg_ty(op.result_id, BooleanType(op.component_count));
+    } if (component_ty->is_int_ty()) {
+      const IntegerType& int_ty = component_ty->as_int_ty();
+      assert(int_ty.nlane == 1);
+      reg_ty(op.result_id,
+        IntegerType(int_ty.bit_width, op.component_count, int_ty.is_signed));
+    } else if (component_ty->is_float_ty()) {
+      const FloatType& float_ty = component_ty->as_float_ty();
+      assert(float_ty.nlane == 1);
+      reg_ty(op.result_id, FloatType(float_ty.bit_width, op.component_count));
+    } else {
+      std::abort();
+    }
     break;
   }
   case OpTypeMatrix:
   {
     auto op = deserialize_instr<instrs::OpTypeMatrix>(instr);
-    reg_ty(op.result_id, MatrixType(get(op.column_type), op.column_count));
+    const auto& column_ty = get(op.column_type);
+    assert(column_ty->is_prim_ty());
+    auto prim_ty = std::static_pointer_cast<PrimType>(column_ty);
+    reg_ty(op.result_id, MatrixType(prim_ty, op.column_count));
     break;
   }
   case OpTypeImage:
@@ -119,7 +138,7 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
   {
     auto op = deserialize_instr<instrs::OpConstantTrue>(instr);
     const auto& ty = ty_by_result_id[op.result_type];
-    assert(ty != nullptr && ty->is_boolean());
+    assert(ty != nullptr && ty->is_bool_ty());
     reg_val(op.result_id, Constant(ty, 1));
     break;
   }
@@ -127,7 +146,7 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
   {
     auto op = deserialize_instr<instrs::OpConstantFalse>(instr);
     const auto& ty = ty_by_result_id[op.result_type];
-    assert(ty != nullptr && ty->is_boolean());
+    assert(ty != nullptr && ty->is_bool_ty());
     reg_val(op.result_id, Constant(ty, 0));
     break;
   }
@@ -135,7 +154,7 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
   {
     auto op = deserialize_instr<instrs::OpConstant>(instr);
     const auto& ty = ty_by_result_id[op.result_type];
-    assert(ty != nullptr && (ty->is_integer() || ty->is_float()));
+    assert(ty != nullptr && (ty->is_int_ty() || ty->is_float_ty()));
     switch (op.value.size()) {
     case 1:
     {
@@ -158,7 +177,7 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
     auto op = deserialize_instr<instrs::OpConstantComposite>(instr);
     const auto& ty = ty_by_result_id[op.result_type];
     assert(ty != nullptr);
-    std::vector<std::shared_ptr<Value>> constituents;
+    std::vector<std::shared_ptr<Expr>> constituents;
     constituents.reserve(op.constituents.size());
     for (auto constituent : op.constituents) {
       const auto& val = val_by_result_id[constituent];
@@ -184,12 +203,36 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
       }
       break;
     }
-    case Type::VECTOR:
+    case Type::BOOLEAN:
     {
-      auto vector_ty = std::static_pointer_cast<VectorType>(ty);
-      assert(vector_ty->nlane == constituents.size());
-      for (size_t i = 0; i < vector_ty->nlane; ++i) {
-        assert(constituents[i]->ty->same_as(*vector_ty->scalar_ty));
+      auto prim_ty = std::static_pointer_cast<PrimType>(ty);
+      assert(prim_ty->nlane == constituents.size());
+      for (size_t i = 0; i < prim_ty->nlane; ++i) {
+        const auto& constituent_ty = constituents[i]->ty;
+        assert(constituent_ty->is_bool_ty());
+        assert(constituent_ty->as_bool_ty().nlane == 1);
+      }
+      break;
+    }
+    case Type::INTEGER:
+    {
+      auto prim_ty = std::static_pointer_cast<PrimType>(ty);
+      assert(prim_ty->nlane == constituents.size());
+      for (size_t i = 0; i < prim_ty->nlane; ++i) {
+        const auto& constituent_ty = constituents[i]->ty;
+        assert(constituent_ty->is_int_ty());
+        assert(constituent_ty->as_int_ty().nlane == 1);
+      }
+      break;
+    }
+    case Type::FLOAT:
+    {
+      auto prim_ty = std::static_pointer_cast<PrimType>(ty);
+      assert(prim_ty->nlane == constituents.size());
+      for (size_t i = 0; i < prim_ty->nlane; ++i) {
+        const auto& constituent_ty = constituents[i]->ty;
+        assert(constituent_ty->is_float_ty());
+        assert(constituent_ty->as_float_ty().nlane == 1);
       }
       break;
     }
@@ -204,7 +247,7 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
     }
     default: std::abort;
     }
-    reg_val(op.result_id, CompositeConstant(ty, std::move(constituents)));
+    reg_val(op.result_id, Composite(ty, std::move(constituents)));
     break;
   }
   default: return false;

@@ -13,13 +13,26 @@
 
 namespace tinyspv {
 
+struct VoidType;
+struct BooleanType;
+struct IntegerType;
+struct FloatType;
+struct PrimType;
+struct MatrixType;
+struct ImageType;
+struct SamplerType;
+struct SampledImageType;
+struct ArrayType;
+struct StructType;
+struct PointerType;
+struct FunctionType;
+
 struct Type {
   enum Code {
     VOID,
     BOOLEAN,
     INTEGER,
     FLOAT,
-    VECTOR,
     MATRIX,
     IMAGE,
     SAMPLER,
@@ -33,76 +46,122 @@ struct Type {
   const Code code;
   const std::string name;
 
-  inline Type(Code code, std::string&& name) :
-    code(code), name(name) {}
+  inline Type(Code code, const std::string& name) :
+    code(code), name(name)
+  {
+    assert(!name.empty());
+  }
   virtual ~Type();
 
   inline bool same_as(const Type& other) const {
     return name == other.name;
   }
 
-  inline bool is_void() const { return code == VOID; }
-  inline bool is_boolean() const { return code == BOOLEAN; }
-  inline bool is_integer() const { return code == INTEGER; }
-  inline bool is_float() const { return code == FLOAT; }
-  inline bool is_vector() const { return code == VECTOR; }
-  inline bool is_matrix() const { return code == MATRIX; }
-  inline bool is_image() const { return code == IMAGE; }
-  inline bool is_sampler() const { return code == SAMPLER; }
-  inline bool is_sampled_image() const { return code == SAMPLED_IMAGE; }
-  inline bool is_array() const { return code == ARRAY; }
-  inline bool is_struct() const { return code == STRUCT; }
-  inline bool is_pointer() const { return code == POINTER; }
-  inline bool is_function() const { return code == FUNCTION; }
+  template<typename TType>
+  inline bool is() const {
+    //static_assert(std::is_base_of_v<Type, TType>,
+    //  "checked type is not tagged with a type code");
+    return code == TType::CODE;
+  }
+  template<typename TType>
+  inline const TType& as() const {
+    //static_assert(std::is_base_of_v<Type, TType>,
+    //  "casted type is not tagged with a type code");
+    return *(const TType*)this;
+  }
 
+#define L_GEN_TY_CAST(name, ty_name) \
+  inline bool is_##name##_ty() const { return is<ty_name>(); } \
+  inline const ty_name& as_##name##_ty() const { return as<ty_name>(); }
+
+  L_GEN_TY_CAST(bool, BooleanType);
+  L_GEN_TY_CAST(int, IntegerType);
+  L_GEN_TY_CAST(float, FloatType);
+  L_GEN_TY_CAST(mat, MatrixType);
+  L_GEN_TY_CAST(img, ImageType);
+  L_GEN_TY_CAST(sampler, SamplerType);
+  L_GEN_TY_CAST(sampled_img, SampledImageType);
+  L_GEN_TY_CAST(arr, ArrayType);
+  L_GEN_TY_CAST(struct, StructType);
+  L_GEN_TY_CAST(ptr, PointerType);
+  L_GEN_TY_CAST(fn, FunctionType);
+
+#undef L_GEN_TY_CAST
+
+  inline bool is_numeric_ty() const {
+    return is_int_ty() || is_float_ty();
+  }
+
+  inline bool is_prim_ty() const {
+    return code == BOOLEAN || code == INTEGER || code == FLOAT;
+  }
+  inline const PrimType& as_prim_ty() const {
+    return as<PrimType>();
+  }
+};
+
+struct PrimType : public Type {
+  std::string component_name;
+  uint32_t nlane;
+
+  inline PrimType(
+    Code code,
+    const std::string& component_name,
+    uint32_t nlane
+  ) :
+    Type(code, component_name + "x" + std::to_string(nlane)),
+    component_name(component_name)
+  {
+    assert(!component_name.empty());
+    assert(nlane != 0);
+  }
+  virtual ~PrimType() override;
+
+  inline bool same_component_ty_as(const PrimType& other) const {
+    return component_name == other.component_name;
+  }
 };
 
 struct VoidType : public Type {
   static constexpr Code CODE = VOID;
   inline VoidType() : Type(CODE, "void") {}
 };
-struct BooleanType : public Type {
+struct BooleanType : public PrimType {
   static constexpr Code CODE = BOOLEAN;
-  inline BooleanType() : Type(CODE, "bool") {}
+  inline BooleanType(uint32_t nlane) : PrimType(CODE, "b", nlane) {}
 };
-struct IntegerType : public Type {
+struct IntegerType : public PrimType {
   static constexpr Code CODE = INTEGER;
   uint32_t bit_width;
   bool is_signed;
-  inline IntegerType(uint32_t bit_width, bool is_signed) :
+  uint32_t nlane;
+  inline IntegerType(uint32_t bit_width, uint32_t nlane, bool is_signed) :
     bit_width(bit_width),
+    nlane(nlane),
     is_signed(is_signed),
-    Type(CODE, (is_signed ? "i" : "u") + std::to_string(bit_width)) {}
+    PrimType(CODE, (is_signed ? "i" : "u") + std::to_string(bit_width), nlane)
+  {}
 };
-struct FloatType : public Type {
+struct FloatType : public PrimType {
   static constexpr Code CODE = FLOAT;
   uint32_t bit_width;
-  inline FloatType(uint32_t bit_width) :
-    bit_width(bit_width),
-    Type(CODE, "f" + std::to_string(bit_width)) {}
-};
-struct VectorType : public Type {
-  static constexpr Code CODE = VECTOR;
-  std::shared_ptr<Type> scalar_ty;
   uint32_t nlane;
-  inline VectorType(const std::shared_ptr<Type>& scalar_ty, uint32_t nlane) :
-    scalar_ty(scalar_ty),
+  inline FloatType(uint32_t bit_width, uint32_t nlane) :
+    bit_width(bit_width),
     nlane(nlane),
-    Type(CODE, scalar_ty->name + "vec" + std::to_string(nlane)) {
-    assert(scalar_ty->is_boolean() || scalar_ty->is_integer() ||
-      scalar_ty->is_float());
-  }
-  virtual ~VectorType() override final;
+    PrimType(CODE, "f" + std::to_string(bit_width), nlane) {}
 };
 struct MatrixType : public Type {
   static constexpr Code CODE = MATRIX;
-  std::shared_ptr<Type> column_ty;
+  std::shared_ptr<PrimType> column_ty;
   uint32_t ncolumn;
-  inline MatrixType(const std::shared_ptr<Type>& vector_ty, uint32_t ncolumn) :
+  inline MatrixType(const std::shared_ptr<PrimType>& vector_ty, uint32_t ncolumn) :
     column_ty(vector_ty),
     ncolumn(ncolumn),
-    Type(CODE, vector_ty->name + "mat" + std::to_string(ncolumn)) {
-    assert(vector_ty->is_vector());
+    Type(CODE, vector_ty->name + "mat" + std::to_string(ncolumn))
+  {
+    assert(ncolumn > 1);
+    assert(vector_ty->is_numeric_ty());
   }
   virtual ~MatrixType() override final;
 };
@@ -147,8 +206,8 @@ struct ImageType : public Type {
     Type(CODE, make_img_ty_name(sampled_ty, dim, depth, arrayed, ms, sampled,
       image_format, access_qualifier))
   {
-    assert(sampled_ty->is_void() || sampled_ty->is_integer() ||
-      sampled_ty->is_float());
+    assert(sampled_ty->is<VoidType>() || sampled_ty->is<IntegerType>() ||
+      sampled_ty->is<FloatType>());
     if (dim == DimSubpassData) {
       assert(sampled == SampledOption::STORAGE ||
         image_format == ImageFormatUnknown);
@@ -294,7 +353,7 @@ struct TypePool {
 
   template<typename TType,
     typename _ = std::enable_if_t<std::is_base_of_v<Type, TType>>>
-    std::shared_ptr<TType> unreg(std::shared_ptr<Type>& ty) {
+  std::shared_ptr<TType> unreg(std::shared_ptr<Type>& ty) {
     assert(ty->code == TType::CODE);
     assert(ty.use_count() == 1);
     assert(std::find(pool.begin(), pool.end(), ty) != pool.end());
@@ -305,7 +364,7 @@ struct TypePool {
 
   template<typename TType,
     typename _ = std::enable_if_t<std::is_base_of_v<Type, TType>>>
-    const std::shared_ptr<Type>& reg(TType&& ty) {
+  const std::shared_ptr<Type>& reg(TType&& ty) {
     auto it = std::find_if(pool.begin(), pool.end(),
       [&](const auto& x) { return x->name == ty.name; });
     if (it != pool.end()) {

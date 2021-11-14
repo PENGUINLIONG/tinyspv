@@ -1,7 +1,7 @@
 // # SPIR-V Binary Deserializer
 // @PENGUINLIONG
 #include "tinyspv/type.hpp"
-#include "tinyspv/value.hpp"
+#include "tinyspv/expr.hpp"
 #include "tinyspv/spirv/unified1/SPIRV.serde.hpp"
 
 namespace tinyspv {
@@ -9,7 +9,7 @@ namespace tinyspv {
 struct Deserializer {
   TypePool ty_pool;
   std::map<instrs::Id, std::shared_ptr<Type>> ty_by_result_id;
-  std::map<instrs::Id, std::shared_ptr<Value>> val_by_result_id;
+  std::map<instrs::Id, std::shared_ptr<Expr>> val_by_result_id;
 
   inline const std::shared_ptr<Type>& get(uint32_t result_id) {
     return ty_by_result_id[result_id];
@@ -23,11 +23,11 @@ struct Deserializer {
     inline void reg_ty(instrs::Id result_id, TType&& ty) {
     ty_by_result_id[result_id] = ty_pool.reg(std::forward<TType>(ty));
   }
-  template<typename TValue,
-    typename _ = std::enable_if_t<std::is_base_of_v<Value, TValue>>>
-    inline void reg_val(instrs::Id result_id, TValue&& val) {
-    val_by_result_id[result_id] = std::static_pointer_cast<Value>(
-      std::make_shared<TValue>(std::forward<TValue>(val)));
+  template<typename TExpr,
+    typename _ = std::enable_if_t<std::is_base_of_v<Expr, TExpr>>>
+    inline void reg_val(instrs::Id result_id, TExpr&& val) {
+    val_by_result_id[result_id] = std::static_pointer_cast<Expr>(
+      std::make_shared<TExpr>(std::forward<TExpr>(val)));
   }
 
   bool deserialize_ty(const Instruction& instr);

@@ -12,7 +12,7 @@
 namespace tinyspv {
 
 Type::~Type() {}
-VectorType::~VectorType() { scalar_ty.reset(); }
+PrimType::~PrimType() { std::string().swap(component_name); }
 MatrixType::~MatrixType() { column_ty.reset(); }
 ImageType::~ImageType() { sampled_ty.reset(); }
 SampledImageType::~SampledImageType() { image_ty.reset(); }
