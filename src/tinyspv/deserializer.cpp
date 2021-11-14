@@ -87,13 +87,13 @@ bool Deserializer::deserialize_ty(const Instruction& instr) {
   case OpTypeArray:
   {
     auto op = deserialize_instr<instrs::OpTypeArray>(instr);
-    reg_ty(op.result_id, ArrayType(get_ty(op.element_type), op.length));
+    reg_ty(op.result_id, ArrayType(get_ty(op.element_type), get_expr(op.length)));
     break;
   }
   case OpTypeRuntimeArray:
   {
     auto op = deserialize_instr<instrs::OpTypeRuntimeArray>(instr);
-    reg_ty(op.result_id, ArrayType(get_ty(op.element_type), ArrayType::UNSIZED));
+    reg_ty(op.result_id, ArrayType(get_ty(op.element_type), nullptr));
     break;
   }
   case OpTypeStruct:
@@ -197,8 +197,10 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
     case Type::ARRAY:
     {
       auto array_ty = std::static_pointer_cast<ArrayType>(ty);
-      assert(array_ty->length == constituents.size());
-      for (size_t i = 0; i < array_ty->length; ++i) {
+      // FIXME: (penguinliong) Implement element length check when we can
+      // resolve constant expressions.
+      //assert(array_ty->length == constituents.size());
+      for (size_t i = 0; i < constituents.size(); ++i) {
         assert(constituents[i]->ty->same_as(*array_ty->elem_ty));
       }
       break;
@@ -269,11 +271,25 @@ bool Deserializer::deserialize_val(const Instruction& instr) {
 
 std::string Deserializer::dbg() const {
   std::stringstream ss;
-  {
+  if (false) {
     ss << "TypeRegistry {" << std::endl;
     for (const auto& pair : ty_by_result_id) {
       uint32_t result_id = pair.first;
       ss << " " << result_id << ": " << pair.second->name << std::endl;
+    }
+    ss << "}";
+  }
+  {
+    ss << "ExprRegistry {" << std::endl;
+    for (const auto& pair : expr_by_result_id) {
+      ss << " ";
+      uint32_t result_id = pair.first;
+      std::stringstream dbg;
+      pair.second->dbg(dbg, true);
+      if (pair.second->is_constexpr) {
+        ss << "(constexpr)";
+      }
+      ss << result_id << " = " << dbg.str() << std::endl;
     }
     ss << "}";
   }

@@ -7,67 +7,73 @@
 namespace tinyspv {
 
 Expr::~Expr() { ty.reset(); }
-Variable::~Variable() { Expr::~Expr(); }
-Constant::~Constant() { Expr::~Expr(); }
 Composite::~Composite() {
   decltype(constituents)().swap(constituents);
   Expr::~Expr();
 }
+UnaryOp::~UnaryOp() { src.reset(); Expr::~Expr(); }
+BinaryOp::~BinaryOp() { src1.reset(); src2.reset(); Expr::~Expr(); }
 
-Convert::~Convert() {
-  src.reset();
-  Expr::~Expr();
-}
-
-#define L_DEF_BINARY_OP_EXPR_DTOR(expr_name) \
-  expr_name::~expr_name() { \
-    src1.reset(); \
-    src2.reset(); \
-    Expr::~Expr(); \
+void Expr::dbg(std::stringstream& ss, bool with_ty) const {
+  ss << "(" << name;
+  if (with_ty) {
+    ss << ":" << ty->name;
   }
-
-L_DEF_BINARY_OP_EXPR_DTOR(Add);
-L_DEF_BINARY_OP_EXPR_DTOR(Sub);
-L_DEF_BINARY_OP_EXPR_DTOR(Mul);
-L_DEF_BINARY_OP_EXPR_DTOR(Div);
-L_DEF_BINARY_OP_EXPR_DTOR(Rem);
-L_DEF_BINARY_OP_EXPR_DTOR(Mod);
-
-L_DEF_BINARY_OP_EXPR_DTOR(Dot);
-
-#define L_DEF_SHIFT_OP_EXPR_DTOR(expr_name) \
-  expr_name::~expr_name() { \
-    base.reset(); \
-    shamt.reset(); \
-    Expr::~Expr(); \
+  ss << ")";
+}
+void UnaryOp::dbg(std::stringstream& ss, bool with_ty) const {
+  ss << "(" << name << " ";
+  if (with_ty) {
+    ss << ":" << ty->name;
   }
-
-L_DEF_SHIFT_OP_EXPR_DTOR(Rsh);
-L_DEF_SHIFT_OP_EXPR_DTOR(Lsh);
-
-#undef L_DEF_SHIFT_OP_EXPR_DTOR
-
-Not::~Not() {
-  src.reset();
-  Expr::~Expr();
+  src->dbg(ss, with_ty);
+  ss << ")";
+}
+void BinaryOp::dbg(std::stringstream& ss, bool with_ty) const {
+  ss << "(" << name << " ";
+  if (with_ty) {
+    ss << ":" << ty->name;
+  }
+  src1->dbg(ss, with_ty);
+  ss << " ";
+  src2->dbg(ss, with_ty);
+  ss << ")";
+}
+void Constant::dbg(std::stringstream& ss, bool with_ty) const {
+  ss << "(" << name << " ";
+  if (ty->is_bool_ty()) {
+    ss << (val != 0 ? "true" : "false");
+  } else if (ty->is_int_ty()) {
+    const auto& int_ty = ty->as_int_ty();
+    if (int_ty.is_signed) {
+      if (int_ty.bit_width == 32) {
+        ss << *(const int32_t*)&val;
+      } else if (int_ty.bit_width == 64) {
+        ss << *(const int64_t*)&val;
+      } else {
+        std::abort();
+      }
+    } else {
+      if (int_ty.bit_width == 32) {
+        ss << *(const uint32_t*)&val;
+      } else if (int_ty.bit_width == 64) {
+        ss << *(const uint64_t*)&val;
+      } else {
+        std::abort();
+      }
+    }
+  } else if (ty->is_float_ty()) {
+    const auto& float_ty = ty->as_float_ty();
+    if (float_ty.bit_width == 32) {
+      ss << *(const float*)&val;
+    } else if (float_ty.bit_width == 64) {
+      ss << *(const double*)&val;
+    } else {
+      std::abort();
+    }
+  }
+  ss << ")";
 }
 
-L_DEF_BINARY_OP_EXPR_DTOR(And);
-L_DEF_BINARY_OP_EXPR_DTOR(Xor);
-L_DEF_BINARY_OP_EXPR_DTOR(Or);
-
-L_DEF_BINARY_OP_EXPR_DTOR(Eq);
-L_DEF_BINARY_OP_EXPR_DTOR(Ne);
-L_DEF_BINARY_OP_EXPR_DTOR(Lt);
-L_DEF_BINARY_OP_EXPR_DTOR(Gt);
-L_DEF_BINARY_OP_EXPR_DTOR(Le);
-L_DEF_BINARY_OP_EXPR_DTOR(Ge);
-
-#undef L_DEF_BINARY_OP_EXPR_DTOR
-
-Load::~Load() {
-  ptr.reset();
-  Expr::~Expr();
-}
 
 } // namespace tinyspv

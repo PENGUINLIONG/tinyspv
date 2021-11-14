@@ -13,6 +13,9 @@
 
 namespace tinyspv {
 
+// Using external type:
+struct Expr;
+
 struct VoidType;
 struct BooleanType;
 struct IntegerType;
@@ -269,12 +272,11 @@ struct ArrayType : public Type {
   static constexpr Code CODE = ARRAY;
   std::shared_ptr<Type> elem_ty;
   // Length of array or `UNSIZED` if the array's size is known only at runtime.
-  uint32_t length;
-  inline ArrayType(const std::shared_ptr<Type>& elem_ty, uint32_t length) :
-    elem_ty(elem_ty),
-    length(length),
-    Type(CODE, elem_ty->name + "[" +
-      (length == 0 ? std::string() : std::to_string(length)) + "]") {}
+  std::shared_ptr<Expr> length;
+  ArrayType(
+    const std::shared_ptr<Type>& elem_ty,
+    const std::shared_ptr<Expr>& length
+  );
   virtual ~ArrayType() override final;
 };
 struct StructType : public Type {
@@ -313,7 +315,7 @@ struct PointerType : public Type {
   ) :
     storage_class(storage_class),
     ty(ty),
-    Type(CODE, std::string("*") + enum2str(storage_class) + " " + ty->name) {}
+    Type(CODE, ty->name + "*" + enum2str(storage_class)) {}
   virtual ~PointerType() override final;
 };
 struct FunctionType : public Type {
