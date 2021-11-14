@@ -26,6 +26,7 @@ struct Expr {
     EXTRACT,
     SHUFFLE,
     // Element-wise arithmetic operations.
+    NEGATE,
     ADD,
     SUB,
     MUL,
@@ -165,6 +166,17 @@ struct Convert : public UnaryOp {
     const std::shared_ptr<Expr>& src,
     const std::shared_ptr<Type>& dst_ty
   ) : UnaryOp(CODE, "cvt", src, dst_ty) {
+    assert(src->ty->is_numeric_ty());
+    assert(dst_ty->is_numeric_ty());
+  }
+};
+
+struct Negate : public UnaryOp {
+  static constexpr Code CODE = NEGATE;
+  inline Negate(
+    const std::shared_ptr<Expr>& src,
+    const std::shared_ptr<Type>& dst_ty
+  ) : UnaryOp(CODE, "neg", src, dst_ty) {
     assert(src->ty->is_numeric_ty());
     assert(dst_ty->is_numeric_ty());
   }
