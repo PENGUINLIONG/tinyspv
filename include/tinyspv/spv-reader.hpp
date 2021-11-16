@@ -22,6 +22,12 @@ struct OperandIterator {
     nremain -= n;
     return out;
   }
+  inline std::vector<uint32_t> remaining() {
+    std::vector<uint32_t> out(pos, pos + nremain);
+    pos += nremain;
+    nremain = 0;
+    return out;
+  }
 
   inline OperandIterator begin() const {
     return OperandIterator { pos, nremain };

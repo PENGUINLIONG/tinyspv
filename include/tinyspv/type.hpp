@@ -32,6 +32,7 @@ struct FunctionType;
 
 struct Type {
   enum Code {
+    UNTRACKED,
     VOID,
     BOOLEAN,
     INTEGER,
@@ -101,6 +102,20 @@ struct Type {
   inline const PrimType& as_prim_ty() const {
     return as<PrimType>();
   }
+
+  inline bool is_untracked_ty() const { return code == UNTRACKED; }
+};
+
+// Any unresolved type becomes untracked.
+struct UntrackedType : public Type {
+  static constexpr Code CODE = UNTRACKED;
+  Op op;
+  std::vector<uint32_t> operands;
+  std::vector<> references;
+  inline UntrackedType(
+    Op op,
+    std::vector<uint32_t>&& operands
+  ) : op(op), operands(operands), Type(CODE, name) {}
 };
 
 struct PrimType : public Type {
@@ -125,7 +140,7 @@ struct PrimType : public Type {
   }
 };
 
-struct VoidType : public Type {
+struct VoidType : public Type { 
   static constexpr Code CODE = VOID;
   inline VoidType() : Type(CODE, "void") {}
 };
